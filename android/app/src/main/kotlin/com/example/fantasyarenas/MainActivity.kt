@@ -1,4 +1,4 @@
-package com.example.fantasyarenas
+package com.fantasyarenas.dp
 
 import io.flutter.embedding.android.FlutterActivity
 
