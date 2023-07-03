@@ -1,4 +1,3 @@
-import 'package:fantasyarenas/modual/dashboard/home_page/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,8 +14,6 @@ class _HighLightsPageState extends State<HighLightsPage> {
   var argVideo;
 
   late YoutubePlayerController _controller;
-
-  HomeController homeController = Get.find();
 
   @override
   void initState() {

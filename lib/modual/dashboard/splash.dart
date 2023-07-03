@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
+import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
 import 'package:flutter/material.dart';
-import '../utils/navigation_utils/navigation.dart';
-import '../utils/navigation_utils/routes.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);

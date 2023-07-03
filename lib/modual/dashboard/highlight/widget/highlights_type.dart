@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantasyarenas/modual/dashboard/home_page/controller/home_controller.dart';
-import 'package:fantasyarenas/modual/dashboard/home_page/modal/highlight_modal.dart';
+import 'package:fantasyarenas/modual/dashboard/highlight/modal/highlight_modal.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/appconfig.dart';
 import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
@@ -10,43 +7,47 @@ import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:image_fade/image_fade.dart';
-
-HomeController homeController = Get.find();
 
 matchType(int val) {
   List<MatchTypeModal> matchTypeList = [];
-  return StreamBuilder(
-    stream: AppConfig.databaseReference.collection(AppConfig.matchType).snapshots(),
-    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-      matchTypeList.clear();
-      for (var element in snapshot.data?.docs ?? []) {
-        MatchTypeModal matchTypeModal =
-            MatchTypeModal.fromMap(element.data() as Map<String, dynamic>);
-        matchTypeList.add(matchTypeModal);
-      }
-
-      if (snapshot.connectionState == ConnectionState.active) {
-        if (snapshot.hasData) {
-          return AppText(
-            matchTypeList[val].type.toString(),
-            fontWeight: FontWeight.w600,
-            fontSize: SizeUtils.fSize_16(),
-            color: AppColor.white,
-          );
-        } else if (snapshot.hasError) {
-          return const Text("Snapshot has error");
-        } else {
-          return const Center(
-              child: CircularProgressIndicator(
-            color: AppColor.locationBtn,
-          ));
+  return Padding(
+    padding: EdgeInsets.only(
+      left: SizeUtils.horizontalBlockSize * 3,
+      right: SizeUtils.horizontalBlockSize * 3,
+      bottom: SizeUtils.horizontalBlockSize * 1,
+    ),
+    child: StreamBuilder(
+      stream: AppConfig.databaseReference.collection(AppConfig.matchType).snapshots(),
+      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        matchTypeList.clear();
+        for (var element in snapshot.data?.docs ?? []) {
+          MatchTypeModal matchTypeModal =
+              MatchTypeModal.fromMap(element.data() as Map<String, dynamic>);
+          matchTypeList.add(matchTypeModal);
         }
-      } else {
-        return const SizedBox();
-      }
-    },
+
+        if (snapshot.connectionState == ConnectionState.active) {
+          if (snapshot.hasData) {
+            return AppText(
+              matchTypeList[val].type.toString(),
+              fontWeight: FontWeight.w600,
+              fontSize: SizeUtils.fSize_16(),
+              color: AppColor.white,
+            );
+          } else if (snapshot.hasError) {
+            return const Text("Snapshot has error");
+          } else {
+            return const Center(
+                child: CircularProgressIndicator(
+              color: AppColor.locationBtn,
+            ));
+          }
+        } else {
+          return const SizedBox();
+        }
+      },
+    ),
   );
 }
 
@@ -71,7 +72,6 @@ iccHighlight() {
               scrollDirection: Axis.horizontal,
               itemCount: highlightList.length,
               itemBuilder: (context, index) {
-                homeController.matchType_1.value = highlightList.first.type ?? "";
                 return LimitedBox(
                   maxWidth: SizeUtils.horizontalBlockSize * 55,
                   child: Padding(
@@ -167,7 +167,6 @@ domesticAndOtherHighlight() {
               scrollDirection: Axis.horizontal,
               itemCount: highlightList.length,
               itemBuilder: (context, index) {
-                homeController.matchType_1.value = highlightList.first.type ?? "";
                 return LimitedBox(
                   maxWidth: SizeUtils.horizontalBlockSize * 55,
                   child: Padding(
@@ -263,7 +262,6 @@ t20LeaguesHighlight() {
               scrollDirection: Axis.horizontal,
               itemCount: highlightList.length,
               itemBuilder: (context, index) {
-                homeController.matchType_1.value = highlightList.first.type ?? "";
                 return LimitedBox(
                   maxWidth: SizeUtils.horizontalBlockSize * 55,
                   child: Padding(

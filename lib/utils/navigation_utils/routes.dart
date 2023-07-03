@@ -1,10 +1,9 @@
-import 'package:fantasyarenas/modual/dashboard/home_page/page/home_screen.dart';
-import 'package:fantasyarenas/modual/dashboard/home_page/widget/highlights_page..dart';
+import 'package:fantasyarenas/modual/dashboard/bottom_bar/bottom_page.dart';
+import 'package:fantasyarenas/modual/dashboard/highlight/page/home_page.dart';
+import 'package:fantasyarenas/modual/dashboard/highlight/widget/highlights_page..dart';
 import 'package:fantasyarenas/modual/dashboard/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../dashboard/home_page/page/pages.dart';
-import '../../dashboard/home_screen.dart';
 
 mixin Routes {
   static const defaultTransition = Transition.fadeIn;
@@ -29,7 +28,7 @@ mixin Routes {
     ),
     GetPage<dynamic>(
       name: homePage,
-      page: () => HomeScreen(),
+      page: () => const HomePage(),
       transition: Transition.downToUp,
       curve: Curves.fastLinearToSlowEaseIn,
       transitionDuration: const Duration(milliseconds: 1100),
