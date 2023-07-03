@@ -59,7 +59,7 @@ class AppPreference {
   }
 
   static Future getStringList(String key) async {
-    await _prefs.getStringList(key);
+    _prefs.getStringList(key);
   }
 
   static String getInComingKeyword(String key) {

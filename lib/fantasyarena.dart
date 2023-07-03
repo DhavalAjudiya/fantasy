@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:fantasyarenas/utils/app_binding.dart';
 import 'package:fantasyarenas/utils/my_behavior.dart';
 import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
@@ -20,14 +21,21 @@ class FantsyApp extends StatelessWidget {
       initialBinding: AppBinding(),
       initialRoute: Routes.splashPage,
       getPages: Routes.routes,
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+      ),
+      themeMode: ThemeMode.dark,
       builder: (context, child) {
         SizeUtils().init(context);
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          body: ScrollConfiguration(
-            behavior: MyBehavior(),
-            child: ConnectivityWidget(
-              builder: (_, __) => BotToastInit()(_, child),
+          body: ColorfulSafeArea(
+            color: Colors.transparent,
+            child: ScrollConfiguration(
+              behavior: MyBehavior(),
+              child: ConnectivityWidget(
+                builder: (_, __) => BotToastInit()(_, child),
+              ),
             ),
           ),
         );

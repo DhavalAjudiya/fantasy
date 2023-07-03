@@ -7,17 +7,7 @@ class AppColor {
 
   static const black = Color(0xFF000000);
 
-
-
-
-
-
-  static const subTextColor = Color(0xFF454F63);
-
-
-
   static const textColor = Color(0xFF454F63);
-
   static const textBtn = Color(0xFF838383);
   static const emailBtn = Color(0xFFFF3B39);
   static const linkBtn = Color(0xFFFFC52D);

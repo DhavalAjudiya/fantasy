@@ -38,7 +38,7 @@ class AppText extends StatelessWidget {
       textAlign: textAlign,
       maxLines: maxLines,
       overflow: overflow,
-      style: GoogleFonts.asar(
+      style: GoogleFonts.aBeeZee(
         textStyle: TextStyle(
           color: color ?? Colors.black,
           fontWeight: fontWeight,
