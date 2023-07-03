@@ -3,10 +3,13 @@ import 'package:fantasyarenas/modual/dashboard/home_page/widget/highlights_page.
 import 'package:fantasyarenas/modual/dashboard/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../dashboard/home_page/page/pages.dart';
+import '../../dashboard/home_screen.dart';
 
 mixin Routes {
   static const defaultTransition = Transition.fadeIn;
   static String splashPage = "/splashPage";
+  static String pages = "/pages";
   static String homePage = "/homePage";
   static String highLightsPage = "/highLightsPage";
   static String singInPage = "/singInPage";
@@ -18,17 +21,24 @@ mixin Routes {
       transition: defaultTransition,
     ),
     GetPage<dynamic>(
+      name: pages,
+      page: () => const BottomPage(),
+      transition: Transition.downToUp,
+      curve: Curves.fastLinearToSlowEaseIn,
+      transitionDuration: const Duration(milliseconds: 1100),
+    ),
+    GetPage<dynamic>(
       name: homePage,
       page: () => HomeScreen(),
       transition: Transition.downToUp,
-      curve: Curves.fastEaseInToSlowEaseOut,
+      curve: Curves.fastLinearToSlowEaseIn,
       transitionDuration: const Duration(milliseconds: 1100),
     ),
     GetPage<dynamic>(
       name: highLightsPage,
       page: () => const HighLightsPage(),
       transition: Transition.downToUp,
-      curve: Curves.fastEaseInToSlowEaseOut,
+      curve: Curves.fastLinearToSlowEaseIn,
       transitionDuration: const Duration(milliseconds: 1100),
     ),
   ];

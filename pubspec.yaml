@@ -51,6 +51,7 @@ dependencies:
   ntp: ^2.0.0
   intl: ^0.18.1
   youtube_player_iframe: ^4.0.4
+  colorful_safe_area: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -82,5 +83,5 @@ flutter:
     - family: sficonsets
       fonts:
         - asset: packages/flutter_sfsymbols/fonts/sficonsets.ttf
-    
+
 
