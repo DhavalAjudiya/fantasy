@@ -1,12 +1,8 @@
 import 'dart:async';
-import 'package:fantasyarenas/res/app_strings.dart';
-import 'package:fantasyarenas/res/assets_path.dart';
+import 'package:fantasyarenas/modual/dashboard/home_page/widget/highlights_type.dart';
+import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
+import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
 import 'package:flutter/material.dart';
-import '../res/app_colors.dart';
-import '../utils/navigation_utils/navigation.dart';
-import '../utils/navigation_utils/routes.dart';
-import '../utils/size_utils.dart';
-import '../widget/app_text.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
