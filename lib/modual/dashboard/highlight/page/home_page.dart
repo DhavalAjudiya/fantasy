@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   posterTimer() {
     timer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
-      if (_currentPage < 5) {
+      if (_currentPage < 7) {
         _currentPage++;
       } else {
         _currentPage = 0;
@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   backPosterTimer() {
     timerB = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
-      if (_currentPageB < 5) {
+      if (_currentPageB < 7) {
         _currentPageB++;
       } else {
         _currentPageB = 0;
