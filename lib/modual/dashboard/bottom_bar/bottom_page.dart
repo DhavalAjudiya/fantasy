@@ -20,7 +20,7 @@ class _BottomPageState extends State<BottomPage> {
   int pageIndex = 0;
 
   final pages = [
-    const HomePage(),
+    HomePage(),
     const FantasyPage(),
     const NewsPage(),
     const SettingPage(),
@@ -29,6 +29,7 @@ class _BottomPageState extends State<BottomPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /*
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -56,13 +57,14 @@ class _BottomPageState extends State<BottomPage> {
           ),
         ],
       ),
+*/
+
       body: ValueListenableBuilder(
         valueListenable: AppConfig.bottomBarValue,
         builder: (BuildContext context, int value, Widget? child) {
           return pages[value];
         },
       ),
-      // body: pages[pageIndex],
       bottomNavigationBar: ValueListenableBuilder(
         valueListenable: AppConfig.bottomBarValue,
         builder: (BuildContext context, int bValue, _) {

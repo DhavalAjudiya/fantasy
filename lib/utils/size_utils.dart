@@ -4,7 +4,6 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
-
 class SizeUtils {
   static late MediaQueryData _mediaQueryData;
   static late double screenWidth;
@@ -199,6 +198,10 @@ class SizeUtils {
     return horizontalBlockSize * 2.245; //8
   }
 
+  static fSize_7() {
+    return horizontalBlockSize * 1.950; //8
+  }
+
   static fSize_6() {
     return horizontalBlockSize * 1.685; //6
   }
@@ -276,9 +279,8 @@ class Device {
     if (isAndroid) {
       final adjustedWidth = _calWidth() / devicePixelRatio;
       final adjustedHeight = _calHeight() / devicePixelRatio;
-      final diagonalSizeInches = (math
-          .sqrt(math.pow(adjustedWidth, 2) + math.pow(adjustedHeight, 2))) /
-          _ppi;
+      final diagonalSizeInches =
+          (math.sqrt(math.pow(adjustedWidth, 2) + math.pow(adjustedHeight, 2))) / _ppi;
 
       if (diagonalSizeInches >= 7) {
         isTablet = true;
@@ -317,24 +319,20 @@ class Device {
 
   static double _calWidth() {
     if (width > height) {
-      return (width +
-          (ui.window.viewPadding.left + ui.window.viewPadding.right) *
-              width /
-              height);
+      return (width + (ui.window.viewPadding.left + ui.window.viewPadding.right) * width / height);
     }
     return (width + ui.window.viewPadding.left + ui.window.viewPadding.right);
   }
 
   static double _calHeight() {
-    return (height +
-        (ui.window.viewPadding.top + ui.window.viewPadding.bottom));
+    return (height + (ui.window.viewPadding.top + ui.window.viewPadding.bottom));
   }
 
   static int get _ppi => Platform.isAndroid
       ? 160
       : Platform.isIOS
-      ? 150
-      : 96;
+          ? 150
+          : 96;
 
   static bool _hasTopOrBottomPadding() {
     final padding = ui.window.viewPadding;

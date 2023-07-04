@@ -61,3 +61,29 @@ class MatchTypeModal {
     };
   }
 }
+
+class PosterModal {
+  String? backposter;
+  String? title;
+  String? poster;
+
+  PosterModal({
+    this.backposter,
+    this.title,
+    this.poster,
+  });
+
+  PosterModal.fromMap(Map<String, dynamic> map) {
+    backposter = map["backposter"] ?? '';
+    title = map["title"] ?? '';
+    poster = map["poster"];
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "backposter": backposter,
+      "title": title,
+      "poster": poster,
+    };
+  }
+}

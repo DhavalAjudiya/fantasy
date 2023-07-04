@@ -28,7 +28,7 @@ mixin Routes {
     ),
     GetPage<dynamic>(
       name: homePage,
-      page: () => const HomePage(),
+      page: () => HomePage(),
       transition: Transition.downToUp,
       curve: Curves.fastLinearToSlowEaseIn,
       transitionDuration: const Duration(milliseconds: 1100),

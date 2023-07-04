@@ -8,7 +8,7 @@ class ScaleUpAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     return TweenAnimationBuilder(
       tween: Tween<double>(begin: 0, end: 1),
-      duration: const Duration(milliseconds: 2000),
+      duration: const Duration(milliseconds: 400),
       curve: Curves.easeOut,
       builder: (context, double value, _) {
         return Transform.scale(
