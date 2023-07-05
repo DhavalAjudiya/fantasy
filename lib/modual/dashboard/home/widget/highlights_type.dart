@@ -1,5 +1,7 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantasyarenas/modual/dashboard/highlight/modal/highlight_modal.dart';
+import 'package:fantasyarenas/modual/dashboard/home/modal/highlight_modal.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/appconfig.dart';
 import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
@@ -149,6 +151,45 @@ iccHighlight() {
     },
   );
 }
+/*
+iccHighlight() {
+  return StreamBuilder(
+    stream: AppConfig.databaseReference.collection("MATCH").snapshots(),
+    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      if (snapshot.connectionState == ConnectionState.active) {
+        if (snapshot.hasData) {
+          return SizedBox(
+            height: SizeUtils.horizontalBlockSize * 32,
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: snapshot.data?.docs.length,
+              itemBuilder: (context, index) {
+                var data = snapshot.data?.docs.map((e) => e).toList();
+                log("data------$data");
+                return Column(
+                  children: [
+                    AppText(data['match']["domestic"][0]),
+                  ],
+                );
+              },
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return const Text("Snapshot has error");
+        } else {
+          return const Center(
+              child: CircularProgressIndicator(
+            color: AppColor.locationBtn,
+          ));
+        }
+      } else {
+        return const SizedBox();
+      }
+    },
+  );
+}
+*/
 
 domesticAndOtherHighlight() {
   List<HighlightModal> highlightList = [];

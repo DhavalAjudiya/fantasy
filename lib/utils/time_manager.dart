@@ -31,6 +31,12 @@ class TimeManager {
     return result;
   }
 
+  static String setNewsUpdateTime(int? startTime) {
+    String time;
+    time = "${TimeManager().getNewsRemainTimeFromMilliSecond(startTime ?? 0)} ago";
+    return time;
+  }
+
   String displayTimeAgoFromTimestamp(int time, {bool numericDates = true}) {
     DateTime date = DateTime.fromMillisecondsSinceEpoch(time);
     final currentDate = DateTime.now();

@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantasyarenas/modual/dashboard/highlight/controller/home_controller.dart';
-import 'package:fantasyarenas/modual/dashboard/highlight/modal/highlight_modal.dart';
-import 'package:fantasyarenas/modual/dashboard/highlight/widget/highlights_type.dart';
+import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
+import 'package:fantasyarenas/modual/dashboard/home/modal/highlight_modal.dart';
+import 'package:fantasyarenas/modual/dashboard/home/widget/highlights_type.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/appconfig.dart';
 import 'package:fantasyarenas/res/assets_path.dart';
@@ -21,8 +22,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   Timer? timer;
   Timer? timerB;
   int _currentPage = 0;
@@ -47,8 +47,7 @@ class _HomePageState extends State<HomePage>
           animationController.stop(canceled: true);
         }
       });
-    animation =
-        CurvedAnimation(parent: animationController, curve: Curves.ease);
+    animation = CurvedAnimation(parent: animationController, curve: Curves.ease);
   }
 
   @override
@@ -70,10 +69,18 @@ class _HomePageState extends State<HomePage>
 
   posterTimer() {
     timer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
-      if (_currentPage < 7) {
-        _currentPage++;
+      if (homeController.isPosterReverse.value) {
+        if (_currentPage > 0) {
+          _currentPage--;
+        } else {
+          homeController.isPosterReverse.value = false;
+        }
       } else {
-        _currentPage = 0;
+        if (_currentPage < 7) {
+          _currentPage++;
+        } else {
+          homeController.isPosterReverse.value = true;
+        }
       }
       pageController.animateToPage(
         _currentPage,
@@ -85,10 +92,18 @@ class _HomePageState extends State<HomePage>
 
   backPosterTimer() {
     timerB = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
-      if (_currentPageB < 7) {
-        _currentPageB++;
+      if (homeController.isBackPosterReverse.value) {
+        if (_currentPageB > 0) {
+          _currentPageB--;
+        } else {
+          homeController.isBackPosterReverse.value = false;
+        }
       } else {
-        _currentPageB = 0;
+        if (_currentPageB < 7) {
+          _currentPageB++;
+        } else {
+          homeController.isBackPosterReverse.value = true;
+        }
       }
       pageControllerB.animateToPage(
         _currentPageB,
@@ -111,8 +126,7 @@ class _HomePageState extends State<HomePage>
             child: ListView(
               controller: controller,
               shrinkWrap: true,
-              padding:
-                  EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 5),
+              padding: EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 5),
               children: [
                 Padding(
                   padding: EdgeInsets.only(
@@ -207,14 +221,13 @@ class _HomePageState extends State<HomePage>
   backPoster() {
     List<PosterModal> posterList = [];
     return StreamBuilder(
-      stream:
-          AppConfig.databaseReference.collection(AppConfig.poster).snapshots(),
+      stream: AppConfig.databaseReference.collection(AppConfig.poster).snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         posterList.clear();
+        log("element--- 1 ${snapshot.data?.docs.toString()}");
 
         for (var element in snapshot.data?.docs ?? []) {
-          PosterModal posterModal =
-              PosterModal.fromMap(element.data() as Map<String, dynamic>);
+          PosterModal posterModal = PosterModal.fromMap(element.data() as Map<String, dynamic>);
           posterList.add(posterModal);
         }
         if (snapshot.connectionState == ConnectionState.active) {
@@ -259,15 +272,11 @@ class _HomePageState extends State<HomePage>
     return Column(
       children: [
         StreamBuilder(
-          stream: AppConfig.databaseReference
-              .collection(AppConfig.poster)
-              .snapshots(),
+          stream: AppConfig.databaseReference.collection(AppConfig.poster).snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             posterList.clear();
-
             for (var element in snapshot.data?.docs ?? []) {
-              PosterModal posterModal =
-                  PosterModal.fromMap(element.data() as Map<String, dynamic>);
+              PosterModal posterModal = PosterModal.fromMap(element.data() as Map<String, dynamic>);
               posterList.add(posterModal);
             }
             if (snapshot.connectionState == ConnectionState.active) {
@@ -301,11 +310,7 @@ class _HomePageState extends State<HomePage>
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     AppText(
-                                      posterList[index]
-                                          .title
-                                          .toString()
-                                          .split("-")
-                                          .first,
+                                      posterList[index].title.toString().split("-").first,
                                       color: AppColor.white,
                                       fontSize: SizeUtils.fSize_20(),
                                       fontWeight: FontWeight.w600,
@@ -322,11 +327,7 @@ class _HomePageState extends State<HomePage>
                                       fontSize: SizeUtils.fSize_15(),
                                     ),
                                     AppText(
-                                      posterList[index]
-                                          .title
-                                          .toString()
-                                          .split("_")
-                                          .last,
+                                      posterList[index].title.toString().split("_").last,
                                       color: AppColor.white,
                                       fontSize: SizeUtils.fSize_15(),
                                     ),

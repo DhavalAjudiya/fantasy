@@ -13,6 +13,7 @@ class AppConfig {
   static String allMatch = "All Match";
   static String matchType = "typs";
   static String poster = "poster";
+  static String news = "news";
 
   static const dateTimeFormate = 'EEEE, dd MMM';
   static const timeFormat = 'hh:mm aaa';

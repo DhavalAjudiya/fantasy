@@ -1,11 +1,10 @@
 import 'package:fantasyarenas/modual/dashboard/fantsy/page/fantsy_page.dart';
-import 'package:fantasyarenas/modual/dashboard/highlight/page/home_page.dart';
+import 'package:fantasyarenas/modual/dashboard/home/page/home_page.dart';
 import 'package:fantasyarenas/modual/dashboard/news/page/news_page.dart';
 import 'package:fantasyarenas/modual/dashboard/setting/page/setting_page.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/appconfig.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
-import 'package:fantasyarenas/widget/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sfsymbols/flutter_sfsymbols.dart';
 
