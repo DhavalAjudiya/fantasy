@@ -24,24 +24,7 @@ class _SplashPageState extends State<SplashPage> {
       backgroundColor: Colors.brown,
       body: Stack(
         children: [
-          Container(
-            height: screenHeight / 1.9,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(40),
-            ),
-            child: Column(
-              children: const [
-                // Image.asset(
-                //   AssetsPath.coffFilesa,
-                //   height: 190,
-                //   width: 190,
-                // ),
-                // AppText(AppString.cafe),
-              ],
-            ),
-          )
+
         ],
       ),
     );
