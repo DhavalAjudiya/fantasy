@@ -38,17 +38,15 @@ class AppText extends StatelessWidget {
       textAlign: textAlign,
       maxLines: maxLines,
       overflow: overflow,
-      style: GoogleFonts.aBeeZee(
-        textStyle: TextStyle(
-          color: color ?? Colors.black,
-          fontWeight: fontWeight,
-          fontSize: fontSize,
-          fontStyle: fontStyle,
-          height: height,
-          letterSpacing: letterSpacing,
-          wordSpacing: wordSpacing,
-        ),
-      )
+      style: TextStyle(
+        color: color ?? Colors.black,
+        fontWeight: fontWeight,
+        fontSize: fontSize,
+        fontStyle: fontStyle,
+        height: height,
+        letterSpacing: letterSpacing,
+        wordSpacing: wordSpacing,
+      ),
     );
   }
 }

@@ -21,7 +21,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   Timer? timer;
   Timer? timerB;
   int _currentPage = 0;
@@ -46,7 +47,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           animationController.stop(canceled: true);
         }
       });
-    animation = CurvedAnimation(parent: animationController, curve: Curves.ease);
+    animation =
+        CurvedAnimation(parent: animationController, curve: Curves.ease);
   }
 
   @override
@@ -101,7 +103,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     posterTimer();
     backPosterTimer();
     return Scaffold(
-      backgroundColor: AppColor.black,
+      backgroundColor: Colors.black.withOpacity(0.6),
       body: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -109,10 +111,23 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             child: ListView(
               controller: controller,
               shrinkWrap: true,
-              padding: EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 5),
+              padding:
+                  EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 5),
               children: [
-                backPoster(),
-                appIcon(),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: SizeUtils.screenHeight * 0.015,
+                    right: SizeUtils.screenWidth * 0.03,
+                    left: SizeUtils.screenWidth * 0.03,
+                    bottom: SizeUtils.screenHeight * 0.015,
+                  ),
+                  child: Column(
+                    children: [
+                      backPoster(),
+                      appIcon(),
+                    ],
+                  ),
+                ),
                 poster(),
                 matchType(0),
                 iccHighlight(),
@@ -189,64 +204,40 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     );
   }
 
-  Widget buildColumn({
-    required IconData icons,
-    required String text,
-  }) {
-    return Column(
-      children: [
-        Icon(
-          icons,
-          color: Colors.white,
-          size: SizeUtils.fSize_17(),
-        ),
-        AppText(
-          text,
-          color: Colors.white,
-          fontWeight: FontWeight.w700,
-          fontSize: SizeUtils.fSize_11(),
-        )
-      ],
-    );
-  }
-
   backPoster() {
     List<PosterModal> posterList = [];
     return StreamBuilder(
-      stream: AppConfig.databaseReference.collection(AppConfig.poster).snapshots(),
+      stream:
+          AppConfig.databaseReference.collection(AppConfig.poster).snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         posterList.clear();
 
         for (var element in snapshot.data?.docs ?? []) {
-          PosterModal posterModal = PosterModal.fromMap(element.data() as Map<String, dynamic>);
+          PosterModal posterModal =
+              PosterModal.fromMap(element.data() as Map<String, dynamic>);
           posterList.add(posterModal);
         }
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
             return SizedBox(
-              height: SizeUtils.horizontalBlockSize * 40,
+              height: SizeUtils.horizontalBlockSize * 44,
               child: PageView.builder(
-                  controller: pageControllerB,
-                  itemCount: posterList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                        padding: EdgeInsets.only(
-                          top: SizeUtils.horizontalBlockSize * 1,
-                          bottom: SizeUtils.horizontalBlockSize * 1.5,
-                          left: SizeUtils.horizontalBlockSize * 3,
-                          right: SizeUtils.horizontalBlockSize * 3,
+                controller: pageControllerB,
+                itemCount: posterList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          posterList[index].backposter.toString(),
                         ),
-                        child: Container(
-                            decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                posterList[index].backposter.toString(),
-                              ),
-                              filterQuality: FilterQuality.high,
-                              fit: BoxFit.fill),
-                        )));
-                  }),
+                        filterQuality: FilterQuality.high,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  );
+                },
+              ),
             );
           } else if (snapshot.hasError) {
             return const Text("Snapshot has error");
@@ -268,12 +259,15 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     return Column(
       children: [
         StreamBuilder(
-          stream: AppConfig.databaseReference.collection(AppConfig.poster).snapshots(),
+          stream: AppConfig.databaseReference
+              .collection(AppConfig.poster)
+              .snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             posterList.clear();
 
             for (var element in snapshot.data?.docs ?? []) {
-              PosterModal posterModal = PosterModal.fromMap(element.data() as Map<String, dynamic>);
+              PosterModal posterModal =
+                  PosterModal.fromMap(element.data() as Map<String, dynamic>);
               posterList.add(posterModal);
             }
             if (snapshot.connectionState == ConnectionState.active) {
@@ -281,58 +275,70 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 return SizedBox(
                   height: SizeUtils.horizontalBlockSize * 70,
                   child: PageView.builder(
-                      controller: pageController,
-                      itemCount: posterList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Stack(
-                          children: [
-                            Container(
-                                decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
+                    controller: pageController,
+                    itemCount: posterList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: NetworkImage(
-                                    posterList[index].poster.toString(),
-                                  ),
-                                  filterQuality: FilterQuality.high,
-                                  fit: BoxFit.fill),
-                            )),
-                            Padding(
-                              padding: EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 8),
-                              child: Center(
-                                child: ScaleUpAnimation(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      AppText(
-                                        posterList[index].title.toString().split("-").first,
-                                        color: AppColor.white,
-                                        fontSize: SizeUtils.fSize_20(),
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      AppText(
-                                        posterList[index]
-                                            .title
-                                            .toString()
-                                            .split("-")
-                                            .last
-                                            .split("_")
-                                            .first,
-                                        color: AppColor.white,
-                                        fontSize: SizeUtils.fSize_15(),
-                                      ),
-                                      AppText(
-                                        posterList[index].title.toString().split("_").last,
-                                        color: AppColor.white,
-                                        fontSize: SizeUtils.fSize_15(),
-                                      ),
-                                    ],
-                                  ),
+                                image: NetworkImage(
+                                  posterList[index].poster.toString(),
+                                ),
+                                filterQuality: FilterQuality.high,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              bottom: SizeUtils.horizontalBlockSize * 8,
+                            ),
+                            child: Center(
+                              child: ScaleUpAnimation(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    AppText(
+                                      posterList[index]
+                                          .title
+                                          .toString()
+                                          .split("-")
+                                          .first,
+                                      color: AppColor.white,
+                                      fontSize: SizeUtils.fSize_20(),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    AppText(
+                                      posterList[index]
+                                          .title
+                                          .toString()
+                                          .split("-")
+                                          .last
+                                          .split("_")
+                                          .first,
+                                      color: AppColor.white,
+                                      fontSize: SizeUtils.fSize_15(),
+                                    ),
+                                    AppText(
+                                      posterList[index]
+                                          .title
+                                          .toString()
+                                          .split("_")
+                                          .last,
+                                      color: AppColor.white,
+                                      fontSize: SizeUtils.fSize_15(),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                          ],
-                        );
-                      }),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 );
               } else if (snapshot.hasError) {
                 return const Text("Snapshot has error");
@@ -350,7 +356,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         Padding(
           padding: EdgeInsets.only(
             bottom: SizeUtils.horizontalBlockSize * 4,
-            top: SizeUtils.horizontalBlockSize * 2,
+            top: SizeUtils.horizontalBlockSize * 3,
           ),
           child: SmoothPageIndicator(
             controller: pageController,
@@ -368,50 +374,66 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   }
 
   appIcon() {
-    return Padding(
-      padding: EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 2),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: Colors.grey.withOpacity(0.5),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey.withOpacity(0.05),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: SizeUtils.horizontalBlockSize * 2,
+          vertical: SizeUtils.horizontalBlockSize * 1.5,
         ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: SizeUtils.horizontalBlockSize * 2,
-              vertical: SizeUtils.horizontalBlockSize * 1),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: Image.asset(AssetsPath.fantasy, scale: 12)),
-              SizedBox(width: SizeUtils.horizontalBlockSize * 2),
-              RichText(
-                text: TextSpan(
-                    text: "Fantasy",
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: Image.asset(
+                AssetsPath.fantasy,
+                scale: 12,
+              ),
+            ),
+            SizedBox(
+              width: SizeUtils.horizontalBlockSize * 2,
+            ),
+            RichText(
+              text: TextSpan(
+                text: "Fantasy",
+                style: TextStyle(
+                  color: AppColor.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: SizeUtils.fSize_15(),
+                ),
+                children: [
+                  TextSpan(
+                    text: "\nArenas",
                     style: TextStyle(
                       color: AppColor.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: SizeUtils.fSize_15(),
+                      fontWeight: FontWeight.w300,
+                      fontSize: SizeUtils.fSize_11(),
                     ),
-                    children: [
-                      TextSpan(
-                        text: "\nArenas",
-                        style: TextStyle(
-                          color: AppColor.white,
-                          fontWeight: FontWeight.w300,
-                          fontSize: SizeUtils.fSize_11(),
-                        ),
-                      ),
-                    ]),
+                  ),
+                ],
               ),
-              const Spacer(),
-              Icon(
-                SFSymbols.gamecontroller,
-                size: SizeUtils.horizontalBlockSize * 6,
-              )
-            ],
-          ),
+            ),
+            const Spacer(),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: SizeUtils.screenWidth * 0.04,
+                  vertical: SizeUtils.screenHeight * 0.005,
+                ),
+                child: Icon(
+                  Icons.share,
+                  color: Colors.grey.withOpacity(0.3),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
