@@ -22,8 +22,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   Timer? timer;
   Timer? timerB;
   int _currentPage = 0;
@@ -48,8 +47,7 @@ class _HomePageState extends State<HomePage>
           animationController.stop(canceled: true);
         }
       });
-    animation =
-        CurvedAnimation(parent: animationController, curve: Curves.ease);
+    animation = CurvedAnimation(parent: animationController, curve: Curves.ease);
   }
 
   @override
@@ -128,8 +126,7 @@ class _HomePageState extends State<HomePage>
             child: ListView(
               controller: controller,
               shrinkWrap: true,
-              padding:
-                  EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 5),
+              padding: EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 5),
               children: [
                 Padding(
                   padding: EdgeInsets.only(
@@ -224,8 +221,7 @@ class _HomePageState extends State<HomePage>
   backPoster() {
     List<PosterModal> posterList = [];
     return StreamBuilder(
-      stream:
-          AppConfig.databaseReference.collection(AppConfig.poster).snapshots(),
+      stream: AppConfig.databaseReference.collection(AppConfig.poster).snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         posterList.clear();
         log("element--- 1 ${snapshot.data?.docs.toString()}");
@@ -276,14 +272,11 @@ class _HomePageState extends State<HomePage>
     return Column(
       children: [
         StreamBuilder(
-          stream: AppConfig.databaseReference
-              .collection(AppConfig.poster)
-              .snapshots(),
+          stream: AppConfig.databaseReference.collection(AppConfig.poster).snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             posterList.clear();
             for (var element in snapshot.data?.docs ?? []) {
-              PosterModal posterModal =
-                  PosterModal.fromMap(element.data() as Map<String, dynamic>);
+              PosterModal posterModal = PosterModal.fromMap(element.data() as Map<String, dynamic>);
               posterList.add(posterModal);
             }
             if (snapshot.connectionState == ConnectionState.active) {
@@ -317,11 +310,7 @@ class _HomePageState extends State<HomePage>
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     AppText(
-                                      posterList[index]
-                                          .title
-                                          .toString()
-                                          .split("-")
-                                          .first,
+                                      posterList[index].title.toString().split("-").first,
                                       color: AppColor.white,
                                       fontSize: SizeUtils.fSize_20(),
                                       fontWeight: FontWeight.w600,
@@ -338,11 +327,7 @@ class _HomePageState extends State<HomePage>
                                       fontSize: SizeUtils.fSize_15(),
                                     ),
                                     AppText(
-                                      posterList[index]
-                                          .title
-                                          .toString()
-                                          .split("_")
-                                          .last,
+                                      posterList[index].title.toString().split("_").last,
                                       color: AppColor.white,
                                       fontSize: SizeUtils.fSize_15(),
                                     ),
