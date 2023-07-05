@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantasyarenas/modual/dashboard/highlight/controller/home_controller.dart';
-import 'package:fantasyarenas/modual/dashboard/highlight/modal/highlight_modal.dart';
-import 'package:fantasyarenas/modual/dashboard/highlight/widget/highlights_type.dart';
+import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
+import 'package:fantasyarenas/modual/dashboard/home/modal/highlight_modal.dart';
+import 'package:fantasyarenas/modual/dashboard/home/widget/highlights_type.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/appconfig.dart';
 import 'package:fantasyarenas/res/assets_path.dart';
@@ -68,10 +69,18 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   posterTimer() {
     timer = Timer.periodic(const Duration(seconds: 5), (Timer timer) {
-      if (_currentPage < 7) {
-        _currentPage++;
+      if (homeController.isPosterReverse.value) {
+        if (_currentPage > 0) {
+          _currentPage--;
+        } else {
+          homeController.isPosterReverse.value = false;
+        }
       } else {
-        _currentPage = 0;
+        if (_currentPage < 7) {
+          _currentPage++;
+        } else {
+          homeController.isPosterReverse.value = true;
+        }
       }
       pageController.animateToPage(
         _currentPage,
@@ -83,10 +92,18 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   backPosterTimer() {
     timerB = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
-      if (_currentPageB < 7) {
-        _currentPageB++;
+      if (homeController.isBackPosterReverse.value) {
+        if (_currentPageB > 0) {
+          _currentPageB--;
+        } else {
+          homeController.isBackPosterReverse.value = false;
+        }
       } else {
-        _currentPageB = 0;
+        if (_currentPageB < 7) {
+          _currentPageB++;
+        } else {
+          homeController.isBackPosterReverse.value = true;
+        }
       }
       pageControllerB.animateToPage(
         _currentPageB,
@@ -216,8 +233,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       stream: AppConfig.databaseReference.collection(AppConfig.poster).snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         posterList.clear();
+        log("element--- 1 ${snapshot.data?.docs.toString()}");
 
         for (var element in snapshot.data?.docs ?? []) {
+          log("element--- 0 ${element.data()}");
           PosterModal posterModal = PosterModal.fromMap(element.data() as Map<String, dynamic>);
           posterList.add(posterModal);
         }
@@ -271,7 +290,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           stream: AppConfig.databaseReference.collection(AppConfig.poster).snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             posterList.clear();
-
             for (var element in snapshot.data?.docs ?? []) {
               PosterModal posterModal = PosterModal.fromMap(element.data() as Map<String, dynamic>);
               posterList.add(posterModal);

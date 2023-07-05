@@ -1,8 +1,8 @@
 import 'package:fantasyarenas/widget/app_text.dart';
 import 'package:flutter/material.dart';
 
-class NewsPage extends StatelessWidget {
-  const NewsPage({Key? key}) : super(key: key);
+class FantasyPage extends StatelessWidget {
+  const FantasyPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
