@@ -2,11 +2,10 @@ import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/utils/time_manager.dart';
+import 'package:fantasyarenas/utils/translate_up_animation.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
-import 'package:fantasyarenas/widget/translate_up_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_fade/image_fade.dart';
 
 class OneNewsPage extends StatefulWidget {
   OneNewsPage({super.key});

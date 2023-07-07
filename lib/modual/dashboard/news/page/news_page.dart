@@ -7,8 +7,8 @@ import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
 import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/utils/time_manager.dart';
+import 'package:fantasyarenas/utils/translate_up_animation.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
-import 'package:fantasyarenas/widget/translate_up_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sfsymbols/flutter_sfsymbols.dart';
 import 'package:image_fade/image_fade.dart';
@@ -23,64 +23,8 @@ class NewsPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            appIcon(),
             news(),
           ],
-        ),
-      ),
-    );
-  }
-
-  appIcon() {
-    return Padding(
-      padding: EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 3),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: Colors.grey.withOpacity(0.5),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: SizeUtils.horizontalBlockSize * 2,
-              vertical: SizeUtils.horizontalBlockSize * 1),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: Image.asset(
-                    AssetsPath.fantasy,
-                    height: SizeUtils.horizontalBlockSize * 13,
-                    width: SizeUtils.horizontalBlockSize * 20,
-                    fit: BoxFit.fill,
-                  )),
-              SizedBox(width: SizeUtils.horizontalBlockSize * 2),
-              RichText(
-                text: TextSpan(
-                    text: "Fantasy",
-                    style: TextStyle(
-                      color: AppColor.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: SizeUtils.fSize_18(),
-                    ),
-                    children: [
-                      TextSpan(
-                        text: "\nArenas",
-                        style: TextStyle(
-                          color: AppColor.white,
-                          fontWeight: FontWeight.w300,
-                          fontSize: SizeUtils.fSize_14(),
-                        ),
-                      ),
-                    ]),
-              ),
-              const Spacer(),
-              Icon(
-                SFSymbols.gamecontroller,
-                size: SizeUtils.horizontalBlockSize * 10,
-              )
-            ],
-          ),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:fantasyarenas/modual/dashboard/fantsy/page/fantsy_page.dart';
+import 'package:fantasyarenas/modual/dashboard/home/page/Old_home_page.dart';
 import 'package:fantasyarenas/modual/dashboard/home/page/home_page.dart';
 import 'package:fantasyarenas/modual/dashboard/news/page/news_page.dart';
 import 'package:fantasyarenas/modual/dashboard/setting/page/setting_page.dart';
@@ -19,7 +20,7 @@ class _BottomPageState extends State<BottomPage> {
   int pageIndex = 0;
 
   final pages = [
-    HomePage(),
+    const HomePage(),
     const FantasyPage(),
     const NewsPage(),
     const SettingPage(),
@@ -28,36 +29,6 @@ class _BottomPageState extends State<BottomPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: const Padding(
-          padding: EdgeInsets.all(6.0),
-          child: CircleAvatar(
-            minRadius: 4,
-            backgroundColor: Colors.grey,
-          ),
-        ),
-        centerTitle: true,
-        title: AppText(
-          'Fantasy Arenas',
-          color: Colors.deepOrange,
-          fontWeight: FontWeight.w700,
-          fontSize: SizeUtils.fSize_20(),
-        ),
-        actions: const [
-          Icon(
-            Icons.search_outlined,
-            color: Colors.grey,
-          ),
-          SizedBox(
-            width: 10,
-          ),
-        ],
-      ),
-*/
-
       body: ValueListenableBuilder(
         valueListenable: AppConfig.bottomBarValue,
         builder: (BuildContext context, int value, Widget? child) {
@@ -69,14 +40,14 @@ class _BottomPageState extends State<BottomPage> {
         builder: (BuildContext context, int bValue, _) {
           return BottomNavigationBar(
             elevation: 0,
-            backgroundColor: Colors.grey.withOpacity(0.1),
+            backgroundColor: const Color(0xff7d98a1),
             type: BottomNavigationBarType.fixed,
-            selectedItemColor: Colors.deepOrange,
-            unselectedItemColor: AppColor.white,
+            selectedItemColor: AppColor.appBarColor,
+            unselectedItemColor: AppColor.white.withOpacity(0.4),
             selectedLabelStyle: TextStyle(
-                color: AppColor.textColor,
-                fontSize: SizeUtils.fSize_15(),
-                fontWeight: FontWeight.w500),
+              fontSize: SizeUtils.fSize_15(),
+              fontWeight: FontWeight.w600,
+            ),
             currentIndex: bValue,
             showUnselectedLabels: true,
             onTap: (value) async {
