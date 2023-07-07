@@ -1,4 +1,4 @@
-import 'package:fantasyarenas/modual/dashboard/home/widget/cricket.dart';
+import 'package:fantasyarenas/modual/dashboard/home/widget/tabs/cricket.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/assets_path.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
