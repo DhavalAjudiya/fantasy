@@ -7,7 +7,6 @@ import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
 import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/utils/time_manager.dart';
-import 'package:fantasyarenas/utils/translate_up_animation.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sfsymbols/flutter_sfsymbols.dart';
@@ -61,82 +60,80 @@ class NewsPage extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: newsList.length,
                       itemBuilder: (context, index) {
-                        return TranslateUpAnimation(
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: SizeUtils.horizontalBlockSize * 3,
-                              right: SizeUtils.horizontalBlockSize * 3,
-                              bottom: SizeUtils.horizontalBlockSize * 3,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigation.pushNamed(Routes.oneNewsPage, arg: {
-                                      "title": newsList[index].title.toString(),
-                                      "description": newsList[index].description.toString(),
-                                      "image": newsList[index].image.toString(),
-                                      "subtitle": newsList[index].subtitle.toString() ?? "",
-                                      "time": newsList[index].time ?? 0,
-                                      "index": index,
-                                    });
-                                  },
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Hero(
-                                      tag: "news$index",
-                                      transitionOnUserGestures: true,
-                                      child: AspectRatio(
-                                        aspectRatio: 2,
-                                        child: ImageFade(
-                                          image: NetworkImage(newsList[index].image.toString()),
-                                          duration: const Duration(milliseconds: 900),
-                                          syncDuration: const Duration(milliseconds: 150),
-                                          fit: BoxFit.cover,
-                                          placeholder: Container(
-                                            color: const Color(0xFFCFCDCA),
-                                            alignment: Alignment.center,
-                                            child: const Icon(Icons.photo,
-                                                color: Colors.white30, size: 128.0),
-                                          ),
-                                          loadingBuilder: (context, progress, chunkEvent) => Center(
-                                              child: CircularProgressIndicator(value: progress)),
-                                          errorBuilder: (context, error) => Container(
-                                            color: const Color(0xFF6F6D6A),
-                                            alignment: Alignment.center,
-                                            child: const Icon(Icons.warning,
-                                                color: Colors.black26, size: 128.0),
-                                          ),
+                        return Padding(
+                          padding: EdgeInsets.only(
+                            left: SizeUtils.horizontalBlockSize * 3,
+                            right: SizeUtils.horizontalBlockSize * 3,
+                            bottom: SizeUtils.horizontalBlockSize * 3,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigation.pushNamed(Routes.oneNewsPage, arg: {
+                                    "title": newsList[index].title.toString(),
+                                    "description": newsList[index].description.toString(),
+                                    "image": newsList[index].image.toString(),
+                                    "subtitle": newsList[index].subtitle.toString() ?? "",
+                                    "time": newsList[index].time ?? 0,
+                                    "index": index,
+                                  });
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Hero(
+                                    tag: "news$index",
+                                    transitionOnUserGestures: true,
+                                    child: AspectRatio(
+                                      aspectRatio: 2,
+                                      child: ImageFade(
+                                        image: NetworkImage(newsList[index].image.toString()),
+                                        duration: const Duration(milliseconds: 900),
+                                        syncDuration: const Duration(milliseconds: 150),
+                                        fit: BoxFit.cover,
+                                        placeholder: Container(
+                                          color: const Color(0xFFCFCDCA),
+                                          alignment: Alignment.center,
+                                          child: const Icon(Icons.photo,
+                                              color: Colors.white30, size: 128.0),
+                                        ),
+                                        loadingBuilder: (context, progress, chunkEvent) => Center(
+                                            child: CircularProgressIndicator(value: progress)),
+                                        errorBuilder: (context, error) => Container(
+                                          color: const Color(0xFF6F6D6A),
+                                          alignment: Alignment.center,
+                                          child: const Icon(Icons.warning,
+                                              color: Colors.black26, size: 128.0),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: SizeUtils.horizontalBlockSize * 2),
-                                AppText(
-                                  newsList[index].title.toString(),
-                                  maxLines: 2,
-                                  color: AppColor.white,
-                                  fontSize: SizeUtils.fSize_12(),
-                                ),
-                                SizedBox(height: SizeUtils.horizontalBlockSize * 2),
-                                AppText(
-                                  newsList[index].subtitle.toString(),
-                                  maxLines: 2,
-                                  color: AppColor.white.withOpacity(0.5),
-                                  fontSize: SizeUtils.fSize_10(),
-                                ),
-                                SizedBox(height: SizeUtils.horizontalBlockSize * 2),
-                                AppText(
-                                  TimeManager.setNewsUpdateTime(newsList[index].time),
-                                  maxLines: 3,
-                                  color: AppColor.white.withOpacity(0.5),
-                                  fontSize: SizeUtils.fSize_10(),
-                                ),
-                                const Divider(color: Colors.grey),
-                              ],
-                            ),
+                              ),
+                              SizedBox(height: SizeUtils.horizontalBlockSize * 2),
+                              AppText(
+                                newsList[index].title.toString(),
+                                maxLines: 2,
+                                color: AppColor.white,
+                                fontSize: SizeUtils.fSize_12(),
+                              ),
+                              SizedBox(height: SizeUtils.horizontalBlockSize * 2),
+                              AppText(
+                                newsList[index].subtitle.toString(),
+                                maxLines: 2,
+                                color: AppColor.white.withOpacity(0.5),
+                                fontSize: SizeUtils.fSize_10(),
+                              ),
+                              SizedBox(height: SizeUtils.horizontalBlockSize * 2),
+                              AppText(
+                                TimeManager.setNewsUpdateTime(newsList[index].time),
+                                maxLines: 3,
+                                color: AppColor.white.withOpacity(0.5),
+                                fontSize: SizeUtils.fSize_10(),
+                              ),
+                              const Divider(color: Colors.grey),
+                            ],
                           ),
                         );
                       },

@@ -1,13 +1,15 @@
+import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
 import 'package:fantasyarenas/modual/dashboard/home/widget/tabs/cricket.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/assets_path.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
+  HomePage({super.key});
+  HomeController homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
