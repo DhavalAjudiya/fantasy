@@ -29,13 +29,10 @@ class FantsyApp extends StatelessWidget {
         SizeUtils().init(context);
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          body: ColorfulSafeArea(
-            color: AppColor.black.withOpacity(0.8),
-            child: ScrollConfiguration(
-              behavior: MyBehavior(),
-              child: ConnectivityWidget(
-                builder: (_, __) => BotToastInit()(_, child),
-              ),
+          body: ScrollConfiguration(
+            behavior: MyBehavior(),
+            child: ConnectivityWidget(
+              builder: (_, __) => BotToastInit()(_, child),
             ),
           ),
         );
