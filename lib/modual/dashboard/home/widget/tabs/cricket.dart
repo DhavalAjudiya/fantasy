@@ -1,21 +1,24 @@
-import 'dart:async';
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
 import 'package:fantasyarenas/modual/dashboard/home/modal/completedMatch.dart';
 import 'package:fantasyarenas/modual/dashboard/home/modal/upcomingMatch.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/appconfig.dart';
+import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
+import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/utils/time_manager.dart';
 import 'package:fantasyarenas/utils/utils.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
 import 'package:fantasyarenas/widget/card_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class CricketPage extends StatelessWidget {
   CricketPage({super.key});
+
+  HomeController homeController = Get.find();
 
   PageController pageController = PageController(initialPage: 0);
   List<CompletedMatchModal> completedMatchList = [];
@@ -236,26 +239,35 @@ class CricketPage extends StatelessWidget {
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: AppColor.boarderColor, width: 1),
-                            color: AppColor.white,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: cricketCard(
-                            header: data.header,
-                            t1: data.t1,
-                            t2: data.t2,
-                            i1: data.i1,
-                            i2: data.i2,
-                            nr1: data.nr1,
-                            nr2: data.nr2,
-                            status: "Match will start in",
-                            time: TimeManager()
-                                .getRemainTimeFromMilliSecond(int.parse(data.time.toString())),
-                            isSubHeader: false,
-                            isStatus: true,
-                            subHeader: data.subheader,
+                        GestureDetector(
+                          onTap: () {
+                            homeController.playerList.value = data.player ?? [];
+                            homeController.team1Name.value = data.t1 ?? "";
+                            homeController.team2Name.value = data.t2 ?? "";
+                            homeController.matchHeader.value = data.header ?? "";
+                            Navigation.pushNamed(Routes.upComingDetailsPage);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: AppColor.boarderColor, width: 1),
+                              color: AppColor.white,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: cricketCard(
+                              header: data.header,
+                              t1: data.t1,
+                              t2: data.t2,
+                              i1: data.i1,
+                              i2: data.i2,
+                              nr1: data.nr1,
+                              nr2: data.nr2,
+                              status: "Match will start in",
+                              time: TimeManager()
+                                  .getRemainTimeFromMilliSecond(int.parse(data.time.toString())),
+                              isSubHeader: false,
+                              isStatus: true,
+                              subHeader: data.header,
+                            ),
                           ),
                         ),
                       ],

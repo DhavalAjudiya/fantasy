@@ -4,7 +4,7 @@ class TranslateDownAnimation extends StatelessWidget {
   const TranslateDownAnimation({
     super.key,
     required this.child,
-    this.duration = const Duration(milliseconds: 1500),
+    this.duration = const Duration(milliseconds: 1000),
   });
 
   final Widget child;
@@ -14,12 +14,12 @@ class TranslateDownAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return TweenAnimationBuilder(
-      tween: Tween<double>(begin: 1, end: 0),
+      tween: Tween<double>(begin: 2, end: 0),
       duration: duration,
       curve: Curves.fastOutSlowIn,
       builder: (context, double value, _) {
         return Transform.translate(
-          offset: Offset(0, height * value * -1),
+          offset: Offset(0, height * value * -5),
           child: child,
         );
       },

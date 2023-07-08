@@ -8,6 +8,7 @@ class UpcomingMatchModal {
   String? subheader;
   String? nr1;
   String? nr2;
+  List<Player>? player;
 
   UpcomingMatchModal({
     this.time,
@@ -19,6 +20,7 @@ class UpcomingMatchModal {
     this.subheader,
     this.nr1,
     this.nr2,
+    this.player,
   });
 
   UpcomingMatchModal.fromMap(Map<String, dynamic> map) {
@@ -31,6 +33,10 @@ class UpcomingMatchModal {
     subheader = map["subheader"];
     nr1 = map["nr1"];
     nr2 = map["nr2"];
+
+    player = [
+      for (final skill in map['player'] ?? []) Player.fromMap(skill),
+    ];
   }
 
   Map<String, dynamic> toMap() {
@@ -44,6 +50,35 @@ class UpcomingMatchModal {
       "subheader": subheader,
       "nr1": nr1,
       "nr2": nr2,
+      "player": [for (final skill in this.player ?? []) skill.toJson()],
     };
   }
+}
+
+class Player {
+  bool? play;
+  String? name;
+  String? type;
+  String? image;
+
+  Player({
+    this.play,
+    this.name,
+    this.type,
+    this.image,
+  });
+
+  factory Player.fromMap(Map<String, dynamic> json) => Player(
+        play: json["play"],
+        name: json["name"],
+        type: json["type"],
+        image: json["image"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "play": play,
+        "name": name,
+        "type": type,
+        "image": image,
+      };
 }

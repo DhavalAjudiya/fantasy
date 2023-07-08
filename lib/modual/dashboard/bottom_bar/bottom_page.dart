@@ -1,5 +1,4 @@
 import 'package:fantasyarenas/modual/dashboard/fantsy/page/fantsy_page.dart';
-import 'package:fantasyarenas/modual/dashboard/home/page/Old_home_page.dart';
 import 'package:fantasyarenas/modual/dashboard/home/page/home_page.dart';
 import 'package:fantasyarenas/modual/dashboard/news/page/news_page.dart';
 import 'package:fantasyarenas/modual/dashboard/setting/page/setting_page.dart';
@@ -20,7 +19,7 @@ class _BottomPageState extends State<BottomPage> {
   int pageIndex = 0;
 
   final pages = [
-    const HomePage(),
+    HomePage(),
     const FantasyPage(),
     const NewsPage(),
     const SettingPage(),
