@@ -8,7 +8,6 @@ import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/utils/time_manager.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
-import 'package:fantasyarenas/widget/translate_up_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sfsymbols/flutter_sfsymbols.dart';
 import 'package:image_fade/image_fade.dart';
@@ -103,14 +102,12 @@ class NewsPage extends StatelessWidget {
   news() {
     List<NewsModal> newsList = [];
     return StreamBuilder(
-      stream:
-          AppConfig.databaseReference.collection(AppConfig.news).snapshots(),
+      stream: AppConfig.databaseReference.collection(AppConfig.news).snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         newsList.clear();
 
         for (var element in snapshot.data?.docs ?? []) {
-          NewsModal highlightModal =
-              NewsModal.fromMap(element.data() as Map<String, dynamic>);
+          NewsModal highlightModal = NewsModal.fromMap(element.data() as Map<String, dynamic>);
           newsList.add(highlightModal);
         }
         if (snapshot.connectionState == ConnectionState.active) {
@@ -119,8 +116,7 @@ class NewsPage extends StatelessWidget {
                 ? Column(
                     children: [
                       SizedBox(height: SizeUtils.verticalBlockSize * 30),
-                      Icon(SFSymbols.doc_text,
-                          size: SizeUtils.horizontalBlockSize * 15),
+                      Icon(SFSymbols.doc_text, size: SizeUtils.horizontalBlockSize * 15),
                       SizedBox(height: SizeUtils.horizontalBlockSize * 3),
                       AppText(
                         "News not found",
@@ -151,22 +147,14 @@ class NewsPage extends StatelessWidget {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    Navigation.pushNamed(Routes.oneNewsPage,
-                                        arg: {
-                                          "title":
-                                              newsList[index].title.toString(),
-                                          "description": newsList[index]
-                                              .description
-                                              .toString(),
-                                          "image":
-                                              newsList[index].image.toString(),
-                                          "subtitle": newsList[index]
-                                                  .subtitle
-                                                  .toString() ??
-                                              "",
-                                          "time": newsList[index].time ?? 0,
-                                          "index": index,
-                                        });
+                                    Navigation.pushNamed(Routes.oneNewsPage, arg: {
+                                      "title": newsList[index].title.toString(),
+                                      "description": newsList[index].description.toString(),
+                                      "image": newsList[index].image.toString(),
+                                      "subtitle": newsList[index].subtitle.toString() ?? "",
+                                      "time": newsList[index].time ?? 0,
+                                      "index": index,
+                                    });
                                   },
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
@@ -179,17 +167,11 @@ class NewsPage extends StatelessWidget {
                                           height: SizeUtils.screenHeight * 0.22,
                                           width: SizeUtils.screenWidth * 0.35,
                                           child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
+                                            borderRadius: BorderRadius.circular(10),
                                             child: ImageFade(
-                                              image: NetworkImage(
-                                                  newsList[index]
-                                                      .image
-                                                      .toString()),
-                                              duration: const Duration(
-                                                  milliseconds: 900),
-                                              syncDuration: const Duration(
-                                                  milliseconds: 150),
+                                              image: NetworkImage(newsList[index].image.toString()),
+                                              duration: const Duration(milliseconds: 900),
+                                              syncDuration: const Duration(milliseconds: 150),
                                               fit: BoxFit.cover,
                                               placeholder: Container(
                                                 color: const Color(0xFFCFCDCA),
@@ -200,16 +182,13 @@ class NewsPage extends StatelessWidget {
                                                   size: 128.0,
                                                 ),
                                               ),
-                                              loadingBuilder: (context,
-                                                      progress, chunkEvent) =>
+                                              loadingBuilder: (context, progress, chunkEvent) =>
                                                   Center(
-                                                child:
-                                                    CircularProgressIndicator(
+                                                child: CircularProgressIndicator(
                                                   value: progress,
                                                 ),
                                               ),
-                                              errorBuilder: (context, error) =>
-                                                  Container(
+                                              errorBuilder: (context, error) => Container(
                                                 color: const Color(0xFF6F6D6A),
                                                 alignment: Alignment.center,
                                                 child: const Icon(
@@ -230,11 +209,9 @@ class NewsPage extends StatelessWidget {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
-                                      left:
-                                      SizeUtils.screenWidth * 0.01,
+                                      left: SizeUtils.screenWidth * 0.01,
                                       right: SizeUtils.screenWidth * 0.01,
-                                      top: SizeUtils.screenHeight * 0.005
-                                  ),
+                                      top: SizeUtils.screenHeight * 0.005),
                                   child: Column(
                                     children: [
                                       SizedBox(
@@ -329,15 +306,15 @@ class NewsPage extends StatelessWidget {
 
   Widget sizedBox() {
     return SizedBox(
-                                      height: SizeUtils.screenHeight * 0.01,
-                                    );
+      height: SizeUtils.screenHeight * 0.01,
+    );
   }
 
   Container divider() {
     return Container(
-                                      height: SizeUtils.screenHeight * 0.0015,
-                                      width: SizeUtils.screenWidth * 0.56,
-                                      color: Colors.black.withOpacity(0.5),
-                                    );
+      height: SizeUtils.screenHeight * 0.0015,
+      width: SizeUtils.screenWidth * 0.56,
+      color: Colors.black.withOpacity(0.5),
+    );
   }
 }

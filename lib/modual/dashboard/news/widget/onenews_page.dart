@@ -3,7 +3,6 @@ import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/utils/time_manager.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
-import 'package:fantasyarenas/widget/translate_up_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_fade/image_fade.dart';
@@ -61,44 +60,32 @@ class _OneNewsPageState extends State<OneNewsPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TranslateUpAnimation(
-                      duration: const Duration(milliseconds: 1700),
-                      child: AppText(
-                        argument["title"].toString(),
-                        color: AppColor.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: SizeUtils.fSize_15(),
-                      ),
+                    AppText(
+                      argument["title"].toString(),
+                      color: AppColor.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: SizeUtils.fSize_15(),
                     ),
                     SizedBox(height: SizeUtils.horizontalBlockSize * 3),
-                    TranslateUpAnimation(
-                      duration: const Duration(milliseconds: 1800),
-                      child: AppText(
-                        argument["subtitle"].toString(),
-                        color: AppColor.white.withOpacity(0.5),
-                        fontSize: SizeUtils.fSize_12(),
-                        letterSpacing: 1,
-                      ),
+                    AppText(
+                      argument["subtitle"].toString(),
+                      color: AppColor.white.withOpacity(0.5),
+                      fontSize: SizeUtils.fSize_12(),
+                      letterSpacing: 1,
                     ),
                     SizedBox(height: SizeUtils.horizontalBlockSize * 2),
-                    TranslateUpAnimation(
-                      duration: const Duration(milliseconds: 1900),
-                      child: AppText(
-                        TimeManager.setNewsUpdateTime(argument["time"]),
-                        color: AppColor.white.withOpacity(0.5),
-                        fontSize: SizeUtils.fSize_11(),
-                      ),
+                    AppText(
+                      TimeManager.setNewsUpdateTime(argument["time"]),
+                      color: AppColor.white.withOpacity(0.5),
+                      fontSize: SizeUtils.fSize_11(),
                     ),
                     SizedBox(height: SizeUtils.horizontalBlockSize * 3),
-                    TranslateUpAnimation(
-                      duration: const Duration(milliseconds: 2000),
-                      child: AppText(
-                        argument["description"].toString(),
-                        color: AppColor.white,
-                        fontWeight: FontWeight.w300,
-                        fontSize: SizeUtils.fSize_14(),
-                        letterSpacing: 1,
-                      ),
+                    AppText(
+                      argument["description"].toString(),
+                      color: AppColor.white,
+                      fontWeight: FontWeight.w300,
+                      fontSize: SizeUtils.fSize_14(),
+                      letterSpacing: 1,
                     ),
                     SizedBox(height: SizeUtils.horizontalBlockSize * 10),
                   ],
