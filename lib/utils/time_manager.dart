@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:fantasyarenas/res/app_strings.dart';
 import 'package:fantasyarenas/res/appconfig.dart';
 import 'package:intl/intl.dart';
@@ -22,11 +25,11 @@ class TimeManager {
     if (dif.inSeconds < 0) {
       result = AppString.live;
     } else if (dif.inMinutes < 60) {
-      result = '${test[1]}m ${test[2].split('.').first}s';
+      result = '${test[1]}m';
     } else if (dif.inMinutes < 2840) {
       result = '${test[0]}h ${test[1]}m';
     } else {
-      result = '${dif.inDays} days';
+      result = displayTimeAgoFromTimestamp(milliSecond);
     }
     return result;
   }

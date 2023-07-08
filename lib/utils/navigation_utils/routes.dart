@@ -1,6 +1,6 @@
 import 'package:fantasyarenas/modual/dashboard/bottom_bar/bottom_page.dart';
 import 'package:fantasyarenas/modual/dashboard/home/page/home_page.dart';
-import 'package:fantasyarenas/modual/dashboard/home/widget/highlights_page..dart';
+import 'package:fantasyarenas/modual/dashboard/home/widget/upcoming_details_page.dart';
 import 'package:fantasyarenas/modual/dashboard/news/widget/onenews_page.dart';
 import 'package:fantasyarenas/modual/dashboard/splash.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +11,9 @@ mixin Routes {
   static String splashPage = "/splashPage";
   static String pages = "/pages";
   static String homePage = "/homePage";
-  static String highLightsPage = "/highLightsPage";
   static String singInPage = "/singInPage";
   static String oneNewsPage = "/oneNewsPage";
+  static String upComingDetailsPage = "/upComingDetailsPage";
 
   static List<GetPage<dynamic>> routes = [
     GetPage<dynamic>(
@@ -36,18 +36,18 @@ mixin Routes {
       transitionDuration: const Duration(milliseconds: 1100),
     ),
     GetPage<dynamic>(
-      name: highLightsPage,
-      page: () => const HighLightsPage(),
-      transition: Transition.downToUp,
-      curve: Curves.fastLinearToSlowEaseIn,
-      transitionDuration: const Duration(milliseconds: 1100),
-    ),
-    GetPage<dynamic>(
       name: oneNewsPage,
       page: () => OneNewsPage(),
       transition: Transition.downToUp,
       curve: Curves.fastLinearToSlowEaseIn,
       transitionDuration: const Duration(milliseconds: 1100),
+    ),
+    GetPage<dynamic>(
+      name: upComingDetailsPage,
+      page: () => UpComingDetailsPage(),
+      transition: defaultTransition,
+      // curve: Curves.fastLinearToSlowEaseIn,
+      // transitionDuration: const Duration(milliseconds: 1100),
     ),
   ];
 }
