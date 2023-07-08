@@ -30,6 +30,7 @@ class _OneNewsPageState extends State<OneNewsPage> {
       backgroundColor: AppColor.black,
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               Hero(
@@ -54,8 +55,9 @@ class _OneNewsPageState extends State<OneNewsPage> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: SizeUtils.horizontalBlockSize * 4,
-                    vertical: SizeUtils.horizontalBlockSize * 3),
+                  horizontal: SizeUtils.horizontalBlockSize * 4,
+                  vertical: SizeUtils.horizontalBlockSize * 3,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -68,22 +70,23 @@ class _OneNewsPageState extends State<OneNewsPage> {
                         fontSize: SizeUtils.fSize_15(),
                       ),
                     ),
-                    SizedBox(height: SizeUtils.horizontalBlockSize * 1),
+                    SizedBox(height: SizeUtils.horizontalBlockSize * 3),
                     TranslateUpAnimation(
                       duration: const Duration(milliseconds: 1800),
                       child: AppText(
                         argument["subtitle"].toString(),
                         color: AppColor.white.withOpacity(0.5),
-                        fontSize: SizeUtils.fSize_11(),
+                        fontSize: SizeUtils.fSize_12(),
+                        letterSpacing: 1,
                       ),
                     ),
-                    SizedBox(height: SizeUtils.horizontalBlockSize * 1),
+                    SizedBox(height: SizeUtils.horizontalBlockSize * 2),
                     TranslateUpAnimation(
                       duration: const Duration(milliseconds: 1900),
                       child: AppText(
                         TimeManager.setNewsUpdateTime(argument["time"]),
                         color: AppColor.white.withOpacity(0.5),
-                        fontSize: SizeUtils.fSize_10(),
+                        fontSize: SizeUtils.fSize_11(),
                       ),
                     ),
                     SizedBox(height: SizeUtils.horizontalBlockSize * 3),
@@ -93,7 +96,8 @@ class _OneNewsPageState extends State<OneNewsPage> {
                         argument["description"].toString(),
                         color: AppColor.white,
                         fontWeight: FontWeight.w300,
-                        fontSize: SizeUtils.fSize_12(),
+                        fontSize: SizeUtils.fSize_14(),
+                        letterSpacing: 1,
                       ),
                     ),
                     SizedBox(height: SizeUtils.horizontalBlockSize * 10),
