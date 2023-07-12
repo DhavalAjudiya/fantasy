@@ -4,6 +4,7 @@ import 'package:fantasyarenas/modual/dashboard/home/modal/completedMatch.dart';
 import 'package:fantasyarenas/modual/dashboard/home/modal/upcomingMatch.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/appconfig.dart';
+import 'package:fantasyarenas/res/assets_path.dart';
 import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
 import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
@@ -27,101 +28,87 @@ class CricketPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      backgroundColor: AppColor.backGroundLightColor,
+      body: Stack(
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: SizeUtils.horizontalBlockSize * 3,
-              horizontal: SizeUtils.horizontalBlockSize * 4,
+          Container(
+            width: SizeUtils.screenWidth,
+            height: SizeUtils.screenHeight * 0.25,
+            decoration: BoxDecoration(
+              // color: const Color(0xff205295).withOpacity(0.2),
+              gradient: LinearGradient(
+                colors: [
+                  const Color(0xff205295).withOpacity(0.4),
+                  const Color(0xff205295).withOpacity(0.2),
+                  const Color(0xff205295).withOpacity(0.1),
+                  Colors.transparent,
+                ],
+                begin: FractionalOffset.topCenter,
+                end: FractionalOffset.bottomCenter,
+              ),
             ),
-            child: AppText(
-              "Completed Match",
-              color: AppColor.textColor,
-              fontSize: SizeUtils.fSize_15(),
-              fontWeight: FontWeight.w600,
-            ),
-
-/*
-            child: Row(
-              children: [
-                AppText(
-                  "Completed Match",
-                  color: AppColor.textColor,
-                  fontSize: SizeUtils.fSize_15(),
-                  fontWeight: FontWeight.w600,
-                ),
-                const Spacer(flex: 20),
-                AppText(
-                  "View All",
-                  color: AppColor.textColor,
-                  fontSize: SizeUtils.fSize_14(),
-                ),
-                const Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: AppColor.textColor,
-                  size: SizeUtils.horizontalBlockSize * 4,
-                )
-              ],
-            ),
-*/
-          ),
-          LimitedBox(
-            maxHeight: SizeUtils.horizontalBlockSize * 34,
-            child: completedMatchItem(),
-          ),
-          SizedBox(height: SizeUtils.horizontalBlockSize * 2),
-          Center(
-            child: SmoothPageIndicator(
-              controller: pageController,
-              count: 7,
-              effect: WormEffect(
-                activeDotColor: Colors.white,
-                dotWidth: 6,
-                dotHeight: 6,
-                dotColor: Colors.white.withOpacity(0.5),
+            child: Padding(
+              padding: EdgeInsets.only(bottom: SizeUtils.screenHeight * 0.08),
+              child: Image.asset(
+                AssetsPath.backImage,
+                fit: BoxFit.cover,
+                color: AppColor.appBarColor.withOpacity(0.3),
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: SizeUtils.horizontalBlockSize * 3,
-              horizontal: SizeUtils.horizontalBlockSize * 4,
-            ),
-            child: AppText(
-              "Upcoming Match",
-              color: AppColor.textColor,
-              fontSize: SizeUtils.fSize_15(),
-              fontWeight: FontWeight.w600,
-            ),
-
-/*
-            child: Row(
-              children: [
-                AppText(
-                  "Completed Match",
-                  color: AppColor.textColor,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+             SizedBox(
+               height: SizeUtils.screenHeight * 0.04,
+             ),
+              LimitedBox(
+                maxHeight: SizeUtils.horizontalBlockSize * 35,
+                child: Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        offset: const Offset(0, 3),
+                        blurRadius: 10,
+                      )
+                    ],
+                  ),
+                  child: completedMatchItem(),
+                ),
+              ),
+              SizedBox(height: SizeUtils.horizontalBlockSize * 4),
+              Center(
+                child: SmoothPageIndicator(
+                  controller: pageController,
+                  count: 7,
+                  effect: WormEffect(
+                    activeDotColor: AppColor.appBarColor,
+                    dotWidth: 7,
+                    dotHeight: 7,
+                    dotColor: AppColor.appBarColor.withOpacity(0.5),
+                  ),
+                ),
+              ),
+              SizedBox(height: SizeUtils.verticalBlockSize * 1),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: SizeUtils.horizontalBlockSize * 3,
+                  left: SizeUtils.horizontalBlockSize * 4,
+                  right: SizeUtils.horizontalBlockSize * 4,
+                ),
+                child: AppText(
+                  "Upcoming Match",
+                  color: AppColor.black,
                   fontSize: SizeUtils.fSize_15(),
                   fontWeight: FontWeight.w600,
                 ),
-                const Spacer(flex: 20),
-                AppText(
-                  "View All",
-                  color: AppColor.textColor,
-                  fontSize: SizeUtils.fSize_14(),
-                ),
-                const Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: AppColor.textColor,
-                  size: SizeUtils.horizontalBlockSize * 4,
-                )
-              ],
-            ),
-*/
+              ),
+              Expanded(
+                child: upComingMatch(),
+              ),
+            ],
           ),
-          Expanded(child: upComingMatch()),
         ],
       ),
     );
@@ -129,13 +116,15 @@ class CricketPage extends StatelessWidget {
 
   completedMatchItem() {
     return StreamBuilder(
-      stream: AppConfig.databaseReference.collection(AppConfig.completedMatch).snapshots(),
+      stream: AppConfig.databaseReference
+          .collection(AppConfig.completedMatch)
+          .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         completedMatchList.clear();
 
         for (var element in snapshot.data?.docs ?? []) {
-          CompletedMatchModal completedMatchModal =
-              CompletedMatchModal.fromMap(element.data() as Map<String, dynamic>);
+          CompletedMatchModal completedMatchModal = CompletedMatchModal.fromMap(
+              element.data() as Map<String, dynamic>);
           completedMatchList.add(completedMatchModal);
         }
         if (snapshot.connectionState == ConnectionState.active) {
@@ -146,9 +135,10 @@ class CricketPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 final data = completedMatchList[index];
                 return Container(
-                  margin: EdgeInsets.symmetric(horizontal: SizeUtils.horizontalBlockSize * 3),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: SizeUtils.horizontalBlockSize * 3,
+                  ),
                   decoration: BoxDecoration(
-                    border: Border.all(color: AppColor.boarderColor, width: 1),
                     color: AppColor.white,
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -164,6 +154,10 @@ class CricketPage extends StatelessWidget {
                     time: data.time,
                     isSubHeader: false,
                     subHeader: data.subheader,
+                    headerColor: [
+                      AppColor.smsBtn,
+                      Colors.white,
+                    ],
                   ),
                 );
               },
@@ -185,24 +179,31 @@ class CricketPage extends StatelessWidget {
 
   upComingMatch() {
     return StreamBuilder(
-      stream: AppConfig.databaseReference.collection(AppConfig.upcomingMatch).snapshots(),
+      stream: AppConfig.databaseReference
+          .collection(AppConfig.upcomingMatch)
+          .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         upcomingMatchList.clear();
 
         for (var element in snapshot.data?.docs ?? []) {
-          UpcomingMatchModal upcomingMatchModal =
-              UpcomingMatchModal.fromMap(element.data() as Map<String, dynamic>);
+          UpcomingMatchModal upcomingMatchModal = UpcomingMatchModal.fromMap(
+              element.data() as Map<String, dynamic>);
           upcomingMatchList.add(upcomingMatchModal);
         }
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: SizeUtils.horizontalBlockSize * 3),
+              padding: EdgeInsets.symmetric(
+                  horizontal: SizeUtils.horizontalBlockSize * 3),
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                ),
                 child: ListView.separated(
-                  padding: EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 4),
+                  physics: const BouncingScrollPhysics(),
+                  padding: EdgeInsets.only(
+                      bottom: SizeUtils.horizontalBlockSize * 4),
                   itemCount: upcomingMatchList.length,
                   itemBuilder: (context, index) {
                     String matchDate = "";
@@ -212,21 +213,26 @@ class CricketPage extends StatelessWidget {
                       matchDate = Utils.formatTimeOfDay(
                           int.parse(upcomingMatchList[index].time.toString()));
                     } else {
-                      if (Utils.formatTimeOfDay(
-                              int.parse(upcomingMatchList[(index - 1)].time.toString())) ==
-                          Utils.formatTimeOfDay(
-                              int.parse(upcomingMatchList[index].time.toString()))) {
+                      if (Utils.formatTimeOfDay(int.parse(
+                              upcomingMatchList[(index - 1)]
+                                  .time
+                                  .toString())) ==
+                          Utils.formatTimeOfDay(int.parse(
+                              upcomingMatchList[index].time.toString()))) {
                         timeHeader = false;
                       } else {
                         timeHeader = true;
-                        matchDate = Utils.formatTimeOfDay(
-                            int.parse(upcomingMatchList[index].time.toString()));
+                        matchDate = Utils.formatTimeOfDay(int.parse(
+                            upcomingMatchList[index].time.toString()));
                       }
                     }
                     final data = upcomingMatchList[index];
 
                     return Column(
                       children: [
+                        SizedBox(
+                          height: SizeUtils.screenHeight * 0.02,
+                        ),
                         timeHeader == false
                             ? const SizedBox(
                                 height: 0,
@@ -234,24 +240,34 @@ class CricketPage extends StatelessWidget {
                             : Text(
                                 matchDate,
                                 style: TextStyle(
-                                  color: Colors.white60,
-                                  fontSize: SizeUtils.fSize_15(),
+                                  color: Colors.black.withOpacity(0.5),
+                                  fontSize: SizeUtils.fSize_14(),
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
+                        SizedBox(
+                          height: SizeUtils.screenHeight * 0.01,
+                        ),
                         GestureDetector(
                           onTap: () {
                             homeController.playerList.value = data.player ?? [];
                             homeController.team1Name.value = data.t1 ?? "";
                             homeController.team2Name.value = data.t2 ?? "";
-                            homeController.matchHeader.value = data.header ?? "";
+                            homeController.matchHeader.value =
+                                data.header ?? "";
                             Navigation.pushNamed(Routes.upComingDetailsPage);
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                              border: Border.all(color: AppColor.boarderColor, width: 1),
                               color: AppColor.white,
                               borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  offset: const Offset(2, 3),
+                                  blurRadius: 5,
+                                )
+                              ],
                             ),
                             child: cricketCard(
                               header: data.header,
@@ -262,11 +278,18 @@ class CricketPage extends StatelessWidget {
                               nr1: data.nr1,
                               nr2: data.nr2,
                               status: "Match will start in",
-                              time: TimeManager()
-                                  .getRemainTimeFromMilliSecond(int.parse(data.time.toString())),
+                              time: TimeManager().getRemainTimeFromMilliSecond(
+                                int.parse(
+                                  data.time.toString(),
+                                ),
+                              ),
                               isSubHeader: false,
                               isStatus: true,
                               subHeader: data.header,
+                              headerColor: [
+                                AppColor.appBarColor.withOpacity(0.3),
+                                Colors.white,
+                              ],
                             ),
                           ),
                         ),

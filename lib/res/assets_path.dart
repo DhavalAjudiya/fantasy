@@ -5,4 +5,5 @@ class AssetsPath {
 
   static String fantasy = "${image}fantsy.png";
   static String arrow = "${image}arrow.png";
+  static String backImage = "${image}pngwing.png";
 }
