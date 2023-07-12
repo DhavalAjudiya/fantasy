@@ -1,5 +1,6 @@
+import 'package:fantasyarenas/modual/dashboard/cricket_tabs/tab/fantsy_page.dart';
+import 'package:fantasyarenas/modual/dashboard/cricket_tabs/tab/squad_page.dart';
 import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
-import 'package:fantasyarenas/modual/dashboard/home/widget/tabs/squad_page.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/assets_path.dart';
 import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
@@ -79,9 +80,7 @@ class _UpComingDetailsPageState extends State<UpComingDetailsPage> {
         body: TabBarView(
           children: [
             SquadPage(),
-            Center(
-              child: Text("Calls"),
-            ),
+            FantasyPage(),
             Center(
               child: Text("Settings"),
             ),

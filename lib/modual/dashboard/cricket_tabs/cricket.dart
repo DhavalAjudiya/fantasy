@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
 import 'package:fantasyarenas/modual/dashboard/home/modal/completedMatch.dart';
-import 'package:fantasyarenas/modual/dashboard/home/modal/upcomingMatch.dart';
+import 'package:fantasyarenas/modual/dashboard/cricket_tabs/modal/fantasy_modal.dart';
+import 'package:fantasyarenas/modual/dashboard/cricket_tabs/modal/upcomingMatch.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/appconfig.dart';
 import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
@@ -201,84 +204,97 @@ class CricketPage extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(12), topRight: Radius.circular(12)),
-                child: ListView.separated(
-                  padding: EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 4),
-                  itemCount: upcomingMatchList.length,
-                  itemBuilder: (context, index) {
-                    String matchDate = "";
-                    bool timeHeader = true;
-                    if (index == 0) {
-                      timeHeader = true;
-                      matchDate = Utils.formatTimeOfDay(
-                          int.parse(upcomingMatchList[index].time.toString()));
-                    } else {
-                      if (Utils.formatTimeOfDay(
-                              int.parse(upcomingMatchList[(index - 1)].time.toString())) ==
-                          Utils.formatTimeOfDay(
-                              int.parse(upcomingMatchList[index].time.toString()))) {
-                        timeHeader = false;
-                      } else {
-                        timeHeader = true;
-                        matchDate = Utils.formatTimeOfDay(
-                            int.parse(upcomingMatchList[index].time.toString()));
-                      }
-                    }
-                    final data = upcomingMatchList[index];
+                child: upcomingMatchList.isEmpty
+                    ? Center(
+                        child: AppText(
+                        "Upcoming Match Coming Soon",
+                        color: AppColor.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: SizeUtils.fSize_18(),
+                      ))
+                    : ListView.separated(
+                        padding: EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 4),
+                        itemCount: upcomingMatchList.length,
+                        itemBuilder: (context, index) {
+                          String matchDate = "";
+                          bool timeHeader = true;
+                          if (index == 0) {
+                            timeHeader = true;
+                            matchDate = Utils.formatTimeOfDay(
+                                int.parse(upcomingMatchList[index].time.toString()));
+                          } else {
+                            if (Utils.formatTimeOfDay(
+                                    int.parse(upcomingMatchList[(index - 1)].time.toString())) ==
+                                Utils.formatTimeOfDay(
+                                    int.parse(upcomingMatchList[index].time.toString()))) {
+                              timeHeader = false;
+                            } else {
+                              timeHeader = true;
+                              matchDate = Utils.formatTimeOfDay(
+                                  int.parse(upcomingMatchList[index].time.toString()));
+                            }
+                          }
+                          final data = upcomingMatchList[index];
 
-                    return Column(
-                      children: [
-                        timeHeader == false
-                            ? const SizedBox(
-                                height: 0,
-                              )
-                            : Text(
-                                matchDate,
-                                style: TextStyle(
-                                  color: Colors.white60,
-                                  fontSize: SizeUtils.fSize_15(),
-                                  fontWeight: FontWeight.w500,
+                          return Column(
+                            children: [
+                              timeHeader == false
+                                  ? const SizedBox(
+                                      height: 0,
+                                    )
+                                  : Text(
+                                      matchDate,
+                                      style: TextStyle(
+                                        color: Colors.white60,
+                                        fontSize: SizeUtils.fSize_15(),
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                              GestureDetector(
+                                onTap: () {
+                                  homeController.fistTeamList.value = data.team1 ?? [];
+                                  homeController.secondTeamList.value = data.team2 ?? [];
+                                  homeController.upComingMatchDocId.value = data.id ?? "";
+                                  homeController.team1image.value = data.i1 ?? "";
+                                  homeController.team2image.value = data.i2 ?? "";
+                                  homeController.team1Name.value = data.t1 ?? "";
+                                  homeController.team2Name.value = data.t2 ?? "";
+                                  homeController.isFantasy.value = data.isFantasy ?? false;
+                                  homeController.matchHeader.value = data.header ?? "";
+                                  Navigation.pushNamed(Routes.upComingDetailsPage);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: AppColor.boarderColor, width: 1),
+                                    color: AppColor.white,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: cricketCard(
+                                    header: data.header,
+                                    t1: data.t1,
+                                    t2: data.t2,
+                                    i1: data.i1,
+                                    i2: data.i2,
+                                    nr1: data.nr1,
+                                    nr2: data.nr2,
+                                    status: "Match will start in",
+                                    time: TimeManager().getRemainTimeFromMilliSecond(
+                                        int.parse(data.time.toString())),
+                                    isSubHeader: false,
+                                    isStatus: true,
+                                    subHeader: data.subheader,
+                                  ),
                                 ),
                               ),
-                        GestureDetector(
-                          onTap: () {
-                            homeController.playerList.value = data.player ?? [];
-                            homeController.team1Name.value = data.t1 ?? "";
-                            homeController.team2Name.value = data.t2 ?? "";
-                            homeController.matchHeader.value = data.header ?? "";
-                            Navigation.pushNamed(Routes.upComingDetailsPage);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: AppColor.boarderColor, width: 1),
-                              color: AppColor.white,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: cricketCard(
-                              header: data.header,
-                              t1: data.t1,
-                              t2: data.t2,
-                              i1: data.i1,
-                              i2: data.i2,
-                              nr1: data.nr1,
-                              nr2: data.nr2,
-                              status: "Match will start in",
-                              time: TimeManager()
-                                  .getRemainTimeFromMilliSecond(int.parse(data.time.toString())),
-                              isSubHeader: false,
-                              isStatus: true,
-                              subHeader: data.header,
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      height: SizeUtils.horizontalBlockSize * 3,
-                    );
-                  },
-                ),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return SizedBox(
+                            height: SizeUtils.horizontalBlockSize * 3,
+                          );
+                        },
+                      ),
               ),
             );
           } else if (snapshot.hasError) {
