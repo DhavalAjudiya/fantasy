@@ -1,3 +1,4 @@
+import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
@@ -5,7 +6,6 @@ import 'package:fantasyarenas/utils/time_manager.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_fade/image_fade.dart';
 
 class OneNewsPage extends StatefulWidget {
   OneNewsPage({super.key});
@@ -26,26 +26,48 @@ class _OneNewsPageState extends State<OneNewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.black,
-      body: SafeArea(
+      backgroundColor: AppColor.backGroundLightColor,
+      body: ColorfulSafeArea(
+        color: AppColor.appBarColor,
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               Hero(
                 tag: "news${argument["index"].toString()}",
                 child: Stack(
                   children: [
-                    Image.network(argument["image"].toString()),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: SizeUtils.screenHeight * 0.02,
+                          horizontal: SizeUtils.screenWidth * 0.03),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              offset: const Offset(-3, 3),
+                              blurRadius: 8,
+                              spreadRadius: 5,
+                            )
+                          ],
+                        ),
+                        child: Image.network(
+                          argument["image"].toString(),
+                        ),
+                      ),
+                    ),
                     Positioned(
-                      top: SizeUtils.horizontalBlockSize * 2.5,
-                      left: SizeUtils.horizontalBlockSize * 3,
+                      top: SizeUtils.horizontalBlockSize * 6,
+                      left: SizeUtils.horizontalBlockSize * 5,
                       child: GestureDetector(
                         onTap: () {
                           Navigation.pop();
                         },
-                        child: const Icon(
+                        child: Icon(
                           Icons.arrow_back_sharp,
+                          color: Colors.white,
+                          size: SizeUtils.screenWidth * 0.08,
                         ),
                       ),
                     )
@@ -55,39 +77,57 @@ class _OneNewsPageState extends State<OneNewsPage> {
               Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: SizeUtils.horizontalBlockSize * 4,
-                  vertical: SizeUtils.horizontalBlockSize * 3,
+                  vertical: SizeUtils.horizontalBlockSize * 1.5,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    buildDivider(),
+                    SizedBox(
+                      height: SizeUtils.screenHeight * 0.01,
+                    ),
                     AppText(
                       argument["title"].toString(),
-                      color: AppColor.white,
+                      color: AppColor.appBarColor,
                       fontWeight: FontWeight.bold,
-                      fontSize: SizeUtils.fSize_15(),
+                      fontSize: SizeUtils.fSize_17(),
+                      textAlign: TextAlign.justify,
                     ),
-                    SizedBox(height: SizeUtils.horizontalBlockSize * 3),
+                    SizedBox(
+                      height: SizeUtils.horizontalBlockSize * 3,
+                    ),
                     AppText(
                       argument["subtitle"].toString(),
-                      color: AppColor.white.withOpacity(0.5),
-                      fontSize: SizeUtils.fSize_12(),
+                      color: AppColor.appBarColor.withOpacity(0.7),
+                      fontSize: SizeUtils.fSize_13(),
                       letterSpacing: 1,
+                      textAlign: TextAlign.left,
                     ),
-                    SizedBox(height: SizeUtils.horizontalBlockSize * 2),
+                    SizedBox(
+                      height: SizeUtils.horizontalBlockSize * 3,
+                    ),
                     AppText(
                       TimeManager.setNewsUpdateTime(argument["time"]),
-                      color: AppColor.white.withOpacity(0.5),
-                      fontSize: SizeUtils.fSize_11(),
+                      color: Colors.grey.withOpacity(0.7),
+                      fontSize: SizeUtils.fSize_12(),
                     ),
-                    SizedBox(height: SizeUtils.horizontalBlockSize * 3),
+                    SizedBox(
+                      height: SizeUtils.horizontalBlockSize * 2,
+                    ),
+                    buildDivider(),
+                    SizedBox(
+                      height: SizeUtils.horizontalBlockSize * 2,
+                    ),
                     AppText(
                       argument["description"].toString(),
-                      color: AppColor.white,
-                      fontWeight: FontWeight.w300,
-                      fontSize: SizeUtils.fSize_14(),
-                      letterSpacing: 1,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w400,
+                      wordSpacing: 1,
+                      fontSize: SizeUtils.fSize_15(),
                     ),
-                    SizedBox(height: SizeUtils.horizontalBlockSize * 10),
+                    SizedBox(
+                      height: SizeUtils.horizontalBlockSize * 10,
+                    ),
                   ],
                 ),
               ),
@@ -96,5 +136,11 @@ class _OneNewsPageState extends State<OneNewsPage> {
         ),
       ),
     );
+  }
+
+  Divider buildDivider() {
+    return Divider(
+                    color: AppColor.appBarColor.withOpacity(0.5),
+                  );
   }
 }

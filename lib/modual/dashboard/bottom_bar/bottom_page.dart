@@ -39,13 +39,13 @@ class _BottomPageState extends State<BottomPage> {
         builder: (BuildContext context, int bValue, _) {
           return BottomNavigationBar(
             elevation: 0,
-            backgroundColor: const Color(0xff7d98a1),
+            backgroundColor: AppColor.appBarColor,
             type: BottomNavigationBarType.fixed,
-            selectedItemColor: AppColor.appBarColor,
+            selectedItemColor: AppColor.white,
             unselectedItemColor: AppColor.white.withOpacity(0.4),
             selectedLabelStyle: TextStyle(
-              fontSize: SizeUtils.fSize_15(),
-              fontWeight: FontWeight.w600,
+              fontSize: SizeUtils.fSize_14(),
+              fontWeight: FontWeight.w500,
             ),
             currentIndex: bValue,
             showUnselectedLabels: true,
@@ -54,19 +54,27 @@ class _BottomPageState extends State<BottomPage> {
             },
             items: const [
               BottomNavigationBarItem(
-                icon: Icon(SFSymbols.house_fill),
+                icon: Icon(
+                  SFSymbols.house_fill,
+                ),
                 label: "Home",
               ),
               BottomNavigationBarItem(
-                icon: Icon(SFSymbols.shield),
+                icon: Icon(
+                  SFSymbols.shield,
+                ),
                 label: "Fantsy",
               ),
               BottomNavigationBarItem(
-                icon: Icon(SFSymbols.doc_text),
+                icon: Icon(
+                  SFSymbols.doc_text,
+                ),
                 label: "News",
               ),
               BottomNavigationBarItem(
-                icon: Icon(SFSymbols.gear_alt),
+                icon: Icon(
+                  SFSymbols.gear_alt,
+                ),
                 label: "Setting",
               ),
             ],
