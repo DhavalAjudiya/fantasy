@@ -7,6 +7,8 @@ import 'package:fantasyarenas/widget/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../widget/tabs/football_page.dart';
+
 class HomePage extends StatelessWidget {
   HomePage({super.key});
   HomeController homeController = Get.put(HomeController());
@@ -15,9 +17,8 @@ class HomePage extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        backgroundColor: AppColor.backgroundColor,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(SizeUtils.horizontalBlockSize * 29),
+          preferredSize: Size.fromHeight(SizeUtils.horizontalBlockSize * 25),
           child: AppBar(
             bottomOpacity: 0.7,
             backgroundColor: AppColor.appBarColor,
@@ -66,11 +67,9 @@ class HomePage extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            CricketPage(),
-            Center(
-              child: Text("Calls"),
-            ),
-            Center(
+            CricketPage(),const
+            FootballPage(),
+            const Center(
               child: Text("Settings"),
             ),
           ],
