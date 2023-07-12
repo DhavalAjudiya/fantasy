@@ -8,6 +8,7 @@ class AppConfig {
 
   static String completedMatch = "completedmatch";
   static String upcomingMatch = "upcomingmatch";
+  static String cfantasy = "c_fantasy";
 
   static String news = "news";
 

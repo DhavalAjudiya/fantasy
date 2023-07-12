@@ -27,7 +27,7 @@ cricketCard({
       children: [
         Container(
           width: SizeUtils.screenWidth * 0.7,
-          height: SizeUtils.screenHeight * 0.03,
+          height: SizeUtils.horizontalBlockSize * 6,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: headerColor!,
@@ -115,9 +115,7 @@ cricketCard({
                         status ?? "",
                         fontWeight: FontWeight.bold,
                         color: Colors.black.withOpacity(0.5),
-                        fontSize: isStatus
-                            ? SizeUtils.fSize_12()
-                            : SizeUtils.fSize_13(),
+                        fontSize: isStatus ? SizeUtils.fSize_12() : SizeUtils.fSize_13(),
                       ),
                       SizedBox(
                         height: SizeUtils.screenHeight * 0.008,
@@ -289,9 +287,7 @@ upComingCricketCard({
                       AppText(
                         status ?? "",
                         fontWeight: FontWeight.bold,
-                        fontSize: isStatus
-                            ? SizeUtils.fSize_12()
-                            : SizeUtils.fSize_15(),
+                        fontSize: isStatus ? SizeUtils.fSize_12() : SizeUtils.fSize_15(),
                       ),
                       AppText(
                         time ?? "",

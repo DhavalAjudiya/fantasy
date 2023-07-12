@@ -1,13 +1,12 @@
+import 'package:fantasyarenas/modual/dashboard/cricket_tabs/cricket.dart';
+import 'package:fantasyarenas/modual/dashboard/cricket_tabs/football_page.dart';
 import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
-import 'package:fantasyarenas/modual/dashboard/home/widget/tabs/cricket.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/assets_path.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../widget/tabs/football_page.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -67,8 +66,8 @@ class HomePage extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            CricketPage(),const
-            FootballPage(),
+            CricketPage(),
+            const FootballPage(),
             const Center(
               child: Text("Settings"),
             ),
