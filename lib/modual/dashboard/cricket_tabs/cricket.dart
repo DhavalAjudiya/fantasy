@@ -62,11 +62,11 @@ class CricketPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             SizedBox(
-               height: SizeUtils.screenHeight * 0.04,
-             ),
+              SizedBox(
+                height: SizeUtils.horizontalBlockSize * 5,
+              ),
               LimitedBox(
-                maxHeight: SizeUtils.horizontalBlockSize * 35,
+                maxHeight: SizeUtils.horizontalBlockSize * 37,
                 child: Container(
                   decoration: BoxDecoration(
                     boxShadow: [
@@ -80,7 +80,7 @@ class CricketPage extends StatelessWidget {
                   child: completedMatchItem(),
                 ),
               ),
-              SizedBox(height: SizeUtils.horizontalBlockSize * 4),
+              SizedBox(height: SizeUtils.horizontalBlockSize * 3),
               Center(
                 child: SmoothPageIndicator(
                   controller: pageController,
@@ -93,10 +93,9 @@ class CricketPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: SizeUtils.verticalBlockSize * 1),
+              SizedBox(height: SizeUtils.horizontalBlockSize * 3),
               Padding(
                 padding: EdgeInsets.only(
-                  top: SizeUtils.horizontalBlockSize * 3,
                   left: SizeUtils.horizontalBlockSize * 4,
                   right: SizeUtils.horizontalBlockSize * 4,
                 ),
@@ -119,15 +118,13 @@ class CricketPage extends StatelessWidget {
 
   completedMatchItem() {
     return StreamBuilder(
-      stream: AppConfig.databaseReference
-          .collection(AppConfig.completedMatch)
-          .snapshots(),
+      stream: AppConfig.databaseReference.collection(AppConfig.completedMatch).snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         completedMatchList.clear();
 
         for (var element in snapshot.data?.docs ?? []) {
-          CompletedMatchModal completedMatchModal = CompletedMatchModal.fromMap(
-              element.data() as Map<String, dynamic>);
+          CompletedMatchModal completedMatchModal =
+              CompletedMatchModal.fromMap(element.data() as Map<String, dynamic>);
           completedMatchList.add(completedMatchModal);
         }
         if (snapshot.connectionState == ConnectionState.active) {
@@ -182,22 +179,19 @@ class CricketPage extends StatelessWidget {
 
   upComingMatch() {
     return StreamBuilder(
-      stream: AppConfig.databaseReference
-          .collection(AppConfig.upcomingMatch)
-          .snapshots(),
+      stream: AppConfig.databaseReference.collection(AppConfig.upcomingMatch).snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         upcomingMatchList.clear();
 
         for (var element in snapshot.data?.docs ?? []) {
-          UpcomingMatchModal upcomingMatchModal = UpcomingMatchModal.fromMap(
-              element.data() as Map<String, dynamic>);
+          UpcomingMatchModal upcomingMatchModal =
+              UpcomingMatchModal.fromMap(element.data() as Map<String, dynamic>);
           upcomingMatchList.add(upcomingMatchModal);
         }
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
             return Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: SizeUtils.horizontalBlockSize * 3),
+              padding: EdgeInsets.symmetric(horizontal: SizeUtils.horizontalBlockSize * 3),
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(12),
@@ -205,8 +199,7 @@ class CricketPage extends StatelessWidget {
                 ),
                 child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.only(
-                      bottom: SizeUtils.horizontalBlockSize * 4),
+                  padding: EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 4),
                   itemCount: upcomingMatchList.length,
                   itemBuilder: (context, index) {
                     String matchDate = "";
@@ -216,17 +209,15 @@ class CricketPage extends StatelessWidget {
                       matchDate = Utils.formatTimeOfDay(
                           int.parse(upcomingMatchList[index].time.toString()));
                     } else {
-                      if (Utils.formatTimeOfDay(int.parse(
-                              upcomingMatchList[(index - 1)]
-                                  .time
-                                  .toString())) ==
-                          Utils.formatTimeOfDay(int.parse(
-                              upcomingMatchList[index].time.toString()))) {
+                      if (Utils.formatTimeOfDay(
+                              int.parse(upcomingMatchList[(index - 1)].time.toString())) ==
+                          Utils.formatTimeOfDay(
+                              int.parse(upcomingMatchList[index].time.toString()))) {
                         timeHeader = false;
                       } else {
                         timeHeader = true;
-                        matchDate = Utils.formatTimeOfDay(int.parse(
-                            upcomingMatchList[index].time.toString()));
+                        matchDate = Utils.formatTimeOfDay(
+                            int.parse(upcomingMatchList[index].time.toString()));
                       }
                     }
                     final data = upcomingMatchList[index];
@@ -253,11 +244,15 @@ class CricketPage extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            homeController.playerList.value = data.player ?? [];
+                            homeController.fistTeamList.value = data.team1 ?? [];
+                            homeController.secondTeamList.value = data.team2 ?? [];
+                            homeController.upComingMatchDocId.value = data.id ?? "";
+                            homeController.team1image.value = data.i1 ?? "";
+                            homeController.team2image.value = data.i2 ?? "";
                             homeController.team1Name.value = data.t1 ?? "";
                             homeController.team2Name.value = data.t2 ?? "";
-                            homeController.matchHeader.value =
-                                data.header ?? "";
+                            homeController.isFantasy.value = data.isFantasy ?? false;
+                            homeController.matchHeader.value = data.header ?? "";
                             Navigation.pushNamed(Routes.upComingDetailsPage);
                           },
                           child: Container(
@@ -300,9 +295,7 @@ class CricketPage extends StatelessWidget {
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      height: SizeUtils.horizontalBlockSize * 3,
-                    );
+                    return const SizedBox();
                   },
                 ),
               ),
