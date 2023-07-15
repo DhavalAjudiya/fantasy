@@ -6,7 +6,6 @@ import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_fade/image_fade.dart';
 
 class SquadPage extends StatefulWidget {
   SquadPage({super.key});
@@ -87,7 +86,7 @@ class _SquadPageState extends State<SquadPage> {
                                           var data = homeController.fistTeamList[index];
                                           return teamSquad(
                                               name: data.name,
-                                              type: data.name,
+                                              type: data.type,
                                               image: data.image,
                                               played: data.play);
                                         },
@@ -149,7 +148,7 @@ class _SquadPageState extends State<SquadPage> {
                                           var data = homeController.secondTeamList[index];
                                           return teamSquad(
                                               name: data.name,
-                                              type: data.name,
+                                              type: data.type,
                                               image: data.image,
                                               played: data.play);
                                         },

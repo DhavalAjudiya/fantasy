@@ -19,13 +19,10 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    var screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.brown,
       body: Stack(
-        children: [
-
-        ],
+        children: [],
       ),
     );
   }

@@ -179,7 +179,11 @@ class CricketPage extends StatelessWidget {
 
   upComingMatch() {
     return StreamBuilder(
-      stream: AppConfig.databaseReference.collection(AppConfig.upcomingMatch).snapshots(),
+      stream: AppConfig.databaseReference
+          .collection(AppConfig.upcomingMatch)
+          // .where("time", isGreaterThanOrEqualTo: DateTime.now().millisecondsSinceEpoch.toString())
+          // .orderBy("time", descending: false)
+          .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         upcomingMatchList.clear();
 
@@ -225,12 +229,10 @@ class CricketPage extends StatelessWidget {
                     return Column(
                       children: [
                         SizedBox(
-                          height: SizeUtils.screenHeight * 0.02,
+                          height: SizeUtils.horizontalBlockSize * (timeHeader == false ? 1 : 3),
                         ),
                         timeHeader == false
-                            ? const SizedBox(
-                                height: 0,
-                              )
+                            ? const SizedBox()
                             : Text(
                                 matchDate,
                                 style: TextStyle(

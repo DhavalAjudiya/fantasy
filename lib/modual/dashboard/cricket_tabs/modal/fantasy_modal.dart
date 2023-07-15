@@ -1,35 +1,35 @@
 class FantasyModal {
-  String? dataof;
+  bool? lineup;
   String? id;
 
   List<Fantasy>? fantasy;
-  List<PlayerHistory>? playerhistory;
+  List<PlayerState>? playerstate;
 
   FantasyModal({
-    this.dataof,
+    this.lineup,
     this.id,
     this.fantasy,
-    this.playerhistory,
+    this.playerstate,
   });
 
   FantasyModal.fromMap(Map<String, dynamic> map) {
-    dataof = map["dataof"] ?? '';
+    lineup = map["lineup"] ?? '';
     id = map["id"] ?? '';
 
     fantasy = [
       for (final skill in map['fantasy'] ?? []) Fantasy.fromMap(skill),
     ];
-    playerhistory = [
-      for (final skill in map['playerhistory'] ?? []) PlayerHistory.fromMap(skill),
+    playerstate = [
+      for (final skill in map['playerstate'] ?? []) PlayerState.fromMap(skill),
     ];
   }
 
   Map<String, dynamic> toMap() {
     return {
       "id": id,
-      "dataof": dataof,
+      "lineup": lineup,
       "fantasy": [for (final skill in this.fantasy ?? []) skill.toJson()],
-      "playerhistory": [for (final skill in this.playerhistory ?? []) skill.toJson()],
+      "playerstate": [for (final skill in this.playerstate ?? []) skill.toJson()],
     };
   }
 }
@@ -37,75 +37,87 @@ class FantasyModal {
 class Fantasy {
   String? name;
   String? image;
-  List<String>? allrounder;
-  List<String>? wicketkeeper;
-  List<String>? bolwer;
-  List<String>? batsman;
+  String? type;
+  String? vcaption;
+  String? caption;
+  String? teamimage;
+  String? captionimage;
+  String? vcaptionimage;
+  String? player;
+  String? cr;
 
   Fantasy({
     this.name,
     this.image,
-    this.allrounder,
-    this.wicketkeeper,
-    this.bolwer,
-    this.batsman,
+    this.type,
+    this.vcaption,
+    this.caption,
+    this.teamimage,
+    this.captionimage,
+    this.vcaptionimage,
+    this.player,
+    this.cr,
   });
 
   Fantasy.fromMap(Map<String, dynamic> map) {
     name = map["name"] ?? '';
     image = map["image"] ?? '';
-    allrounder = map["allrounder"].cast<String>() ?? [];
-    wicketkeeper = map["wicketkeeper"].cast<String>() ?? [];
-    bolwer = map["bolwer"].cast<String>() ?? [];
-    batsman = map["batsman"].cast<String>() ?? [];
+    type = map["type"] ?? '';
+    vcaption = map["vcaption"] ?? '';
+    caption = map["caption"] ?? '';
+    teamimage = map["teamimage"] ?? '';
+    captionimage = map["captionimage"] ?? '';
+    vcaptionimage = map["vcaptionimage"] ?? '';
+    player = map["player"] ?? '';
+    cr = map["cr"] ?? '';
   }
 
   Map<String, dynamic> toMap() {
     return {
       "name": name,
       "image": image,
-      "allrounder": allrounder,
-      "wicketkeeper": wicketkeeper,
-      "bolwer": bolwer,
-      "batsman": batsman,
+      "type": type,
+      "vcaption": vcaption,
+      "caption": caption,
+      "teamimage": teamimage,
+      "captionimage": captionimage,
+      "vcaptionimage": vcaptionimage,
+      "player": player,
+      "cr": cr,
     };
   }
 }
 
-class PlayerHistory {
+class PlayerState {
   String? name;
-  String? image;
-  List<String>? allrounder;
-  List<String>? wicketkeeper;
-  List<String>? bolwer;
-  List<String>? batsman;
+  String? type;
+  String? mplayed;
+  String? pmatch;
+  bool? announce;
 
-  PlayerHistory({
+  PlayerState({
     this.name,
-    this.image,
-    this.allrounder,
-    this.wicketkeeper,
-    this.bolwer,
-    this.batsman,
+    this.type,
+    this.mplayed,
+    this.pmatch,
+    this.announce,
   });
 
-  PlayerHistory.fromMap(Map<String, dynamic> map) {
+  PlayerState.fromMap(Map<String, dynamic> map) {
     name = map["name"] ?? '';
-    image = map["image"] ?? '';
-    allrounder = map["allrounder"].cast<String>() ?? [];
-    wicketkeeper = map["wicketkeeper"].cast<String>() ?? [];
-    bolwer = map["bolwer"].cast<String>() ?? [];
-    batsman = map["batsman"].cast<String>() ?? [];
+    type = map["type"] ?? '';
+    mplayed = map["mplayed"] ?? '';
+    pmatch = map["pmatch"] ?? '';
+    announce = map["announce"] ?? '';
   }
 
   Map<String, dynamic> toMap() {
     return {
       "name": name,
-      "image": image,
-      "allrounder": allrounder,
-      "wicketkeeper": wicketkeeper,
-      "bolwer": bolwer,
-      "batsman": batsman,
+      "type": type,
+      "mplayed": mplayed,
+      "pmatch": pmatch,
+      "announce": announce,
     };
   }
 }
