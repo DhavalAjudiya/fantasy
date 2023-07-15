@@ -23,6 +23,7 @@ class _FantasyPageState extends State<FantasyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.backGroundLightColor,
       body: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: SingleChildScrollView(
@@ -37,55 +38,74 @@ class _FantasyPageState extends State<FantasyPage> {
                   ? StreamBuilder(
                       stream: AppConfig.databaseReference
                           .collection(AppConfig.cfantasy)
-                          .where("id", isEqualTo: homeController.upComingMatchDocId.value)
+                          .where("id",
+                              isEqualTo:
+                                  homeController.upComingMatchDocId.value)
                           .snapshots(),
-                      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                         fantasyList.clear();
 
                         for (var element in snapshot.data?.docs ?? []) {
                           FantasyModal completedMatchModal =
-                              FantasyModal.fromMap(element.data() as Map<String, dynamic>);
+                              FantasyModal.fromMap(
+                                  element.data() as Map<String, dynamic>);
                           fantasyList.add(completedMatchModal);
                         }
-                        if (snapshot.connectionState == ConnectionState.active) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.active) {
                           if (snapshot.hasData) {
                             return fantasyList[0].fantasy?.isEmpty ?? false
                                 ? Padding(
-                                    padding: EdgeInsets.only(top: SizeUtils.verticalBlockSize * 35),
+                                    padding: EdgeInsets.only(
+                                        top: SizeUtils.verticalBlockSize * 35),
                                     child: Center(
-                                      child: AppText("Fantasy Not Found",
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColor.white,
-                                          fontSize: SizeUtils.fSize_20()),
+                                      child: AppText(
+                                        "Fantasy Not Found",
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.red,
+                                        fontSize: SizeUtils.fSize_20(),
+                                      ),
                                     ),
                                   )
                                 : ListView.separated(
                                     shrinkWrap: true,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    padding:
-                                        EdgeInsets.only(top: SizeUtils.horizontalBlockSize * 3),
-                                    itemCount: fantasyList[0].fantasy?.length ?? 0,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    padding: EdgeInsets.only(
+                                        top: SizeUtils.horizontalBlockSize * 3),
+                                    itemCount:
+                                        fantasyList[0].fantasy?.length ?? 0,
                                     itemBuilder: (context, index) {
-                                      final data = fantasyList[0].fantasy?[index];
+                                      final data =
+                                          fantasyList[0].fantasy?[index];
 
                                       return Container(
                                         decoration: BoxDecoration(
-                                          color: AppColor.black.withOpacity(0.3),
-                                          borderRadius: BorderRadius.circular(12),
+                                          color:
+                                              AppColor.black.withOpacity(0.3),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
                                         ),
                                         child: Obx(
                                           () => ClipRRect(
-                                            borderRadius: BorderRadius.circular(12),
+                                            borderRadius:
+                                                BorderRadius.circular(12),
                                             child: ExpansionTile(
-                                              expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                                              expandedCrossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               onExpansionChanged: (value) {
-                                                homeController.expansionTileShow.value = value;
+                                                homeController.expansionTileShow
+                                                    .value = value;
                                               },
-                                              trailing: Icon(homeController.expansionTileShow.value
+                                              trailing: Icon(homeController
+                                                      .expansionTileShow.value
                                                   ? Icons.arrow_drop_up_sharp
-                                                  : Icons.arrow_drop_down_sharp),
+                                                  : Icons
+                                                      .arrow_drop_down_sharp),
                                               leading: CircleAvatar(
-                                                  backgroundImage: NetworkImage(data?.image ?? "")),
+                                                  backgroundImage: NetworkImage(
+                                                      data?.image ?? "")),
                                               title: AppText(
                                                 data?.name ?? "",
                                                 color: AppColor.white,
@@ -93,50 +113,73 @@ class _FantasyPageState extends State<FantasyPage> {
                                                 fontSize: SizeUtils.fSize_17(),
                                               ),
                                               childrenPadding: EdgeInsets.symmetric(
-                                                  horizontal: SizeUtils.horizontalBlockSize * 4,
-                                                  vertical: SizeUtils.horizontalBlockSize * 2),
+                                                  horizontal: SizeUtils
+                                                          .horizontalBlockSize *
+                                                      4,
+                                                  vertical: SizeUtils
+                                                          .horizontalBlockSize *
+                                                      2),
                                               children: [
                                                 AppText(
                                                   "WicketKeeper",
                                                   color: AppColor.phoneBtn,
                                                   fontWeight: FontWeight.w600,
-                                                  fontSize: SizeUtils.fSize_14(),
+                                                  fontSize:
+                                                      SizeUtils.fSize_14(),
                                                 ),
                                                 ListView.builder(
-                                                    physics: const NeverScrollableScrollPhysics(),
+                                                    physics:
+                                                        const NeverScrollableScrollPhysics(),
                                                     padding: EdgeInsets.only(
-                                                        bottom: SizeUtils.horizontalBlockSize * 2),
+                                                        bottom: SizeUtils
+                                                                .horizontalBlockSize *
+                                                            2),
                                                     shrinkWrap: true,
-                                                    itemCount: data?.wicketkeeper?.length,
-                                                    itemBuilder: (context, wicketIndex) {
+                                                    itemCount: data
+                                                        ?.wicketkeeper?.length,
+                                                    itemBuilder:
+                                                        (context, wicketIndex) {
                                                       final wicketkeeper =
-                                                          data?.wicketkeeper?[wicketIndex];
+                                                          data?.wicketkeeper?[
+                                                              wicketIndex];
                                                       return Padding(
                                                         padding: EdgeInsets.symmetric(
-                                                            horizontal:
-                                                                SizeUtils.horizontalBlockSize * 1),
+                                                            horizontal: SizeUtils
+                                                                    .horizontalBlockSize *
+                                                                1),
                                                         child: Row(
                                                           children: [
                                                             CircleAvatar(
                                                               radius: 10,
                                                               backgroundColor:
-                                                                  AppColor.black.withOpacity(0.2),
+                                                                  AppColor.black
+                                                                      .withOpacity(
+                                                                          0.2),
                                                               child: AppText(
                                                                 "${wicketIndex + 1}",
-                                                                color: AppColor.white,
-                                                                fontWeight: FontWeight.w600,
-                                                                fontSize: SizeUtils.fSize_13(),
+                                                                color: AppColor
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: SizeUtils
+                                                                    .fSize_13(),
                                                               ),
                                                             ),
                                                             SizedBox(
-                                                                width:
-                                                                    SizeUtils.horizontalBlockSize *
-                                                                        2),
+                                                                width: SizeUtils
+                                                                        .horizontalBlockSize *
+                                                                    2),
                                                             AppText(
-                                                              wicketkeeper ?? "",
-                                                              color: AppColor.white,
-                                                              fontWeight: FontWeight.w600,
-                                                              fontSize: SizeUtils.fSize_14(),
+                                                              wicketkeeper ??
+                                                                  "",
+                                                              color: AppColor
+                                                                  .white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontSize: SizeUtils
+                                                                  .fSize_14(),
                                                             ),
                                                           ],
                                                         ),
@@ -146,42 +189,61 @@ class _FantasyPageState extends State<FantasyPage> {
                                                   "Batsman",
                                                   color: AppColor.wifiBtn,
                                                   fontWeight: FontWeight.w600,
-                                                  fontSize: SizeUtils.fSize_14(),
+                                                  fontSize:
+                                                      SizeUtils.fSize_14(),
                                                 ),
                                                 ListView.builder(
-                                                    physics: const NeverScrollableScrollPhysics(),
+                                                    physics:
+                                                        const NeverScrollableScrollPhysics(),
                                                     shrinkWrap: true,
                                                     padding: EdgeInsets.only(
-                                                        bottom: SizeUtils.horizontalBlockSize * 2),
-                                                    itemCount: data?.batsman?.length,
-                                                    itemBuilder: (context, batsmanIndex) {
-                                                      final batsman = data?.batsman?[batsmanIndex];
+                                                        bottom: SizeUtils
+                                                                .horizontalBlockSize *
+                                                            2),
+                                                    itemCount:
+                                                        data?.batsman?.length,
+                                                    itemBuilder: (context,
+                                                        batsmanIndex) {
+                                                      final batsman =
+                                                          data?.batsman?[
+                                                              batsmanIndex];
                                                       return Padding(
                                                         padding: EdgeInsets.symmetric(
-                                                            horizontal:
-                                                                SizeUtils.horizontalBlockSize * 1),
+                                                            horizontal: SizeUtils
+                                                                    .horizontalBlockSize *
+                                                                1),
                                                         child: Row(
                                                           children: [
                                                             CircleAvatar(
                                                               radius: 10,
                                                               backgroundColor:
-                                                                  AppColor.black.withOpacity(0.2),
+                                                                  AppColor.black
+                                                                      .withOpacity(
+                                                                          0.2),
                                                               child: AppText(
                                                                 "${batsmanIndex + 1}",
-                                                                color: AppColor.white,
-                                                                fontWeight: FontWeight.w600,
-                                                                fontSize: SizeUtils.fSize_13(),
+                                                                color: AppColor
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: SizeUtils
+                                                                    .fSize_13(),
                                                               ),
                                                             ),
                                                             SizedBox(
-                                                                width:
-                                                                    SizeUtils.horizontalBlockSize *
-                                                                        2),
+                                                                width: SizeUtils
+                                                                        .horizontalBlockSize *
+                                                                    2),
                                                             AppText(
                                                               batsman ?? "",
-                                                              color: AppColor.white,
-                                                              fontWeight: FontWeight.w600,
-                                                              fontSize: SizeUtils.fSize_14(),
+                                                              color: AppColor
+                                                                  .white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontSize: SizeUtils
+                                                                  .fSize_14(),
                                                             ),
                                                           ],
                                                         ),
@@ -191,43 +253,61 @@ class _FantasyPageState extends State<FantasyPage> {
                                                   "All Rounder",
                                                   color: AppColor.locationBtn,
                                                   fontWeight: FontWeight.w600,
-                                                  fontSize: SizeUtils.fSize_14(),
+                                                  fontSize:
+                                                      SizeUtils.fSize_14(),
                                                 ),
                                                 ListView.builder(
-                                                    physics: const NeverScrollableScrollPhysics(),
+                                                    physics:
+                                                        const NeverScrollableScrollPhysics(),
                                                     shrinkWrap: true,
                                                     padding: EdgeInsets.only(
-                                                        bottom: SizeUtils.horizontalBlockSize * 2),
-                                                    itemCount: data?.allrounder?.length,
-                                                    itemBuilder: (context, allRounderIndex) {
+                                                        bottom: SizeUtils
+                                                                .horizontalBlockSize *
+                                                            2),
+                                                    itemCount: data
+                                                        ?.allrounder?.length,
+                                                    itemBuilder: (context,
+                                                        allRounderIndex) {
                                                       final allRounder =
-                                                          data?.allrounder?[allRounderIndex];
+                                                          data?.allrounder?[
+                                                              allRounderIndex];
                                                       return Padding(
                                                         padding: EdgeInsets.symmetric(
-                                                            horizontal:
-                                                                SizeUtils.horizontalBlockSize * 1),
+                                                            horizontal: SizeUtils
+                                                                    .horizontalBlockSize *
+                                                                1),
                                                         child: Row(
                                                           children: [
                                                             CircleAvatar(
                                                               radius: 10,
                                                               backgroundColor:
-                                                                  AppColor.black.withOpacity(0.2),
+                                                                  AppColor.black
+                                                                      .withOpacity(
+                                                                          0.2),
                                                               child: AppText(
                                                                 "${allRounderIndex + 1}",
-                                                                color: AppColor.white,
-                                                                fontWeight: FontWeight.w600,
-                                                                fontSize: SizeUtils.fSize_13(),
+                                                                color: AppColor
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: SizeUtils
+                                                                    .fSize_13(),
                                                               ),
                                                             ),
                                                             SizedBox(
-                                                                width:
-                                                                    SizeUtils.horizontalBlockSize *
-                                                                        2),
+                                                                width: SizeUtils
+                                                                        .horizontalBlockSize *
+                                                                    2),
                                                             AppText(
                                                               allRounder ?? "",
-                                                              color: AppColor.white,
-                                                              fontWeight: FontWeight.w600,
-                                                              fontSize: SizeUtils.fSize_14(),
+                                                              color: AppColor
+                                                                  .white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontSize: SizeUtils
+                                                                  .fSize_14(),
                                                             ),
                                                           ],
                                                         ),
@@ -237,40 +317,57 @@ class _FantasyPageState extends State<FantasyPage> {
                                                   "Bolwer",
                                                   color: AppColor.cardBtn,
                                                   fontWeight: FontWeight.w600,
-                                                  fontSize: SizeUtils.fSize_14(),
+                                                  fontSize:
+                                                      SizeUtils.fSize_14(),
                                                 ),
                                                 ListView.builder(
-                                                    physics: const NeverScrollableScrollPhysics(),
+                                                    physics:
+                                                        const NeverScrollableScrollPhysics(),
                                                     shrinkWrap: true,
-                                                    itemCount: data?.bolwer?.length,
-                                                    itemBuilder: (context, bolwerIndex) {
-                                                      final bolwer = data?.bolwer?[bolwerIndex];
+                                                    itemCount:
+                                                        data?.bolwer?.length,
+                                                    itemBuilder:
+                                                        (context, bolwerIndex) {
+                                                      final bolwer =
+                                                          data?.bolwer?[
+                                                              bolwerIndex];
                                                       return Padding(
                                                         padding: EdgeInsets.symmetric(
-                                                            horizontal:
-                                                                SizeUtils.horizontalBlockSize * 1),
+                                                            horizontal: SizeUtils
+                                                                    .horizontalBlockSize *
+                                                                1),
                                                         child: Row(
                                                           children: [
                                                             CircleAvatar(
                                                               radius: 10,
                                                               backgroundColor:
-                                                                  AppColor.black.withOpacity(0.2),
+                                                                  AppColor.black
+                                                                      .withOpacity(
+                                                                          0.2),
                                                               child: AppText(
                                                                 "${bolwerIndex + 1}",
-                                                                color: AppColor.white,
-                                                                fontWeight: FontWeight.w600,
-                                                                fontSize: SizeUtils.fSize_13(),
+                                                                color: AppColor
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontSize: SizeUtils
+                                                                    .fSize_13(),
                                                               ),
                                                             ),
                                                             SizedBox(
-                                                                width:
-                                                                    SizeUtils.horizontalBlockSize *
-                                                                        2),
+                                                                width: SizeUtils
+                                                                        .horizontalBlockSize *
+                                                                    2),
                                                             AppText(
                                                               bolwer ?? "",
-                                                              color: AppColor.white,
-                                                              fontWeight: FontWeight.w600,
-                                                              fontSize: SizeUtils.fSize_14(),
+                                                              color: AppColor
+                                                                  .white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontSize: SizeUtils
+                                                                  .fSize_14(),
                                                             ),
                                                           ],
                                                         ),
@@ -282,9 +379,11 @@ class _FantasyPageState extends State<FantasyPage> {
                                         ),
                                       );
                                     },
-                                    separatorBuilder: (BuildContext context, int index) {
+                                    separatorBuilder:
+                                        (BuildContext context, int index) {
                                       return SizedBox(
-                                        height: SizeUtils.horizontalBlockSize * 3,
+                                        height:
+                                            SizeUtils.horizontalBlockSize * 3,
                                       );
                                     },
                                   );
@@ -302,7 +401,8 @@ class _FantasyPageState extends State<FantasyPage> {
                       },
                     )
                   : Padding(
-                      padding: EdgeInsets.only(top: SizeUtils.verticalBlockSize * 35),
+                      padding: EdgeInsets.only(
+                          top: SizeUtils.verticalBlockSize * 35),
                       child: Center(
                         child: AppText("Fantasy Coming Soon",
                             fontWeight: FontWeight.bold,

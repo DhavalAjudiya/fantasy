@@ -31,58 +31,92 @@ class _UpComingDetailsPageState extends State<UpComingDetailsPage> {
       child: Scaffold(
         backgroundColor: AppColor.backgroundColor,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(SizeUtils.horizontalBlockSize * 25),
+          preferredSize: Size.fromHeight(SizeUtils.horizontalBlockSize * 18),
           child: AppBar(
             bottomOpacity: 0.7,
             backgroundColor: AppColor.appBarColor,
             automaticallyImplyLeading: false,
-            title: Row(
+            centerTitle: true,
+            leading: Padding(
+              padding: EdgeInsets.only(top: SizeUtils.horizontalBlockSize * 5),
+              child: GestureDetector(
+                onTap: () {
+                  Navigation.pop();
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                  size: SizeUtils.fSize_21(),
+                ),
+              ),
+            ),
+            title: Column(
               children: [
-                GestureDetector(
-                    onTap: () {
-                      Navigation.pop();
-                    },
-                    child: Image.asset(AssetsPath.arrow, color: AppColor.textColor, scale: 15)),
-                SizedBox(width: SizeUtils.horizontalBlockSize * 2),
+                SizedBox(
+                  height: SizeUtils.horizontalBlockSize * 4,
+                ),
                 AppText(
-                  "${homeController.team1Name} vs ${homeController.team2Name}, ${homeController.matchHeader}",
+                  "${homeController.team1Name} vs ${homeController.team2Name}",
+                  color: AppColor.textColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: SizeUtils.fSize_15(),
+                ),
+                AppText(
+                  "${homeController.matchHeader}",
                   color: AppColor.textColor,
                   fontWeight: FontWeight.bold,
                   fontSize: SizeUtils.fSize_15(),
                 ),
               ],
             ),
-            bottom: TabBar(
-              padding: EdgeInsets.zero,
-              indicatorSize: TabBarIndicatorSize.label,
-              indicatorWeight: 3,
-              indicatorColor: AppColor.wifiBtn,
-              labelStyle: TextStyle(
-                fontSize: SizeUtils.fSize_17(),
-                fontWeight: FontWeight.w600,
-              ),
-              unselectedLabelStyle: TextStyle(fontSize: SizeUtils.fSize_15()),
-              automaticIndicatorColorAdjustment: true,
-              tabs: const [
-                Tab(
-                  text: "Squad",
-                ),
-                Tab(
-                  text: "Fantasy",
-                ),
-                Tab(
-                  text: "History",
-                )
-              ],
-            ),
           ),
         ),
-        body: TabBarView(
+        body: Column(
           children: [
-            SquadPage(),
-            FantasyPage(),
-            Center(
-              child: Text("Settings"),
+            Container(
+              height: SizeUtils.screenHeight * 0.07,
+              decoration: const BoxDecoration(
+                color: Color(0xffFFF1DC),
+              ),
+              child: TabBar(
+                padding: EdgeInsets.zero,
+                indicatorSize: TabBarIndicatorSize.label,
+                indicatorWeight: 3,
+                indicatorColor: AppColor.appBarColor,
+                unselectedLabelColor: AppColor.appBarColor.withOpacity(0.7),
+                labelColor: AppColor.appBarColor,
+                labelStyle: TextStyle(
+                  fontSize: SizeUtils.fSize_18(),
+                  fontWeight: FontWeight.bold,
+                ),
+                unselectedLabelStyle: TextStyle(
+                  fontSize: SizeUtils.fSize_17(),
+                  fontWeight: FontWeight.bold,
+                ),
+                automaticIndicatorColorAdjustment: true,
+                tabs: const [
+                  Tab(
+                    text: "Fantasy",
+                  ),
+                  Tab(
+                    text: "Squad",
+                  ),
+                  Tab(
+                    text: "History",
+                  )
+                ],
+              ),
+            ),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  FantasyPage(),
+                  SquadPage(),
+                  const Center(
+                    child: Text("Settings"),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
