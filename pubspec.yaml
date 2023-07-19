@@ -54,6 +54,8 @@ dependencies:
   youtube_player_iframe: ^4.0.4
   colorful_safe_area: ^1.0.0
   carousel_slider: ^4.2.1
+  dotted_border: ^2.0.0+3
+  fdottedline_nullsafety: ^2.0.1
   badges: ^2.0.1
 
 dev_dependencies:
