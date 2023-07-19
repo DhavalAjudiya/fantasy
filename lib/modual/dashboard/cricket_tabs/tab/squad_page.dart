@@ -39,15 +39,17 @@ class _SquadPageState extends State<SquadPage> {
                   fontSize: SizeUtils.fSize_20(),
                 ),
               )
-            : SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Obx(
-                      () => Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: 4,
+            : Column(
+              children: [
+                Obx(
+                  () => Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 4,
+                          child: SingleChildScrollView(
+                            physics: const BouncingScrollPhysics(),
                             child: Column(
                               children: [
                                 Row(
@@ -78,7 +80,7 @@ class _SquadPageState extends State<SquadPage> {
                                   itemCount: homeController.fistTeamList.length,
                                   itemBuilder: (context, index) {
                                     var data =
-                                        homeController.fistTeamList[index];
+                                    homeController.fistTeamList[index];
                                     return teamSquad(
                                       name: data.name,
                                       type: data.name,
@@ -90,25 +92,28 @@ class _SquadPageState extends State<SquadPage> {
                               ],
                             ),
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: Center(
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  top: SizeUtils.horizontalBlockSize * 11,
-                                ),
-                                child: FDottedLine(
-                                  color: AppColor.appBarColor.withOpacity(0.2),
-                                  height: SizeUtils.screenHeight,
-                                  strokeWidth: 2.0,
-                                  dottedLength: 12.0,
-                                  space: 4.0,
-                                ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Center(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                top: SizeUtils.horizontalBlockSize * 2,
+                              ),
+                              child: FDottedLine(
+                                color: AppColor.appBarColor.withOpacity(0.2),
+                                height: SizeUtils.screenHeight,
+                                strokeWidth: 2.0,
+                                dottedLength: 12.0,
+                                space: 4.0,
                               ),
                             ),
                           ),
-                          Expanded(
-                            flex: 4,
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: SingleChildScrollView(
+                            physics: const BouncingScrollPhysics(),
                             child: Column(
                               children: [
                                 Row(
@@ -138,10 +143,10 @@ class _SquadPageState extends State<SquadPage> {
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   itemCount:
-                                      homeController.secondTeamList.length,
+                                  homeController.secondTeamList.length,
                                   itemBuilder: (context, index) {
                                     var data =
-                                        homeController.secondTeamList[index];
+                                    homeController.secondTeamList[index];
                                     return teamSquad2(
                                       name: data.name,
                                       type: data.name,
@@ -153,13 +158,14 @@ class _SquadPageState extends State<SquadPage> {
                               ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    SizedBox(height: SizeUtils.horizontalBlockSize * 3),
-                  ],
+                  ),
                 ),
-              ),
+                SizedBox(height: SizeUtils.horizontalBlockSize * 3),
+              ],
+            ),
       ),
     );
   }

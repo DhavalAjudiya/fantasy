@@ -46,7 +46,7 @@ mixin Routes {
     ),
     GetPage<dynamic>(
       name: upComingDetailsPage,
-      page: () => UpComingDetailsPage(),
+      page: () => const UpComingDetailsPage(),
       transition: defaultTransition,
       // curve: Curves.fastLinearToSlowEaseIn,
       // transitionDuration: const Duration(milliseconds: 700),

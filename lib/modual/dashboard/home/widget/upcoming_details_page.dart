@@ -1,4 +1,5 @@
 import 'package:fantasyarenas/modual/dashboard/cricket_tabs/tab/fantsy_page.dart';
+import 'package:fantasyarenas/modual/dashboard/cricket_tabs/tab/info_page.dart';
 import 'package:fantasyarenas/modual/dashboard/cricket_tabs/tab/squad_page.dart';
 import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
@@ -102,7 +103,7 @@ class _UpComingDetailsPageState extends State<UpComingDetailsPage> {
                     text: "Squad",
                   ),
                   Tab(
-                    text: "History",
+                    text: "Info",
                   )
                 ],
               ),
@@ -112,9 +113,7 @@ class _UpComingDetailsPageState extends State<UpComingDetailsPage> {
                 children: [
                   FantasyPage(),
                   SquadPage(),
-                  const Center(
-                    child: Text("Settings"),
-                  ),
+                  InfoPage(),
                 ],
               ),
             ),
