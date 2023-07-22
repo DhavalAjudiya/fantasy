@@ -1,11 +1,14 @@
+import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
-import 'package:fantasyarenas/res/assets_path.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
+import 'package:fantasyarenas/widget/image_lodar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class InfoPage extends StatelessWidget {
-  const InfoPage({Key? key}) : super(key: key);
+  InfoPage({Key? key}) : super(key: key);
+  HomeController homeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +41,21 @@ class InfoPage extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      CircleAvatar(
+                      imageLoader(
+                          h: SizeUtils.horizontalBlockSize * 12,
+                          w: SizeUtils.horizontalBlockSize * 12,
+                          url: homeController.infoList.first.tournamentI.toString()),
+                      /*  CircleAvatar(
                         backgroundColor: AppColor.appBarColor,
-                        minRadius: SizeUtils.screenWidth * 0.05,
-                      ),
+                        minRadius: SizeUtils.horizontalBlockSize * 5,
+                        backgroundImage:
+                            NetworkImage(homeController.infoList.first.tournamentI.toString()),
+                      ),*/
                       const SizedBox(
                         width: 10,
                       ),
                       AppText(
-                        'Major League Cricket, 2023',
+                        homeController.infoList.first.tournamentN.toString(),
                         color: Colors.grey.withOpacity(0.7),
                         fontWeight: FontWeight.w700,
                         fontSize: SizeUtils.fSize_16(),
@@ -86,8 +95,8 @@ class InfoPage extends StatelessWidget {
                     height: SizeUtils.screenHeight * 0.015,
                   ),
                   teams(
-                    teamLogo: AssetsPath.plaBage,
-                    teamName: 'Texas Super king',
+                    teamLogo: homeController.infoList.first.team1I.toString(),
+                    teamName: homeController.infoList.first.team1N.toString(),
                   ),
                   SizedBox(
                     height: SizeUtils.screenHeight * 0.01,
@@ -100,8 +109,8 @@ class InfoPage extends StatelessWidget {
                     height: SizeUtils.screenHeight * 0.01,
                   ),
                   teams(
-                    teamLogo: AssetsPath.plaBage,
-                    teamName: 'Mi New York',
+                    teamLogo: homeController.infoList.first.team2I.toString(),
+                    teamName: homeController.infoList.first.team2N.toString(),
                   ),
                 ],
               ),
@@ -136,21 +145,21 @@ class InfoPage extends StatelessWidget {
                   ),
                   matchDetails(
                     title: 'Match',
-                    subtitle: 'Match 7, T20, Major League Cricket'
+                    subtitle: homeController.infoList.first.match.toString(),
                   ),
                   SizedBox(
                     height: SizeUtils.screenHeight * 0.01,
                   ),
                   matchDetails(
-                      title: 'Match Start Time',
-                      subtitle: '6:00 AM, 18 Jul, 2023'
+                    title: 'Match Start Time',
+                    subtitle: homeController.infoList.first.matchtime.toString(),
                   ),
                   SizedBox(
                     height: SizeUtils.screenHeight * 0.01,
                   ),
                   matchDetails(
-                      title: 'Stadium/Venue',
-                      subtitle: 'Grand Prairies Stadium, USA'
+                    title: 'Stadium/Venue',
+                    subtitle: homeController.infoList.first.matchvenue.toString(),
                   ),
                 ],
               ),
@@ -205,11 +214,16 @@ class InfoPage extends StatelessWidget {
   }) {
     return Row(
       children: [
-        CircleAvatar(
+        imageLoader(
+          h: SizeUtils.horizontalBlockSize * 11,
+          w: SizeUtils.horizontalBlockSize * 11,
+          url: teamLogo,
+        ),
+        /*   CircleAvatar(
           backgroundColor: AppColor.appBarColor,
           minRadius: SizeUtils.screenWidth * 0.05,
-          backgroundImage: AssetImage(teamLogo),
-        ),
+          backgroundImage: NetworkImage(teamLogo),
+        ),*/
         const SizedBox(
           width: 10,
         ),

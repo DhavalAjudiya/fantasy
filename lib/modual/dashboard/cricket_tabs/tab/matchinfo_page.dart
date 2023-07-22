@@ -1,0 +1,496 @@
+import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
+import 'package:fantasyarenas/res/app_colors.dart';
+import 'package:fantasyarenas/res/assets_path.dart';
+import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
+import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
+import 'package:fantasyarenas/utils/size_utils.dart';
+import 'package:fantasyarenas/widget/app_text.dart';
+import 'package:fantasyarenas/widget/image_lodar.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class MatchInfoPage extends StatelessWidget {
+  MatchInfoPage({super.key});
+
+  HomeController homeController = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColor.appBarColor,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        leading: GestureDetector(
+          onTap: () {
+            Navigation.pop();
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+            size: SizeUtils.fSize_21(),
+          ),
+        ),
+        title: AppText(
+          "${homeController.team1Name} vs ${homeController.team2Name}",
+          color: AppColor.textColor,
+          fontWeight: FontWeight.bold,
+          fontSize: SizeUtils.fSize_15(),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                top: SizeUtils.horizontalBlockSize * 4,
+                right: SizeUtils.horizontalBlockSize * 3,
+                left: SizeUtils.horizontalBlockSize * 3,
+                bottom: SizeUtils.horizontalBlockSize * 1,
+              ),
+              child: AppText(
+                "Tournament",
+                color: AppColor.white,
+                fontWeight: FontWeight.bold,
+                fontSize: SizeUtils.fSize_16(),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: SizeUtils.horizontalBlockSize * 3,
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xffFFF1DC),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    imageLoader(
+                      h: SizeUtils.horizontalBlockSize * 11,
+                      w: SizeUtils.horizontalBlockSize * 11,
+                      url: homeController.tourimage.toString(),
+                    ),
+                    /*     CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(homeController.tourimage?.value.toString() ?? ""),
+                    ),*/
+                    SizedBox(width: SizeUtils.horizontalBlockSize * 3),
+                    AppText(
+                      homeController.tourname?.value.toString() ?? "",
+                      // color: AppColor.textColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: SizeUtils.fSize_16(),
+                    ),
+                  ]),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: SizeUtils.horizontalBlockSize * 3,
+                vertical: SizeUtils.horizontalBlockSize * 3,
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xffFFF1DC),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(children: [
+                    CircleAvatar(
+                      backgroundImage: AssetImage(AssetsPath.toss),
+                      backgroundColor: AppColor.appBarColor,
+                    ),
+                    SizedBox(width: SizeUtils.horizontalBlockSize * 3),
+                    AppText(
+                      homeController.toss?.value.toString() ?? "",
+                      // color: AppColor.textColor,
+                      // fontWeight: FontWeight.bold,
+                      fontSize: SizeUtils.fSize_16(),
+                    ),
+                  ]),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                right: SizeUtils.horizontalBlockSize * 3,
+                left: SizeUtils.horizontalBlockSize * 3,
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xffFFF1DC),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: manOfTheMatch(),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                right: SizeUtils.horizontalBlockSize * 3,
+                left: SizeUtils.horizontalBlockSize * 3,
+                top: SizeUtils.horizontalBlockSize * 3,
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xffFFF1DC),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: playerState(),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                right: SizeUtils.horizontalBlockSize * 3,
+                left: SizeUtils.horizontalBlockSize * 3,
+                top: SizeUtils.horizontalBlockSize * 3,
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xffFFF1DC),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: fantsyPoint(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  playerState() {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+            top: SizeUtils.horizontalBlockSize * 2,
+            left: SizeUtils.horizontalBlockSize * 4,
+            right: SizeUtils.horizontalBlockSize * 4,
+          ),
+          child: Row(
+            children: [
+              AppText(
+                "Top 3 Player of Match",
+                color: AppColor.appBarColor,
+                fontWeight: FontWeight.bold,
+                fontSize: SizeUtils.fSize_16(),
+              ),
+            ],
+          ),
+        ),
+        const Divider(
+          color: AppColor.appBarColor,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeUtils.horizontalBlockSize * 3,
+            vertical: SizeUtils.horizontalBlockSize * 1,
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: AppColor.appBarColor,
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: SizeUtils.horizontalBlockSize * 3,
+                  vertical: SizeUtils.horizontalBlockSize * 1.5),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: AppText(
+                      "Player",
+                      color: AppColor.white,
+                      fontSize: SizeUtils.fSize_13(),
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  AppText(
+                    "Point",
+                    color: AppColor.white,
+                    fontSize: SizeUtils.fSize_12(),
+                    fontWeight: FontWeight.w700,
+                  ),
+/*                  AppText(
+                    "Run",
+                    color: AppColor.white,
+                    fontSize: SizeUtils.fSize_13(),
+                    fontWeight: FontWeight.w700,
+                  ),
+                  SizedBox(width: SizeUtils.horizontalBlockSize * 2.5),
+                  AppText(
+                    "WI",
+                    color: AppColor.white,
+                    fontSize: SizeUtils.fSize_12(),
+                    fontWeight: FontWeight.w700,
+                  ),
+                  SizedBox(width: SizeUtils.horizontalBlockSize * 2.5),
+                  AppText(
+                    "Catch",
+                    color: AppColor.white,
+                    fontSize: SizeUtils.fSize_12(),
+                    fontWeight: FontWeight.w700,
+                  ),
+                  SizedBox(width: SizeUtils.horizontalBlockSize * 2.5),*/
+                ],
+              ),
+            ),
+          ),
+        ),
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: homeController.topplayer?.length ?? 0,
+          itemBuilder: (context, index) {
+            var data = homeController.topplayer?[index];
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: SizeUtils.horizontalBlockSize * 6,
+                  vertical: SizeUtils.horizontalBlockSize * 0.5),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppText(
+                          data?.playername ?? "",
+                          color: AppColor.appBarColor,
+                          fontSize: SizeUtils.fSize_13(),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ],
+                    ),
+                  ),
+                  AppText(
+                    "100",
+                    color: AppColor.appBarColor,
+                    fontSize: SizeUtils.fSize_13(),
+                    fontWeight: FontWeight.w600,
+                  ),
+                  /*      SizedBox(width: SizeUtils.horizontalBlockSize * 6),
+                  Expanded(
+                    child: AppText(
+                      data?.playerr ?? "",
+                      color: AppColor.appBarColor,
+                      fontSize: SizeUtils.fSize_13(),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Expanded(
+                    child: AppText(
+                      data?.playerw ?? "",
+                      color: AppColor.appBarColor,
+                      fontSize: SizeUtils.fSize_13(),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),*/
+                ],
+              ),
+            );
+          },
+        ),
+        SizedBox(
+          height: SizeUtils.screenHeight * 0.02,
+        ),
+      ],
+    );
+  }
+
+  manOfTheMatch() {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+            top: SizeUtils.horizontalBlockSize * 2,
+            left: SizeUtils.horizontalBlockSize * 4,
+            right: SizeUtils.horizontalBlockSize * 4,
+          ),
+          child: Row(
+            children: [
+              AppText(
+                "Man of then Match",
+                color: AppColor.appBarColor,
+                fontWeight: FontWeight.bold,
+                fontSize: SizeUtils.fSize_16(),
+              ),
+            ],
+          ),
+        ),
+        const Divider(
+          color: AppColor.appBarColor,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: SizeUtils.horizontalBlockSize * 2),
+          child: Column(
+            children: [
+              Row(children: [
+                imageLoader(
+                  h: SizeUtils.horizontalBlockSize * 11,
+                  w: SizeUtils.horizontalBlockSize * 11,
+                  url: homeController.manOfi.toString(),
+                ),
+                /*        CircleAvatar(
+                    backgroundImage: NetworkImage(homeController.manOfi?.value.toString() ?? "")),*/
+                SizedBox(width: SizeUtils.horizontalBlockSize * 3),
+                AppText(
+                  homeController.manofn?.value.toString() ?? "",
+                  fontWeight: FontWeight.bold,
+                  fontSize: SizeUtils.fSize_16(),
+                ),
+              ]),
+              SizedBox(height: SizeUtils.horizontalBlockSize * 2),
+/*
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      text: "W ",
+                      children: [
+                        TextSpan(
+                            text: homeController.manofp?.value.substring(0, 1) ?? "",
+                            style: const TextStyle(
+                                color: AppColor.appBarColor, fontWeight: FontWeight.w400)),
+                      ],
+                      style:
+                          const TextStyle(color: AppColor.appBarColor, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: "R ",
+                      children: [
+                        TextSpan(
+                            text: homeController.manofp?.value.substring(1, 4) ?? "",
+                            style: const TextStyle(
+                                color: AppColor.appBarColor, fontWeight: FontWeight.w400)),
+                      ],
+                      style:
+                          const TextStyle(color: AppColor.appBarColor, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: "OV",
+                      children: [
+                        TextSpan(
+                            text: homeController.manofp?.value.substring(0, 1) ?? "",
+                            style: const TextStyle(
+                                color: AppColor.appBarColor, fontWeight: FontWeight.w400)),
+                      ],
+                      style:
+                          const TextStyle(color: AppColor.appBarColor, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: "C ",
+                      children: [
+                        TextSpan(
+                            text: homeController.manofp?.value.substring(1, 2) ?? "",
+                            style: const TextStyle(
+                                color: AppColor.appBarColor, fontWeight: FontWeight.w400)),
+                      ],
+                      style:
+                          const TextStyle(color: AppColor.appBarColor, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ],
+              ),
+*/
+            ],
+          ),
+        ),
+        SizedBox(
+          height: SizeUtils.horizontalBlockSize * 1.5,
+        ),
+      ],
+    );
+  }
+
+  fantsyPoint() {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(
+            top: SizeUtils.horizontalBlockSize * 2,
+            left: SizeUtils.horizontalBlockSize * 4,
+            right: SizeUtils.horizontalBlockSize * 4,
+          ),
+          child: Row(
+            children: [
+              AppText(
+                "Fantasy Point",
+                color: AppColor.appBarColor,
+                fontWeight: FontWeight.bold,
+                fontSize: SizeUtils.fSize_16(),
+              ),
+            ],
+          ),
+        ),
+        const Divider(
+          color: AppColor.appBarColor,
+        ),
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: homeController.fantasypoint?.length ?? 0,
+          itemBuilder: (context, index) {
+            var data = homeController.fantasypoint?[index];
+            return GestureDetector(
+              onTap: () {
+                homeController.fani?.value = data?.fantasyimage ?? "";
+                homeController.team?.value = data?.teamtype ?? "";
+                homeController.eName?.value = data?.expertname ?? "";
+                Navigation.pushNamed(Routes.fantasyPointPage);
+              },
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: SizeUtils.horizontalBlockSize * 6,
+                    vertical: SizeUtils.horizontalBlockSize * 1),
+                child: Row(children: [
+                  imageLoader(
+                    h: SizeUtils.horizontalBlockSize * 11,
+                    w: SizeUtils.horizontalBlockSize * 11,
+                    url: data?.expertimage ?? "",
+                  ),
+                  SizedBox(width: SizeUtils.horizontalBlockSize * 3),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText(
+                        data?.expertname ?? "",
+                        // color: AppColor.textColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: SizeUtils.fSize_16(),
+                      ),
+                      AppText(
+                        data?.teamtype == "small" ? "Small Team" : "Head to Head Team",
+                        color: AppColor.black.withOpacity(0.5),
+                        fontWeight: FontWeight.bold,
+                        // fontSize: SizeUtils.fSize_16(),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  AppText(
+                    data?.fantasypoint ?? "",
+                    // color: AppColor.textColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: SizeUtils.fSize_16(),
+                  ),
+                ]),
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+}

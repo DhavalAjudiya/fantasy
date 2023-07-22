@@ -1,0 +1,48 @@
+import 'package:fantasyarenas/res/assets_path.dart';
+import 'package:flutter/material.dart';
+import 'package:image_fade/image_fade.dart';
+
+Widget imageLoader({
+  String url = "",
+  double h = 0.0,
+  double w = 0.0,
+}) {
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(40),
+    child: ImageFade(
+      image: NetworkImage(url),
+      height: h,
+      width: w,
+
+      duration: const Duration(milliseconds: 500),
+
+      syncDuration: const Duration(milliseconds: 150),
+
+      alignment: Alignment.center,
+      fit: BoxFit.cover,
+
+      placeholder: Container(
+        height: h,
+        width: w,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          image: DecorationImage(
+            image: AssetImage(AssetsPath.loaderImage),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+
+      // shows progress while loading an image:
+      loadingBuilder: (context, progress, chunkEvent) =>
+          Center(child: CircularProgressIndicator(value: progress)),
+
+      // displayed when an error occurs:
+      errorBuilder: (context, error) => Container(
+        color: const Color(0xFF6F6D6A),
+        alignment: Alignment.center,
+        child: const Icon(Icons.warning, color: Colors.black26, size: 128.0),
+      ),
+    ),
+  );
+}

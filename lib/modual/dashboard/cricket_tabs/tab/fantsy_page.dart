@@ -9,6 +9,7 @@ import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
 import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
+import 'package:fantasyarenas/widget/image_lodar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:badges/badges.dart' as badges;
@@ -39,25 +40,20 @@ class FantasyPage extends StatelessWidget {
                   ? StreamBuilder(
                       stream: AppConfig.databaseReference
                           .collection(AppConfig.cfantasy)
-                          .where("id",
-                              isEqualTo:
-                                  homeController.upComingMatchDocId.value)
+                          .where("id", isEqualTo: homeController.upComingMatchDocId.value)
                           .snapshots(),
-                      builder:
-                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                         fantasyList.clear();
 
                         for (var element in snapshot.data?.docs ?? []) {
                           FantasyModal completedMatchModal =
-                              FantasyModal.fromMap(
-                                  element.data() as Map<String, dynamic>);
+                              FantasyModal.fromMap(element.data() as Map<String, dynamic>);
                           fantasyList.add(completedMatchModal);
                         }
                         homeController.smallTeamList.clear();
                         homeController.headTeamList.clear();
                         homeController.playerState.clear();
-                        homeController.playerState.value =
-                            fantasyList.first.playerstate ?? [];
+                        homeController.playerState.value = fantasyList.first.playerstate ?? [];
                         homeController.smallTeam.value = 0;
                         homeController.headTeam.value = 0;
                         fantasyList.first.fantasy?.forEach((element) {
@@ -78,8 +74,7 @@ class FantasyPage extends StatelessWidget {
                             }
                           }
                         }
-                        if (snapshot.connectionState ==
-                            ConnectionState.active) {
+                        if (snapshot.connectionState == ConnectionState.active) {
                           if (snapshot.hasData) {
                             return fantasyList[0].fantasy?.isEmpty ?? false
                                 ? Padding(
@@ -104,73 +99,54 @@ class FantasyPage extends StatelessWidget {
                                         Container(
                                           decoration: BoxDecoration(
                                             color: const Color(0xffFFF1DC),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
+                                            borderRadius: BorderRadius.circular(8),
                                           ),
                                           child: playerState(),
                                         ),
                                         SizedBox(
-                                          height:
-                                              SizeUtils.horizontalBlockSize * 4,
+                                          height: SizeUtils.horizontalBlockSize * 4,
                                         ),
                                         Container(
                                           decoration: BoxDecoration(
                                             color: const Color(0xffFFF1DC),
-                                            borderRadius:
-                                                BorderRadius.circular(8),
+                                            borderRadius: BorderRadius.circular(8),
                                           ),
                                           child: Padding(
                                             padding: EdgeInsets.only(
-                                              left: SizeUtils
-                                                      .horizontalBlockSize *
-                                                  4,
-                                              right: SizeUtils
-                                                      .horizontalBlockSize *
-                                                  4,
+                                              left: SizeUtils.horizontalBlockSize * 4,
+                                              right: SizeUtils.horizontalBlockSize * 4,
+                                              bottom: SizeUtils.horizontalBlockSize * 3,
                                             ),
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Padding(
                                                   padding: EdgeInsets.only(
-                                                    top: SizeUtils
-                                                            .horizontalBlockSize *
-                                                        2,
-                                                    bottom: SizeUtils
-                                                            .horizontalBlockSize *
-                                                        1,
+                                                    top: SizeUtils.horizontalBlockSize * 2,
+                                                    bottom: SizeUtils.horizontalBlockSize * 1,
                                                   ),
                                                   child: Row(
                                                     children: [
                                                       Column(
                                                         crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                            CrossAxisAlignment.start,
                                                         children: [
                                                           AppText(
                                                             "Expert Analysis",
-                                                            color: AppColor
-                                                                .appBarColor,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: SizeUtils
-                                                                .fSize_16(),
+                                                            color: AppColor.appBarColor,
+                                                            fontWeight: FontWeight.bold,
+                                                            fontSize: SizeUtils.fSize_16(),
                                                           ),
                                                           SizedBox(
-                                                            height: SizeUtils
-                                                                    .horizontalBlockSize *
-                                                                0.5,
+                                                            height:
+                                                                SizeUtils.horizontalBlockSize * 0.5,
                                                           ),
                                                           AppText(
                                                             "Based on ${homeController.expertName.value} Expert",
-                                                            color: AppColor
-                                                                .appBarColor
-                                                                .withOpacity(
+                                                            color: AppColor.appBarColor.withOpacity(
                                                               0.5,
                                                             ),
-                                                            fontSize: SizeUtils
-                                                                .fSize_12(),
+                                                            fontSize: SizeUtils.fSize_12(),
                                                           ),
                                                         ],
                                                       ),
@@ -178,154 +154,120 @@ class FantasyPage extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Divider(
-                                                  color: AppColor.appBarColor
-                                                      .withOpacity(0.5),
+                                                  color: AppColor.appBarColor.withOpacity(0.5),
                                                 ),
-                                                AppText(
-                                                  "Small League Team",
-                                                  color: AppColor.appBarColor,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize:
-                                                      SizeUtils.fSize_16(),
-                                                ),
-                                                AppText(
-                                                  "${homeController.smallTeam.value} Team",
-                                                  color: AppColor.appBarColor
-                                                      .withOpacity(0.5),
-                                                  fontSize:
-                                                      SizeUtils.fSize_12(),
-                                                ),
+                                                homeController.smallTeamList.isNotEmpty
+                                                    ? AppText(
+                                                        "Small League Team",
+                                                        color: AppColor.appBarColor,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: SizeUtils.fSize_16(),
+                                                      )
+                                                    : const SizedBox(),
+                                                homeController.smallTeamList.isNotEmpty
+                                                    ? AppText(
+                                                        "${homeController.smallTeam.value} Team",
+                                                        color:
+                                                            AppColor.appBarColor.withOpacity(0.5),
+                                                        fontSize: SizeUtils.fSize_12(),
+                                                      )
+                                                    : const SizedBox(),
                                                 ListView.separated(
-                                                  physics:
-                                                      const NeverScrollableScrollPhysics(),
+                                                  physics: const NeverScrollableScrollPhysics(),
                                                   padding: EdgeInsets.symmetric(
-                                                    vertical: SizeUtils
-                                                            .horizontalBlockSize *
-                                                        4,
+                                                    vertical: SizeUtils.horizontalBlockSize * 1,
                                                   ),
                                                   shrinkWrap: true,
-                                                  itemCount: homeController
-                                                      .smallTeamList.length,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    var data = homeController
-                                                        .smallTeamList[index];
+                                                  itemCount: homeController.smallTeamList.length,
+                                                  itemBuilder: (context, index) {
+                                                    var data = homeController.smallTeamList[index];
                                                     return Container(
                                                       decoration: BoxDecoration(
                                                         color: AppColor.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
+                                                        borderRadius: BorderRadius.circular(8),
                                                       ),
                                                       child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
+                                                        padding: const EdgeInsets.all(8.0),
                                                         child: Column(
                                                           children: [
                                                             Row(
                                                               children: [
-                                                                CircleAvatar(
-                                                                  backgroundImage:
-                                                                      NetworkImage(
-                                                                    data.image ??
-                                                                        "",
-                                                                  ),
+                                                                imageLoader(
+                                                                  h: SizeUtils.horizontalBlockSize *
+                                                                      11,
+                                                                  w: SizeUtils.horizontalBlockSize *
+                                                                      11,
+                                                                  url: data.image ?? "",
                                                                 ),
+                                                                /*
+                                                                CircleAvatar(
+                                                                  backgroundImage: NetworkImage(
+                                                                    data.image ?? "",
+                                                                  ),
+                                                                ),*/
                                                                 SizedBox(
                                                                   width: SizeUtils
                                                                           .horizontalBlockSize *
                                                                       5,
                                                                 ),
                                                                 AppText(
-                                                                  data.name ??
-                                                                      "",
-                                                                  color: AppColor
-                                                                      .appBarColor,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize:
-                                                                      SizeUtils
-                                                                          .fSize_17(),
+                                                                  data.name ?? "",
+                                                                  color: AppColor.appBarColor,
+                                                                  fontWeight: FontWeight.w600,
+                                                                  fontSize: SizeUtils.fSize_17(),
                                                                 ),
                                                               ],
                                                             ),
                                                             Padding(
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                vertical: SizeUtils
-                                                                        .horizontalBlockSize *
-                                                                    2,
+                                                              padding: EdgeInsets.symmetric(
+                                                                vertical:
+                                                                    SizeUtils.horizontalBlockSize *
+                                                                        2,
                                                                 horizontal:
-                                                                    SizeUtils
-                                                                            .horizontalBlockSize *
+                                                                    SizeUtils.horizontalBlockSize *
                                                                         2,
                                                               ),
-                                                              child:
-                                                                  GestureDetector(
+                                                              child: GestureDetector(
                                                                 onTap: () {
-                                                                  homeController
-                                                                      .teamImage
-                                                                      .value = data
-                                                                          .teamimage ??
-                                                                      "";
-                                                                  Navigation
-                                                                      .pushNamed(
-                                                                          Routes
-                                                                              .teamImagePage);
+                                                                  homeController.teamImage.value =
+                                                                      data.teamimage ?? "";
+                                                                  Navigation.pushNamed(
+                                                                      Routes.teamImagePage);
                                                                 },
-                                                                child:
-                                                                    Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Colors
-                                                                        .green
-                                                                        .withOpacity(
+                                                                child: Container(
+                                                                  decoration: BoxDecoration(
+                                                                    color: Colors.green.withOpacity(
                                                                       0.5,
                                                                     ),
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(4),
+                                                                        BorderRadius.circular(4),
                                                                   ),
-                                                                  child: team(
-                                                                      data,
-                                                                      index),
+                                                                  child: team(data, index),
                                                                 ),
                                                               ),
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
-                                                                homeController
-                                                                    .teamImage
-                                                                    .value = data
-                                                                        .teamimage ??
-                                                                    "";
-                                                                Navigation
-                                                                    .pushNamed(
-                                                                  Routes
-                                                                      .teamImagePage,
+                                                                homeController.teamImage.value =
+                                                                    data.teamimage ?? "";
+                                                                Navigation.pushNamed(
+                                                                  Routes.teamImagePage,
                                                                 );
                                                               },
                                                               child: Row(
                                                                 children: [
                                                                   AppText(
                                                                     "See this team",
-                                                                    color: AppColor
-                                                                        .appBarColor
+                                                                    color: AppColor.appBarColor
                                                                         .withOpacity(
                                                                       0.5,
                                                                     ),
-                                                                    fontSize:
-                                                                        SizeUtils
-                                                                            .fSize_14(),
+                                                                    fontSize: SizeUtils.fSize_14(),
                                                                   ),
                                                                   const Spacer(),
                                                                   Icon(
-                                                                    Icons
-                                                                        .arrow_forward_ios,
-                                                                    color: AppColor
-                                                                        .appBarColor,
+                                                                    Icons.arrow_forward_ios,
+                                                                    color: AppColor.appBarColor,
                                                                     size: SizeUtils
                                                                             .horizontalBlockSize *
                                                                         3,
@@ -339,181 +281,129 @@ class FantasyPage extends StatelessWidget {
                                                     );
                                                   },
                                                   separatorBuilder:
-                                                      (BuildContext context,
-                                                          int index) {
+                                                      (BuildContext context, int index) {
                                                     return SizedBox(
-                                                      height: SizeUtils
-                                                              .horizontalBlockSize *
-                                                          3,
+                                                      height: SizeUtils.horizontalBlockSize * 3,
                                                     );
                                                   },
                                                 ),
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                    left: SizeUtils
-                                                            .horizontalBlockSize *
-                                                        4,
-                                                    right: SizeUtils
-                                                            .horizontalBlockSize *
-                                                        4,
-                                                  ),
-                                                  child: AppText(
-                                                    "Head to Head Team",
-                                                    color: AppColor.appBarColor,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize:
-                                                        SizeUtils.fSize_16(),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                    left: SizeUtils
-                                                            .horizontalBlockSize *
-                                                        4,
-                                                    right: SizeUtils
-                                                            .horizontalBlockSize *
-                                                        4,
-                                                  ),
-                                                  child: AppText(
-                                                    "${homeController.headTeam.value} Team",
-                                                    color: AppColor.appBarColor,
-                                                    fontSize:
-                                                        SizeUtils.fSize_12(),
-                                                  ),
-                                                ),
+                                                homeController.headTeamList.isNotEmpty
+                                                    ? AppText(
+                                                        "Head to Head Team",
+                                                        color: AppColor.appBarColor,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: SizeUtils.fSize_16(),
+                                                      )
+                                                    : const SizedBox(),
+                                                homeController.headTeamList.isNotEmpty
+                                                    ? Padding(
+                                                        padding: EdgeInsets.only(
+                                                          left: SizeUtils.horizontalBlockSize * 4,
+                                                          right: SizeUtils.horizontalBlockSize * 4,
+                                                        ),
+                                                        child: AppText(
+                                                          "${homeController.headTeam.value} Team",
+                                                          color: AppColor.appBarColor,
+                                                          fontSize: SizeUtils.fSize_12(),
+                                                        ),
+                                                      )
+                                                    : const SizedBox(),
                                                 ListView.separated(
-                                                  physics:
-                                                      const NeverScrollableScrollPhysics(),
+                                                  physics: const NeverScrollableScrollPhysics(),
                                                   padding: EdgeInsets.symmetric(
-                                                    vertical: SizeUtils
-                                                            .horizontalBlockSize *
-                                                        4,
+                                                    vertical: SizeUtils.horizontalBlockSize * 1,
                                                   ),
                                                   shrinkWrap: true,
-                                                  itemCount: homeController
-                                                      .headTeamList.length,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    var data = homeController
-                                                        .headTeamList[index];
+                                                  itemCount: homeController.headTeamList.length,
+                                                  itemBuilder: (context, index) {
+                                                    var data = homeController.headTeamList[index];
                                                     return Container(
                                                       decoration: BoxDecoration(
                                                         color: AppColor.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
+                                                        borderRadius: BorderRadius.circular(8),
                                                       ),
                                                       child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
+                                                        padding: const EdgeInsets.all(8.0),
                                                         child: Column(
                                                           children: [
                                                             Row(
                                                               children: [
-                                                                CircleAvatar(
-                                                                  backgroundImage:
-                                                                      NetworkImage(
-                                                                    data.image ??
-                                                                        "",
-                                                                  ),
+                                                                imageLoader(
+                                                                  h: SizeUtils.horizontalBlockSize *
+                                                                      11,
+                                                                  w: SizeUtils.horizontalBlockSize *
+                                                                      11,
+                                                                  url: data.image ?? "",
                                                                 ),
+                                                                /*CircleAvatar(
+                                                                  backgroundImage: NetworkImage(
+                                                                    data.image ?? "",
+                                                                  ),
+                                                                ),*/
                                                                 SizedBox(
                                                                   width: SizeUtils
                                                                           .horizontalBlockSize *
                                                                       5,
                                                                 ),
                                                                 AppText(
-                                                                  data.name ??
-                                                                      "",
-                                                                  color: AppColor
-                                                                      .appBarColor,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  fontSize:
-                                                                      SizeUtils
-                                                                          .fSize_17(),
+                                                                  data.name ?? "",
+                                                                  color: AppColor.appBarColor,
+                                                                  fontWeight: FontWeight.w600,
+                                                                  fontSize: SizeUtils.fSize_17(),
                                                                 ),
                                                               ],
                                                             ),
                                                             Padding(
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                vertical: SizeUtils
-                                                                        .horizontalBlockSize *
-                                                                    2,
+                                                              padding: EdgeInsets.symmetric(
+                                                                vertical:
+                                                                    SizeUtils.horizontalBlockSize *
+                                                                        2,
                                                                 horizontal:
-                                                                    SizeUtils
-                                                                            .horizontalBlockSize *
+                                                                    SizeUtils.horizontalBlockSize *
                                                                         2,
                                                               ),
-                                                              child:
-                                                                  GestureDetector(
+                                                              child: GestureDetector(
                                                                 onTap: () {
-                                                                  homeController
-                                                                      .teamImage
-                                                                      .value = data
-                                                                          .teamimage ??
-                                                                      "";
-                                                                  Navigation
-                                                                      .pushNamed(
-                                                                    Routes
-                                                                        .teamImagePage,
+                                                                  homeController.teamImage.value =
+                                                                      data.teamimage ?? "";
+                                                                  Navigation.pushNamed(
+                                                                    Routes.teamImagePage,
                                                                   );
                                                                 },
-                                                                child:
-                                                                    Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Colors
-                                                                        .green
-                                                                        .withOpacity(
+                                                                child: Container(
+                                                                  decoration: BoxDecoration(
+                                                                    color: Colors.green.withOpacity(
                                                                       0.5,
                                                                     ),
                                                                     borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(4),
+                                                                        BorderRadius.circular(4),
                                                                   ),
-                                                                  child: team(
-                                                                    data,
-                                                                    index,
-                                                                  ),
+                                                                  child: team(data, index),
                                                                 ),
                                                               ),
                                                             ),
                                                             GestureDetector(
                                                               onTap: () {
-                                                                homeController
-                                                                    .teamImage
-                                                                    .value = data
-                                                                        .teamimage ??
-                                                                    "";
-                                                                Navigation
-                                                                    .pushNamed(
-                                                                  Routes
-                                                                      .teamImagePage,
+                                                                homeController.teamImage.value =
+                                                                    data.teamimage ?? "";
+                                                                Navigation.pushNamed(
+                                                                  Routes.teamImagePage,
                                                                 );
                                                               },
                                                               child: Row(
                                                                 children: [
                                                                   AppText(
                                                                     "See this team",
-                                                                    color: AppColor
-                                                                        .appBarColor
+                                                                    color: AppColor.appBarColor
                                                                         .withOpacity(
                                                                       0.5,
                                                                     ),
-                                                                    fontSize:
-                                                                        SizeUtils
-                                                                            .fSize_14(),
+                                                                    fontSize: SizeUtils.fSize_14(),
                                                                   ),
                                                                   const Spacer(),
                                                                   Icon(
-                                                                    Icons
-                                                                        .arrow_forward_ios,
-                                                                    color: AppColor
-                                                                        .appBarColor,
+                                                                    Icons.arrow_forward_ios,
+                                                                    color: AppColor.appBarColor,
                                                                     size: SizeUtils
                                                                             .horizontalBlockSize *
                                                                         3,
@@ -527,12 +417,9 @@ class FantasyPage extends StatelessWidget {
                                                     );
                                                   },
                                                   separatorBuilder:
-                                                      (BuildContext context,
-                                                          int index) {
+                                                      (BuildContext context, int index) {
                                                     return SizedBox(
-                                                      height: SizeUtils
-                                                              .horizontalBlockSize *
-                                                          3,
+                                                      height: SizeUtils.horizontalBlockSize * 3,
                                                     );
                                                   },
                                                 )
@@ -557,70 +444,70 @@ class FantasyPage extends StatelessWidget {
                       },
                     )
                   : Padding(
-                    padding: EdgeInsets.only(top: SizeUtils.horizontalBlockSize * 5),
-                    child: Container(
-                      margin: EdgeInsets.only(
-                        right: SizeUtils.horizontalBlockSize * 2,
-                        left: SizeUtils.horizontalBlockSize * 2,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xffFFF1DC),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          top: SizeUtils.horizontalBlockSize * 3,
-                          bottom: SizeUtils.horizontalBlockSize * 10,
-                          left: SizeUtils.horizontalBlockSize * 3,
-                          right: SizeUtils.horizontalBlockSize * 3,
+                      padding: EdgeInsets.only(top: SizeUtils.horizontalBlockSize * 5),
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          right: SizeUtils.horizontalBlockSize * 2,
+                          left: SizeUtils.horizontalBlockSize * 2,
                         ),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Image.asset(
-                                  AssetsPath.analysis,
-                                  width: 50,
-                                  height: 45,
-                                ),
-                                SizedBox(
-                                  width: SizeUtils.screenWidth * 0.03,
-                                ),
-                                AppText(
-                                  "Expert Analysis",
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColor.black,
-                                  fontSize: SizeUtils.fSize_17(),
-                                ),
-                              ],
-                            ),
-                            const Divider(
-                              color: AppColor.white,
-                              thickness: 2,
-                            ),
-                            SizedBox(
-                              height: SizeUtils.screenHeight * 0.03,
-                            ),
-                            AppText(
-                              'Fantasy Articles coming soon!',
-                              color: Colors.grey,
-                              fontSize: SizeUtils.fSize_15(),
-                              fontWeight: FontWeight.w700,
-                            ),
-                            SizedBox(
-                              height: SizeUtils.screenHeight * 0.007,
-                            ),
-                            AppText(
-                              'Watch this space',
-                              color: Colors.grey.withOpacity(0.7),
-                              fontSize: SizeUtils.fSize_15(),
-                              fontWeight: FontWeight.w600,
-                            )
-                          ],
+                        decoration: BoxDecoration(
+                          color: const Color(0xffFFF1DC),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: SizeUtils.horizontalBlockSize * 3,
+                            bottom: SizeUtils.horizontalBlockSize * 10,
+                            left: SizeUtils.horizontalBlockSize * 3,
+                            right: SizeUtils.horizontalBlockSize * 3,
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    AssetsPath.analysis,
+                                    width: 50,
+                                    height: 45,
+                                  ),
+                                  SizedBox(
+                                    width: SizeUtils.screenWidth * 0.03,
+                                  ),
+                                  AppText(
+                                    "Expert Analysis",
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColor.black,
+                                    fontSize: SizeUtils.fSize_17(),
+                                  ),
+                                ],
+                              ),
+                              const Divider(
+                                color: AppColor.white,
+                                thickness: 2,
+                              ),
+                              SizedBox(
+                                height: SizeUtils.screenHeight * 0.03,
+                              ),
+                              AppText(
+                                'Fantasy Articles coming soon!',
+                                color: Colors.grey,
+                                fontSize: SizeUtils.fSize_15(),
+                                fontWeight: FontWeight.w700,
+                              ),
+                              SizedBox(
+                                height: SizeUtils.screenHeight * 0.007,
+                              ),
+                              AppText(
+                                'Watch this space',
+                                color: Colors.grey.withOpacity(0.7),
+                                fontSize: SizeUtils.fSize_15(),
+                                fontWeight: FontWeight.w600,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
             ],
           ),
         ),
@@ -692,11 +579,15 @@ class FantasyPage extends StatelessWidget {
                       fontSize: SizeUtils.fSize_12(),
                     ),
                     position: BadgePosition.topEnd(top: 2, end: 32),
-                    child: CircleAvatar(
-                      backgroundColor: AppColor.appBarColor,
-                      backgroundImage:
-                          NetworkImage(smallTeam.captionimage ?? ""),
+                    child: imageLoader(
+                      h: SizeUtils.horizontalBlockSize * 11,
+                      w: SizeUtils.horizontalBlockSize * 11,
+                      url: smallTeam.captionimage ?? "",
                     ),
+                    /* child: CircleAvatar(
+                      backgroundColor: AppColor.appBarColor,
+                      backgroundImage: NetworkImage(smallTeam.captionimage ?? ""),
+                    ),*/
                   ),
                   SizedBox(height: SizeUtils.horizontalBlockSize * 1),
                   Container(
@@ -722,8 +613,7 @@ class FantasyPage extends StatelessWidget {
               Column(
                 children: [
                   badges.Badge(
-                    padding: const EdgeInsets.only(
-                        top: 5, left: 5, bottom: 3, right: 3),
+                    padding: const EdgeInsets.only(top: 5, left: 5, bottom: 3, right: 3),
                     alignment: Alignment.center,
                     badgeColor: Colors.green.shade900,
                     badgeContent: AppText(
@@ -733,11 +623,16 @@ class FantasyPage extends StatelessWidget {
                       fontSize: SizeUtils.fSize_10(),
                     ),
                     position: BadgePosition.topEnd(top: 2, end: 32),
-                    child: CircleAvatar(
+                    child: imageLoader(
+                      h: SizeUtils.horizontalBlockSize * 11,
+                      w: SizeUtils.horizontalBlockSize * 11,
+                      url: smallTeam.vcaptionimage ?? "",
+                    ),
+                    /*   child: CircleAvatar(
                       backgroundColor: AppColor.appBarColor,
                       backgroundImage: NetworkImage(smallTeam.vcaptionimage ??
                           "https://wallpaperaccess.com/full/6773197.jpg"),
-                    ),
+                    ),*/
                   ),
                   SizedBox(height: SizeUtils.horizontalBlockSize * 1),
                   Container(
@@ -765,14 +660,10 @@ class FantasyPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              subHeader(
-                  test: "WK ", subTest: smallTeam.player?.substring(0, 1)),
-              subHeader(
-                  test: "BAT ", subTest: smallTeam.player?.substring(1, 2)),
-              subHeader(
-                  test: "ALL ", subTest: smallTeam.player?.substring(2, 3)),
-              subHeader(
-                  test: "BOWL ", subTest: smallTeam.player?.substring(3, 4)),
+              subHeader(test: "WK ", subTest: smallTeam.player?.substring(0, 1)),
+              subHeader(test: "BAT ", subTest: smallTeam.player?.substring(1, 2)),
+              subHeader(test: "ALL ", subTest: smallTeam.player?.substring(2, 3)),
+              subHeader(test: "BOWL ", subTest: smallTeam.player?.substring(3, 4)),
             ],
           )
         ],
@@ -846,9 +737,7 @@ class FantasyPage extends StatelessWidget {
                                       radius: 3,
                                       backgroundColor: AppColor.smsBtn,
                                     ),
-                                    SizedBox(
-                                        width: SizeUtils.horizontalBlockSize *
-                                            1.7),
+                                    SizedBox(width: SizeUtils.horizontalBlockSize * 1.7),
                                     AppText(
                                       "Lineup Out",
                                       color: AppColor.smsBtn,
