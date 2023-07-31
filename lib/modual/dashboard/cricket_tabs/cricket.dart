@@ -178,7 +178,11 @@ class CricketPage extends StatelessWidget {
               },
             );
           } else if (snapshot.hasError) {
-            return const Text("Snapshot has error");
+            return const Center(
+                child: AppText(
+              "Server are on maintenance Please Try after some time",
+              color: AppColor.black,
+            ));
           } else {
             return const Center(
                 child: CircularProgressIndicator(
@@ -196,8 +200,8 @@ class CricketPage extends StatelessWidget {
     return StreamBuilder(
       stream: AppConfig.databaseReference
           .collection(AppConfig.upcomingMatch)
-          // .where("time", isGreaterThanOrEqualTo: DateTime.now().millisecondsSinceEpoch.toString())
-          // .orderBy("time", descending: false)
+          .where("time", isGreaterThanOrEqualTo: DateTime.now().millisecondsSinceEpoch.toString())
+          .orderBy("time", descending: false)
           .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         upcomingMatchList.clear();
@@ -301,7 +305,7 @@ class CricketPage extends StatelessWidget {
                               ),
                               isSubHeader: false,
                               isStatus: true,
-                              subHeader: data.header,
+                              subHeader: data.subheader,
                               headerColor: [
                                 AppColor.appBarColor.withOpacity(0.3),
                                 Colors.white,
@@ -319,7 +323,11 @@ class CricketPage extends StatelessWidget {
               ),
             );
           } else if (snapshot.hasError) {
-            return const Text("Snapshot has error");
+            return const Center(
+                child: AppText(
+              "Server are on maintenance Please Try after some time",
+              color: AppColor.black,
+            ));
           } else {
             return const Center(
                 child: CircularProgressIndicator(

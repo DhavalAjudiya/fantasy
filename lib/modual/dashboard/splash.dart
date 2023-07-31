@@ -21,7 +21,7 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.brown,
-      body: Stack(
+      body: Column(
         children: [],
       ),
     );

@@ -15,6 +15,7 @@ class FantasyPointPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.backGroundLightColor,
       appBar: AppBar(
         backgroundColor: AppColor.appBarColor,
         automaticallyImplyLeading: false,
