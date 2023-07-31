@@ -88,7 +88,7 @@ class _SquadPageState extends State<SquadPage> {
                                         var data = homeController.fistTeamList[index];
                                         return teamSquad(
                                           name: data.name,
-                                          type: data.name,
+                                          type: data.type,
                                           image: data.image,
                                           played: data.play,
                                         );
@@ -159,7 +159,7 @@ class _SquadPageState extends State<SquadPage> {
                                         var data = homeController.secondTeamList[index];
                                         return teamSquad2(
                                           name: data.name,
-                                          type: data.name,
+                                          type: data.type,
                                           image: data.image,
                                           played: data.play,
                                         );
@@ -187,6 +187,14 @@ class _SquadPageState extends State<SquadPage> {
     String? image,
     bool? played,
   }) {
+    String? s = name?.replaceAll(" ", "-") ?? "";
+    String? a = s.split("-").first;
+    String? b = s.split("-").last;
+    String c = a.substring(0, 1).toUpperCase();
+    String d = b.substring(0, 1).toUpperCase();
+    String e = a.replaceRange(0, 1, c);
+    String f = b.replaceRange(0, 1, d);
+    name = "$e $f";
     return Padding(
       padding: EdgeInsets.only(
         top: SizeUtils.horizontalBlockSize * 2,
@@ -223,12 +231,12 @@ class _SquadPageState extends State<SquadPage> {
                       fontSize: SizeUtils.fSize_15(),
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
-                      textAlign: TextAlign.right,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   AppText(
-                    name ?? "",
-                    fontSize: SizeUtils.fSize_13(),
+                    type?.toUpperCase() ?? "",
+                    fontSize: SizeUtils.fSize_12(),
                     fontWeight: FontWeight.w600,
                     color: Colors.grey,
                   ),
@@ -254,6 +262,15 @@ class _SquadPageState extends State<SquadPage> {
     String? image,
     bool? played,
   }) {
+    String? s = name?.replaceAll(" ", "-") ?? "";
+
+    String? a = s.split("-").first;
+    String? b = s.split("-").last;
+    String c = a.substring(0, 1).toUpperCase();
+    String d = b.substring(0, 1).toUpperCase();
+    String e = a.replaceRange(0, 1, c);
+    String f = b.replaceRange(0, 1, d);
+    name = "$e $f";
     return Padding(
       padding: EdgeInsets.only(
         top: SizeUtils.horizontalBlockSize * 2,
@@ -279,8 +296,8 @@ class _SquadPageState extends State<SquadPage> {
                     ),
                   ),
                   AppText(
-                    type ?? "",
-                    fontSize: SizeUtils.fSize_13(),
+                    type?.toUpperCase() ?? "",
+                    fontSize: SizeUtils.fSize_12(),
                     fontWeight: FontWeight.w600,
                     color: Colors.grey,
                   ),

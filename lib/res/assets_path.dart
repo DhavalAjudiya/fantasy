@@ -11,4 +11,5 @@ class AssetsPath {
   static String analysis = "${image}analysis.png";
   static String toss = "${image}5524572.png";
   static String loaderImage = "${image}6773197.png";
+  static String kabaddi = "${image}kabaddi.png";
 }

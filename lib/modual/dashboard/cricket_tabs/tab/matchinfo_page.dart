@@ -17,6 +17,7 @@ class MatchInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.backGroundLightColor,
       appBar: AppBar(
         backgroundColor: AppColor.appBarColor,
         automaticallyImplyLeading: false,
@@ -51,7 +52,7 @@ class MatchInfoPage extends StatelessWidget {
               ),
               child: AppText(
                 "Tournament",
-                color: AppColor.white,
+                color: AppColor.appBarColor,
                 fontWeight: FontWeight.bold,
                 fontSize: SizeUtils.fSize_16(),
               ),

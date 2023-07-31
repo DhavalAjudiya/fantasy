@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fantasyarenas/modual/dashboard/cricket_tabs/tab/fantsy_page.dart';
 import 'package:fantasyarenas/modual/dashboard/event/page/event_page.dart';
 import 'package:fantasyarenas/modual/dashboard/home/page/home_page.dart';
@@ -6,6 +8,7 @@ import 'package:fantasyarenas/modual/dashboard/setting/page/setting_page.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/appconfig.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sfsymbols/flutter_sfsymbols.dart';
 
@@ -21,66 +24,82 @@ class _BottomPageState extends State<BottomPage> {
 
   final pages = [
     HomePage(),
-    const EventPage(),
     const NewsPage(),
     const SettingPage(),
   ];
 
+  void getInitialMessage() async {
+    RemoteMessage? message = await FirebaseMessaging.instance.getInitialMessage();
+
+    if (message != null) {
+      if (message.data["page"] == "home") {
+        // Navigation.pushNamed(Routes.homePage);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    getInitialMessage();
+    FirebaseMessaging.onMessage.listen((message) {});
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {});
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ValueListenableBuilder(
-        valueListenable: AppConfig.bottomBarValue,
-        builder: (BuildContext context, int value, Widget? child) {
-          return pages[value];
-        },
-      ),
-      bottomNavigationBar: ValueListenableBuilder(
-        valueListenable: AppConfig.bottomBarValue,
-        builder: (BuildContext context, int bValue, _) {
-          return BottomNavigationBar(
-            elevation: 0,
-            backgroundColor: AppColor.appBarColor,
-            type: BottomNavigationBarType.fixed,
-            selectedItemColor: AppColor.white,
-            unselectedItemColor: AppColor.white.withOpacity(0.4),
-            selectedLabelStyle: TextStyle(
-              fontSize: SizeUtils.fSize_14(),
-              fontWeight: FontWeight.w500,
-            ),
-            currentIndex: bValue,
-            showUnselectedLabels: true,
-            onTap: (value) async {
-              AppConfig.bottomBarValue.value = value;
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(
-                  SFSymbols.house_fill,
-                ),
-                label: "Home",
+    return WillPopScope(
+      onWillPop: () {
+        exit(0);
+      },
+      child: Scaffold(
+        body: ValueListenableBuilder(
+          valueListenable: AppConfig.bottomBarValue,
+          builder: (BuildContext context, int value, Widget? child) {
+            return pages[value];
+          },
+        ),
+        bottomNavigationBar: ValueListenableBuilder(
+          valueListenable: AppConfig.bottomBarValue,
+          builder: (BuildContext context, int bValue, _) {
+            return BottomNavigationBar(
+              elevation: 0,
+              backgroundColor: AppColor.appBarColor,
+              type: BottomNavigationBarType.fixed,
+              selectedItemColor: AppColor.white,
+              unselectedItemColor: AppColor.white.withOpacity(0.4),
+              selectedLabelStyle: TextStyle(
+                fontSize: SizeUtils.fSize_14(),
+                fontWeight: FontWeight.w500,
               ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  SFSymbols.shield,
+              currentIndex: bValue,
+              showUnselectedLabels: true,
+              onTap: (value) async {
+                AppConfig.bottomBarValue.value = value;
+              },
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    SFSymbols.house_fill,
+                  ),
+                  label: "Home",
                 ),
-                label: "Fantsy",
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  SFSymbols.doc_text,
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    SFSymbols.doc_text,
+                  ),
+                  label: "News",
                 ),
-                label: "News",
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  SFSymbols.gear_alt,
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    SFSymbols.gear_alt,
+                  ),
+                  label: "Setting",
                 ),
-                label: "Setting",
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }

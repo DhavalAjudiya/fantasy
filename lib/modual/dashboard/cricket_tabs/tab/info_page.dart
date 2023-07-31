@@ -1,5 +1,6 @@
 import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
+import 'package:fantasyarenas/res/assets_path.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
 import 'package:fantasyarenas/widget/image_lodar.dart';
@@ -130,39 +131,68 @@ class InfoPage extends StatelessWidget {
                 horizontal: SizeUtils.horizontalBlockSize * 3,
                 vertical: SizeUtils.horizontalBlockSize * 3,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    'Match Details',
-                    color: AppColor.appBarColor,
-                    fontWeight: FontWeight.w700,
-                    fontSize: SizeUtils.fSize_17(),
-                    letterSpacing: 1,
-                  ),
-                  SizedBox(
-                    height: SizeUtils.screenHeight * 0.020,
-                  ),
-                  matchDetails(
-                    title: 'Match',
-                    subtitle: homeController.infoList.first.match.toString(),
-                  ),
-                  SizedBox(
-                    height: SizeUtils.screenHeight * 0.01,
-                  ),
-                  matchDetails(
-                    title: 'Match Start Time',
-                    subtitle: homeController.infoList.first.matchtime.toString(),
-                  ),
-                  SizedBox(
-                    height: SizeUtils.screenHeight * 0.01,
-                  ),
-                  matchDetails(
-                    title: 'Stadium/Venue',
-                    subtitle: homeController.infoList.first.matchvenue.toString(),
-                  ),
-                ],
-              ),
+              child: (homeController.infoList.first.match?.isEmpty ?? false)
+                  ? Padding(
+                      padding: EdgeInsets.only(top: SizeUtils.horizontalBlockSize * 5),
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          right: SizeUtils.horizontalBlockSize * 2,
+                          left: SizeUtils.horizontalBlockSize * 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xffFFF1DC),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: SizeUtils.horizontalBlockSize * 3,
+                            bottom: SizeUtils.horizontalBlockSize * 3,
+                            left: SizeUtils.horizontalBlockSize * 3,
+                            right: SizeUtils.horizontalBlockSize * 3,
+                          ),
+                          child: AppText(
+                            textAlign: TextAlign.center,
+                            'Match Info Overview Will Be Available Soon!',
+                            color: Colors.grey,
+                            fontSize: SizeUtils.fSize_15(),
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppText(
+                          'Match Details',
+                          color: AppColor.appBarColor,
+                          fontWeight: FontWeight.w700,
+                          fontSize: SizeUtils.fSize_17(),
+                          letterSpacing: 1,
+                        ),
+                        SizedBox(
+                          height: SizeUtils.screenHeight * 0.020,
+                        ),
+                        matchDetails(
+                          title: 'Match',
+                          subtitle: homeController.infoList.first.match.toString(),
+                        ),
+                        SizedBox(
+                          height: SizeUtils.screenHeight * 0.01,
+                        ),
+                        matchDetails(
+                          title: 'Match Start Time',
+                          subtitle: homeController.infoList.first.matchtime.toString(),
+                        ),
+                        SizedBox(
+                          height: SizeUtils.screenHeight * 0.01,
+                        ),
+                        matchDetails(
+                          title: 'Stadium/Venue',
+                          subtitle: homeController.infoList.first.matchvenue.toString(),
+                        ),
+                      ],
+                    ),
             ),
           ],
         ),
