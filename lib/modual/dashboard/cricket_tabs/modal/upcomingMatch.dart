@@ -12,6 +12,7 @@ class UpcomingMatchModal {
   bool? isFantasy;
   List<TeamFirst>? team1;
   List<TeamSecond>? team2;
+  List<Info>? info;
 
   UpcomingMatchModal({
     this.id,
@@ -27,6 +28,7 @@ class UpcomingMatchModal {
     this.isFantasy,
     this.team1,
     this.team2,
+    this.info,
   });
 
   UpcomingMatchModal.fromMap(Map<String, dynamic> map) {
@@ -48,6 +50,9 @@ class UpcomingMatchModal {
     team2 = [
       for (final skill in map['team2'] ?? []) TeamSecond.fromMap(skill),
     ];
+    info = [
+      for (final skill in map['info'] ?? []) Info.fromMap(skill),
+    ];
   }
 
   Map<String, dynamic> toMap() {
@@ -65,6 +70,7 @@ class UpcomingMatchModal {
       "nr2": nr2,
       "team1": [for (final skill in this.team1 ?? []) skill.toJson()],
       "team2": [for (final skill in this.team2 ?? []) skill.toJson()],
+      "info": [for (final skill in this.info ?? []) skill.toJson()],
     };
   }
 }
@@ -122,5 +128,53 @@ class TeamSecond {
         "name": name,
         "type": type,
         "image": image,
+      };
+}
+
+class Info {
+  String? tournamentI;
+  String? tournamentN;
+  String? team1I;
+  String? team2I;
+  String? team1N;
+  String? team2N;
+  String? match;
+  String? matchtime;
+  String? matchvenue;
+
+  Info({
+    this.tournamentI,
+    this.tournamentN,
+    this.team1I,
+    this.team2I,
+    this.team1N,
+    this.team2N,
+    this.match,
+    this.matchtime,
+    this.matchvenue,
+  });
+
+  factory Info.fromMap(Map<String, dynamic> json) => Info(
+        tournamentI: json["tournamentI"],
+        tournamentN: json["tournamentN"],
+        team1I: json["team1I"],
+        team2I: json["team2I"],
+        team1N: json["team1N"],
+        team2N: json["team2N"],
+        match: json["match"],
+        matchtime: json["matchtime"],
+        matchvenue: json["matchvenue"],
+      );
+
+  Map<String, dynamic> toMap() => {
+        "tournamentI": tournamentI,
+        "tournamentN": tournamentN,
+        "team1I": team1I,
+        "team2I": team2I,
+        "team1N": team1N,
+        "team2N": team2N,
+        "match": match,
+        "matchtime": matchtime,
+        "matchvenue": matchvenue,
       };
 }

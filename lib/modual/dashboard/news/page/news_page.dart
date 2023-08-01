@@ -18,27 +18,24 @@ class NewsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.backGroundLightColor,
-      appBar: AppBar(
-        elevation: 5,
-        backgroundColor: AppColor.appBarColor,
-        leading: const SizedBox(),
-        centerTitle: true,
-        toolbarHeight: SizeUtils.screenHeight * 0.09,
-        title: AppText(
-          'News',
-          textAlign: TextAlign.center,
-          color: Colors.white.withOpacity(0.8),
-          fontSize: SizeUtils.fSize_21(),
-          letterSpacing: 1,
+        backgroundColor: AppColor.backGroundLightColor,
+        appBar: AppBar(
+          elevation: 5,
+          backgroundColor: AppColor.appBarColor,
+          leading: const SizedBox(),
+          centerTitle: true,
+          toolbarHeight: SizeUtils.screenHeight * 0.09,
+          title: AppText(
+            'News',
+            textAlign: TextAlign.center,
+            color: Colors.white.withOpacity(0.8),
+            fontSize: SizeUtils.fSize_21(),
+            letterSpacing: 1,
+          ),
         ),
-      ),
-      body: Column(
-        children: [
-          news()
-        ],
-      )
-    );
+        body: Column(
+          children: [news()],
+        ));
   }
 
   appIcon() {
@@ -99,14 +96,12 @@ class NewsPage extends StatelessWidget {
   news() {
     List<NewsModal> newsList = [];
     return StreamBuilder(
-      stream:
-          AppConfig.databaseReference.collection(AppConfig.news).snapshots(),
+      stream: AppConfig.databaseReference.collection(AppConfig.news).snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         newsList.clear();
 
         for (var element in snapshot.data?.docs ?? []) {
-          NewsModal highlightModal =
-              NewsModal.fromMap(element.data() as Map<String, dynamic>);
+          NewsModal highlightModal = NewsModal.fromMap(element.data() as Map<String, dynamic>);
           newsList.add(highlightModal);
         }
         if (snapshot.connectionState == ConnectionState.active) {
@@ -115,8 +110,7 @@ class NewsPage extends StatelessWidget {
                 ? Column(
                     children: [
                       SizedBox(height: SizeUtils.verticalBlockSize * 30),
-                      Icon(SFSymbols.doc_text,
-                          size: SizeUtils.horizontalBlockSize * 15),
+                      Icon(SFSymbols.doc_text, size: SizeUtils.horizontalBlockSize * 15),
                       SizedBox(height: SizeUtils.horizontalBlockSize * 3),
                       AppText(
                         "News not found",
@@ -133,30 +127,25 @@ class NewsPage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: EdgeInsets.only(
-                            left: SizeUtils.horizontalBlockSize * 2,
-                            right: SizeUtils.horizontalBlockSize * 2,
-                            bottom: SizeUtils.horizontalBlockSize * 2,
-                            top: SizeUtils.screenHeight * 0.02
-                          ),
+                              left: SizeUtils.horizontalBlockSize * 2,
+                              right: SizeUtils.horizontalBlockSize * 2,
+                              top: SizeUtils.horizontalBlockSize * 4),
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.grey.withOpacity(0.7),
-                                  offset: const Offset(-3, 3),
-                                  blurRadius: 10,
-                                  spreadRadius: 5
-                                )
+                                    color: Colors.grey.withOpacity(0.7),
+                                    offset: const Offset(-3, 3),
+                                    blurRadius: 10,
+                                    spreadRadius: 5)
                               ],
                             ),
                             child: Padding(
                               padding: EdgeInsets.symmetric(
-                                horizontal:
-                                SizeUtils.screenWidth * 0.02,
-                                vertical:
-                                SizeUtils.screenHeight * 0.02,
+                                horizontal: SizeUtils.screenWidth * 0.02,
+                                vertical: SizeUtils.screenHeight * 0.02,
                               ),
                               child: Column(
                                 // crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,17 +155,10 @@ class NewsPage extends StatelessWidget {
                                       Navigation.pushNamed(
                                         Routes.oneNewsPage,
                                         arg: {
-                                          "title":
-                                              newsList[index].title.toString(),
-                                          "description": newsList[index]
-                                              .description
-                                              .toString(),
-                                          "image":
-                                              newsList[index].image.toString(),
-                                          "subtitle": newsList[index]
-                                                  .subtitle
-                                                  .toString() ??
-                                              "",
+                                          "title": newsList[index].title.toString(),
+                                          "description": newsList[index].description.toString(),
+                                          "image": newsList[index].image.toString(),
+                                          "subtitle": newsList[index].subtitle.toString() ?? "",
                                           "time": newsList[index].time ?? 0,
                                           "index": index,
                                         },
@@ -188,60 +170,42 @@ class NewsPage extends StatelessWidget {
                                         tag: "news$index",
                                         transitionOnUserGestures: true,
                                         child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(
-                                              height:
-                                                  SizeUtils.screenHeight *
-                                                      0.15,
-                                              width: SizeUtils.screenWidth *
-                                                  0.34,
+                                              height: SizeUtils.screenHeight * 0.15,
+                                              width: SizeUtils.screenWidth * 0.34,
                                               child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        10),
+                                                borderRadius: BorderRadius.circular(10),
                                                 child: ImageFade(
                                                   image: NetworkImage(
-                                                    newsList[index]
-                                                        .image
-                                                        .toString(),
+                                                    newsList[index].image.toString(),
                                                   ),
                                                   duration: const Duration(
                                                     milliseconds: 900,
                                                   ),
-                                                  syncDuration:
-                                                      const Duration(
+                                                  syncDuration: const Duration(
                                                     milliseconds: 150,
                                                   ),
                                                   fit: BoxFit.cover,
                                                   placeholder: Container(
-                                                    color: const Color(
-                                                        0xFFCFCDCA),
-                                                    alignment:
-                                                        Alignment.center,
+                                                    color: const Color(0xFFCFCDCA),
+                                                    alignment: Alignment.center,
                                                     child: const Icon(
                                                       Icons.photo,
                                                       color: Colors.white30,
                                                       size: 128.0,
                                                     ),
                                                   ),
-                                                  loadingBuilder: (context,
-                                                          progress,
-                                                          chunkEvent) =>
+                                                  loadingBuilder: (context, progress, chunkEvent) =>
                                                       Center(
-                                                    child:
-                                                        CircularProgressIndicator(
+                                                    child: CircularProgressIndicator(
                                                       value: progress,
                                                     ),
                                                   ),
-                                                  errorBuilder:
-                                                      (context, error) =>
-                                                          Container(
-                                                    color: const Color(
-                                                        0xFF6F6D6A),
-                                                    alignment:
-                                                        Alignment.center,
+                                                  errorBuilder: (context, error) => Container(
+                                                    color: const Color(0xFF6F6D6A),
+                                                    alignment: Alignment.center,
                                                     child: const Icon(
                                                       Icons.warning,
                                                       color: Colors.black26,
@@ -252,53 +216,35 @@ class NewsPage extends StatelessWidget {
                                               ),
                                             ),
                                             SizedBox(
-                                              width: SizeUtils.screenWidth *
-                                                  0.02,
+                                              width: SizeUtils.screenWidth * 0.02,
                                             ),
                                             Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 SizedBox(
-                                                  width: SizeUtils
-                                                          .screenWidth *
-                                                      0.55,
-                                                  height: SizeUtils
-                                                          .screenHeight *
-                                                      0.12,
-                                                  child:
-                                                      SingleChildScrollView(
-                                                    physics:
-                                                        const BouncingScrollPhysics(),
+                                                  width: SizeUtils.screenWidth * 0.55,
+                                                  height: SizeUtils.screenHeight * 0.12,
+                                                  child: SingleChildScrollView(
+                                                    physics: const BouncingScrollPhysics(),
                                                     child: AppText(
-                                                      newsList[index]
-                                                          .title
-                                                          .toString(),
-                                                      color: AppColor.black
-                                                          .withOpacity(0.7),
+                                                      newsList[index].title.toString(),
+                                                      color: AppColor.black.withOpacity(0.7),
                                                       maxLines: 4,
-                                                      fontSize: SizeUtils
-                                                          .fSize_18(),
-                                                      textAlign:
-                                                          TextAlign.justify,
+                                                      fontSize: SizeUtils.fSize_18(),
+                                                      textAlign: TextAlign.justify,
                                                     ),
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  height: SizeUtils
-                                                          .horizontalBlockSize *
-                                                      1,
+                                                  height: SizeUtils.horizontalBlockSize * 1,
                                                 ),
                                                 AppText(
-                                                  TimeManager
-                                                      .setNewsUpdateTime(
+                                                  TimeManager.setNewsUpdateTime(
                                                     newsList[index].time,
                                                   ),
                                                   maxLines: 1,
-                                                  color: Colors.grey
-                                                      .withOpacity(0.6),
-                                                  fontSize:
-                                                      SizeUtils.fSize_14(),
+                                                  color: Colors.grey.withOpacity(0.6),
+                                                  fontSize: SizeUtils.fSize_14(),
                                                 ),
                                               ],
                                             ),
@@ -335,7 +281,10 @@ class NewsPage extends StatelessWidget {
                     ),
                   );
           } else if (snapshot.hasError) {
-            return const Text("Snapshot has error");
+            return const AppText(
+              "Server are on maintenance Please Try after some time",
+              color: AppColor.black,
+            );
           } else {
             return const Center(
                 child: CircularProgressIndicator(

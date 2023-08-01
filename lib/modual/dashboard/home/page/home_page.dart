@@ -1,6 +1,7 @@
 import 'package:fantasyarenas/modual/dashboard/cricket_tabs/cricket.dart';
 import 'package:fantasyarenas/modual/dashboard/cricket_tabs/football_page.dart';
 import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
+import 'package:fantasyarenas/modual/dashboard/kabaddi/page/kabaddi_home_page.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/assets_path.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
@@ -14,7 +15,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(SizeUtils.horizontalBlockSize * 25),
@@ -54,9 +55,9 @@ class HomePage extends StatelessWidget {
                 Tab(
                   text: "Cricket",
                 ),
-                Tab(
+                /*   Tab(
                   text: "Football",
-                ),
+                ),*/
                 Tab(
                   text: "Kabaddi",
                 )
@@ -67,10 +68,8 @@ class HomePage extends StatelessWidget {
         body: TabBarView(
           children: [
             CricketPage(),
-            const FootballPage(),
-            const Center(
-              child: Text("Settings"),
-            ),
+            KabaddiHomePage(),
+          
           ],
         ),
       ),

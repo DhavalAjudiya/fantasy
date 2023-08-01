@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
+import 'package:fantasyarenas/widget/image_lodar.dart';
 import 'package:flutter/material.dart';
 
 cricketCard({
@@ -91,7 +92,12 @@ cricketCard({
                   horizontal: SizeUtils.horizontalBlockSize * 3.5),
               child: Row(
                 children: [
-                  Container(
+                  imageLoader(
+                    h: SizeUtils.horizontalBlockSize * 12,
+                    w: SizeUtils.horizontalBlockSize * 12,
+                    url: i1 ?? "",
+                  ),
+                  /*    Container(
                     height: SizeUtils.horizontalBlockSize * 12,
                     width: SizeUtils.horizontalBlockSize * 12,
                     decoration: BoxDecoration(
@@ -101,7 +107,7 @@ cricketCard({
                         fit: BoxFit.cover,
                       ),
                     ),
-                  ),
+                  ),*/
                   const SizedBox(width: 8),
                   AppText(
                     t1 ?? "",
@@ -134,7 +140,12 @@ cricketCard({
                     fontSize: SizeUtils.fSize_18(),
                   ),
                   const SizedBox(width: 8),
-                  Container(
+                  imageLoader(
+                    h: SizeUtils.horizontalBlockSize * 12,
+                    w: SizeUtils.horizontalBlockSize * 12,
+                    url: i2 ?? "",
+                  ),
+                  /*   Container(
                     height: SizeUtils.horizontalBlockSize * 12,
                     width: SizeUtils.horizontalBlockSize * 12,
                     decoration: BoxDecoration(
@@ -144,7 +155,7 @@ cricketCard({
                         fit: BoxFit.cover,
                       ),
                     ),
-                  ),
+                  ),*/
                 ],
               ),
             ),
@@ -156,40 +167,41 @@ cricketCard({
             color: AppColor.appBarColor.withOpacity(0.7),
           ),
         ),
-        isSubHeader
-            ? Padding(
-                padding: EdgeInsets.only(
-                  bottom: SizeUtils.horizontalBlockSize * 3,
-                  left: SizeUtils.horizontalBlockSize * 3.5,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppText(
-                      nr1 ?? "",
-                      fontWeight: FontWeight.w500,
-                      fontSize: SizeUtils.fSize_11(),
-                    ),
-                    AppText(
-                      nr2 ?? "",
-                      fontWeight: FontWeight.w500,
-                      fontSize: SizeUtils.fSize_11(),
-                    ),
-                  ],
-                ),
-              )
-            : Padding(
-                padding: EdgeInsets.only(
-                  bottom: SizeUtils.horizontalBlockSize * 1,
-                  left: SizeUtils.horizontalBlockSize * 3.5,
-                ),
-                child: AppText(
-                  subHeader ?? "",
-                  fontWeight: FontWeight.bold,
+        if (isSubHeader)
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: SizeUtils.horizontalBlockSize * 3,
+              left: SizeUtils.horizontalBlockSize * 3.5,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AppText(
+                  nr1 ?? "",
+                  fontWeight: FontWeight.w500,
                   fontSize: SizeUtils.fSize_11(),
-                  color: AppColor.smsBtn,
                 ),
-              ),
+                AppText(
+                  nr2 ?? "",
+                  fontWeight: FontWeight.w500,
+                  fontSize: SizeUtils.fSize_11(),
+                ),
+              ],
+            ),
+          )
+        else
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: SizeUtils.horizontalBlockSize * 1,
+              left: SizeUtils.horizontalBlockSize * 3.5,
+            ),
+            child: AppText(
+              subHeader?.toUpperCase() ?? "",
+              fontWeight: FontWeight.bold,
+              fontSize: SizeUtils.fSize_11(),
+              color: AppColor.smsBtn,
+            ),
+          ),
       ],
     ),
   );
