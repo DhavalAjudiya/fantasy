@@ -56,26 +56,53 @@ class FantasyPointPage extends StatelessWidget {
                 left: SizeUtils.horizontalBlockSize * 3,
                 top: SizeUtils.horizontalBlockSize * 3,
               ),
-              child: ImageFade(
-                image: NetworkImage(homeController.fani?.value.toString() ?? ""),
-                duration: const Duration(milliseconds: 500),
-                syncDuration: const Duration(milliseconds: 150),
-                placeholder: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: AssetImage(AssetsPath.loaderImage),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                loadingBuilder: (context, progress, chunkEvent) =>
-                    Center(child: CircularProgressIndicator(value: progress)),
-                errorBuilder: (context, error) => Container(
-                  color: const Color(0xFF6F6D6A),
-                  alignment: Alignment.center,
-                  child: const Icon(Icons.warning, color: Colors.black26, size: 128.0),
-                ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: (homeController.fani?.value.isEmpty ?? false)
+                    ? Column(
+                        children: [
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            height: SizeUtils.horizontalBlockSize * 140,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                              image: AssetImage(AssetsPath.loaderImage),
+                              fit: BoxFit.cover,
+                            )),
+                            child: Padding(
+                              padding: EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 15),
+                              child: AppText(
+                                "Sorry😔 No Team available here",
+                                fontSize: SizeUtils.fSize_18(),
+                                fontWeight: FontWeight.w500,
+                                color: AppColor.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : ImageFade(
+                        image: NetworkImage(homeController.fani?.value.toString() ?? ""),
+                        duration: const Duration(milliseconds: 500),
+                        syncDuration: const Duration(milliseconds: 150),
+                        placeholder: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: AssetImage(AssetsPath.loaderImage),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        loadingBuilder: (context, progress, chunkEvent) => Center(
+                            child: Center(child: CircularProgressIndicator(value: progress))),
+                        errorBuilder: (context, error) => Container(
+                          color: const Color(0xFF6F6D6A),
+                          alignment: Alignment.center,
+                          child: const Icon(Icons.warning, color: Colors.black26, size: 128.0),
+                        ),
+                      ),
               ),
             ),
           ],
