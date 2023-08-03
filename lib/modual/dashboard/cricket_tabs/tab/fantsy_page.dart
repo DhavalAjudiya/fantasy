@@ -216,6 +216,13 @@ class FantasyPage extends StatelessWidget {
                                                                   fontWeight: FontWeight.w600,
                                                                   fontSize: SizeUtils.fSize_17(),
                                                                 ),
+                                                                const Spacer(),
+                                                                Image.asset("assets/image/line.png",
+                                                                    scale: 1.2),
+                                                                SizedBox(
+                                                                    width: SizeUtils
+                                                                            .horizontalBlockSize *
+                                                                        3),
                                                               ],
                                                             ),
                                                             Padding(
@@ -351,6 +358,13 @@ class FantasyPage extends StatelessWidget {
                                                                   fontWeight: FontWeight.w600,
                                                                   fontSize: SizeUtils.fSize_17(),
                                                                 ),
+                                                                const Spacer(),
+                                                                Image.asset("assets/image/line.png",
+                                                                    scale: 1.2),
+                                                                SizedBox(
+                                                                    width: SizeUtils
+                                                                            .horizontalBlockSize *
+                                                                        3),
                                                               ],
                                                             ),
                                                             Padding(
