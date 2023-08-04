@@ -86,20 +86,6 @@ class SettingPage extends StatelessWidget {
                 height: SizeUtils.horizontalBlockSize * 5,
               ),
               _item(
-                text: "Support",
-                onTap: () async {
-                  if (!await launchUrl(
-                    Uri.parse("mailto:atharvtech9@gmail.com"),
-                    mode: LaunchMode.externalApplication,
-                  )) {
-                    throw Exception("Error");
-                  }
-                },
-              ),
-              Divider(
-                height: SizeUtils.horizontalBlockSize * 5,
-              ),
-              _item(
                 text: "Terms & Condition",
                 onTap: () async {
                   if (!await launchUrl(
