@@ -20,9 +20,19 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown,
-      body: Column(
-        children: [],
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Container(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 20,
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.asset(
+              'assets/image/Arenas.png',
+            ),
+          ),
+        ),
       ),
     );
   }
