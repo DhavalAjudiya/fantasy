@@ -1,3 +1,4 @@
+import 'package:fantasyarenas/modual/Ads_helper/ads/banner_ads_widget.dart';
 import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
@@ -97,6 +98,7 @@ class TeamImagePage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BannerAds(),
     );
   }
 }

@@ -1,6 +1,9 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantasyarenas/modual/Ads_helper/ad_constant.dart';
+import 'package:fantasyarenas/modual/Ads_helper/ads/banner_ads_widget.dart';
+import 'package:fantasyarenas/modual/Ads_helper/ads/interstitialAd.dart';
 import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
 import 'package:fantasyarenas/modual/dashboard/home/modal/completedMatch.dart';
 import 'package:fantasyarenas/modual/dashboard/cricket_tabs/modal/fantasy_modal.dart';
@@ -62,9 +65,7 @@ class CricketPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: SizeUtils.horizontalBlockSize * 5,
-              ),
+              SizedBox(height: SizeUtils.horizontalBlockSize * 2),
               LimitedBox(
                 maxHeight: SizeUtils.horizontalBlockSize * 37,
                 child: Container(
@@ -93,7 +94,9 @@ class CricketPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: SizeUtils.horizontalBlockSize * 3),
+              SizedBox(height: SizeUtils.horizontalBlockSize * 1),
+              BannerAds(adSize: true),
+              SizedBox(height: SizeUtils.horizontalBlockSize * 1),
               Padding(
                 padding: EdgeInsets.only(
                   left: SizeUtils.horizontalBlockSize * 4,
@@ -118,7 +121,11 @@ class CricketPage extends StatelessWidget {
 
   completedMatchItem() {
     return StreamBuilder(
-      stream: AppConfig.databaseReference.collection(AppConfig.completedMatch).snapshots(),
+      stream: AppConfig.databaseReference
+          .collection(AppConfig.completedMatch).
+        where("time", isLessThan:   DateTime.now().millisecondsSinceEpoch.toString())
+          .orderBy("time", descending: true)
+          .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         completedMatchList.clear();
 
@@ -136,6 +143,7 @@ class CricketPage extends StatelessWidget {
                 final data = completedMatchList[index];
                 return GestureDetector(
                   onTap: () {
+                    InterstitialAdClass.showInterstitialAds();
                     homeController.team1Name.value = data.t1 ?? "";
                     homeController.team2Name.value = data.t2 ?? "";
                     homeController.tourimage?.value = data.tourimage ?? "";
@@ -165,8 +173,7 @@ class CricketPage extends StatelessWidget {
                       nr1: data.nr1,
                       nr2: data.nr2,
                       status: "Completed",
-                      time: data.time,
-                      isSubHeader: false,
+                      time: "",
                       subHeader: data.subheader,
                       headerColor: [
                         AppColor.smsBtn,
@@ -229,18 +236,17 @@ class CricketPage extends StatelessWidget {
                     bool timeHeader = true;
                     if (index == 0) {
                       timeHeader = true;
-                      matchDate = Utils.formatTimeOfDay(
-                          int.parse(upcomingMatchList[index].time.toString()));
+                      matchDate =
+                          Utils.formatTimeOfDay(int.parse(upcomingMatchList[index].time.toString()));
                     } else {
                       if (Utils.formatTimeOfDay(
                               int.parse(upcomingMatchList[(index - 1)].time.toString())) ==
-                          Utils.formatTimeOfDay(
-                              int.parse(upcomingMatchList[index].time.toString()))) {
+                          Utils.formatTimeOfDay(int.parse(upcomingMatchList[index].time.toString()))) {
                         timeHeader = false;
                       } else {
                         timeHeader = true;
-                        matchDate = Utils.formatTimeOfDay(
-                            int.parse(upcomingMatchList[index].time.toString()));
+                        matchDate =
+                            Utils.formatTimeOfDay(int.parse(upcomingMatchList[index].time.toString()));
                       }
                     }
                     final data = upcomingMatchList[index];
@@ -265,6 +271,7 @@ class CricketPage extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
+                            InterstitialAdClass.showInterstitialAds();
                             homeController.fistTeamList.value = data.team1 ?? [];
                             homeController.secondTeamList.value = data.team2 ?? [];
                             homeController.infoList.value = data.info ?? [];
@@ -289,22 +296,18 @@ class CricketPage extends StatelessWidget {
                                 )
                               ],
                             ),
-                            child: cricketCard(
+                            child: upComingCricketCard(
                               header: data.header,
                               t1: data.t1,
                               t2: data.t2,
                               i1: data.i1,
                               i2: data.i2,
-                              nr1: data.nr1,
-                              nr2: data.nr2,
-                              status: "Match will start in",
+                              status: "Match will start",
                               time: TimeManager().getRemainTimeFromMilliSecond(
                                 int.parse(
                                   data.time.toString(),
                                 ),
                               ),
-                              isSubHeader: false,
-                              isStatus: true,
                               subHeader: data.subheader,
                               headerColor: [
                                 AppColor.appBarColor.withOpacity(0.3),

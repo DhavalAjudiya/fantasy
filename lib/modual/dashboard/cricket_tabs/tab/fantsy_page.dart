@@ -1,10 +1,12 @@
 import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantasyarenas/modual/Ads_helper/ads/banner_ads_widget.dart';
 import 'package:fantasyarenas/modual/dashboard/cricket_tabs/modal/fantasy_modal.dart';
 import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/appconfig.dart';
 import 'package:fantasyarenas/res/assets_path.dart';
+import 'package:fantasyarenas/utils/analytics.dart';
 import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
 import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
@@ -23,6 +25,8 @@ class FantasyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalyticsUtils.sendCurrentScreen(FirebaseAnalyticsUtils.fantasy);
+
     return Scaffold(
       backgroundColor: AppColor.backGroundLightColor,
       body: ClipRRect(
@@ -101,7 +105,9 @@ class FantasyPage extends StatelessWidget {
                                             color: const Color(0xffFFF1DC),
                                             borderRadius: BorderRadius.circular(8),
                                           ),
-                                          child: playerState(),
+                                          child: homeController.playerState.isEmpty
+                                              ? const SizedBox()
+                                              : playerState(),
                                         ),
                                         SizedBox(
                                           height: SizeUtils.horizontalBlockSize * 4,
@@ -526,6 +532,7 @@ class FantasyPage extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: BannerAds(),
     );
   }
 

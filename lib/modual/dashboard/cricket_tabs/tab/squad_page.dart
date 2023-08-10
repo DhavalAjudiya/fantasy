@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:fantasyarenas/modual/Ads_helper/ads/banner_ads_widget.dart';
 import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
@@ -69,8 +70,8 @@ class _SquadPageState extends State<SquadPage> {
                                     AppText(
                                       homeController.team1Name.toString(),
                                       color: Colors.black,
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: SizeUtils.fSize_20(),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: SizeUtils.fSize_18(),
                                     ),
                                   ],
                                 ),
@@ -126,8 +127,8 @@ class _SquadPageState extends State<SquadPage> {
                                     AppText(
                                       homeController.team2Name.toString(),
                                       color: Colors.black,
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: SizeUtils.fSize_20(),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: SizeUtils.fSize_18(),
                                     ),
                                     SizedBox(
                                       width: SizeUtils.horizontalBlockSize * 3,
@@ -174,10 +175,11 @@ class _SquadPageState extends State<SquadPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: SizeUtils.horizontalBlockSize * 3),
+                  SizedBox(height: SizeUtils.horizontalBlockSize * 1),
                 ],
               ),
       ),
+      bottomNavigationBar:  BannerAds(),
     );
   }
 

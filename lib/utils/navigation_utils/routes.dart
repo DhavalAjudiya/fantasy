@@ -31,7 +31,7 @@ mixin Routes {
     GetPage<dynamic>(
       name: pages,
       page: () => const BottomPage(),
-      transition: Transition.downToUp,
+      transition: Transition.cupertino,
       curve: Curves.fastLinearToSlowEaseIn,
       transitionDuration: const Duration(milliseconds: 700),
     ),
