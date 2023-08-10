@@ -39,7 +39,7 @@ class _SplashPageState extends State<SplashPage> {
 
   void startTimeOut() {
     Timer(
-      const Duration(seconds: 1),
+      const Duration(seconds: 2),
       () {
         Navigation.pushNamed(Routes.pages);
       },

@@ -1,4 +1,5 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
+import 'package:fantasyarenas/modual/Ads_helper/ads/banner_ads_widget.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
@@ -126,7 +127,7 @@ class _OneNewsPageState extends State<OneNewsPage> {
                       fontSize: SizeUtils.fSize_15(),
                     ),
                     SizedBox(
-                      height: SizeUtils.horizontalBlockSize * 10,
+                      height: SizeUtils.horizontalBlockSize * 5,
                     ),
                   ],
                 ),
@@ -135,12 +136,13 @@ class _OneNewsPageState extends State<OneNewsPage> {
           ),
         ),
       ),
+      bottomNavigationBar:  BannerAds(),
     );
   }
 
   Divider buildDivider() {
     return Divider(
-                    color: AppColor.appBarColor.withOpacity(0.5),
-                  );
+      color: AppColor.appBarColor.withOpacity(0.5),
+    );
   }
 }

@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantasyarenas/modual/Ads_helper/ads/interstitialAd.dart';
 import 'package:fantasyarenas/modual/dashboard/news/modal/news_modal.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/appconfig.dart';
 import 'package:fantasyarenas/res/assets_path.dart';
+import 'package:fantasyarenas/utils/analytics.dart';
 import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
 import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
@@ -17,6 +19,8 @@ class NewsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalyticsUtils.sendCurrentScreen(FirebaseAnalyticsUtils.news);
+
     return Scaffold(
         backgroundColor: AppColor.backGroundLightColor,
         appBar: AppBar(
@@ -96,7 +100,10 @@ class NewsPage extends StatelessWidget {
   news() {
     List<NewsModal> newsList = [];
     return StreamBuilder(
-      stream: AppConfig.databaseReference.collection(AppConfig.news).snapshots(),
+      stream: AppConfig.databaseReference
+          .collection(AppConfig.news)
+          .orderBy("time", descending: true)
+          .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         newsList.clear();
 
@@ -152,6 +159,7 @@ class NewsPage extends StatelessWidget {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
+                                      InterstitialAdClass.showInterstitialAds();
                                       Navigation.pushNamed(
                                         Routes.oneNewsPage,
                                         arg: {
@@ -173,7 +181,7 @@ class NewsPage extends StatelessWidget {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(
-                                              height: SizeUtils.screenHeight * 0.15,
+                                              height: SizeUtils.screenHeight * 0.13,
                                               width: SizeUtils.screenWidth * 0.34,
                                               child: ClipRRect(
                                                 borderRadius: BorderRadius.circular(10),
@@ -194,7 +202,7 @@ class NewsPage extends StatelessWidget {
                                                     child: const Icon(
                                                       Icons.photo,
                                                       color: Colors.white30,
-                                                      size: 128.0,
+                                                      size: 115.0,
                                                     ),
                                                   ),
                                                   loadingBuilder: (context, progress, chunkEvent) =>
@@ -209,7 +217,7 @@ class NewsPage extends StatelessWidget {
                                                     child: const Icon(
                                                       Icons.warning,
                                                       color: Colors.black26,
-                                                      size: 128.0,
+                                                      size: 115.0,
                                                     ),
                                                   ),
                                                 ),
@@ -223,15 +231,14 @@ class NewsPage extends StatelessWidget {
                                               children: [
                                                 SizedBox(
                                                   width: SizeUtils.screenWidth * 0.55,
-                                                  height: SizeUtils.screenHeight * 0.12,
+                                                  height: SizeUtils.screenHeight * 0.10,
                                                   child: SingleChildScrollView(
                                                     physics: const BouncingScrollPhysics(),
                                                     child: AppText(
                                                       newsList[index].title.toString(),
                                                       color: AppColor.black.withOpacity(0.7),
                                                       maxLines: 4,
-                                                      fontSize: SizeUtils.fSize_18(),
-                                                      textAlign: TextAlign.justify,
+                                                      fontSize: SizeUtils.fSize_16(),
                                                     ),
                                                   ),
                                                 ),
@@ -267,10 +274,9 @@ class NewsPage extends StatelessWidget {
                                   ),
                                   AppText(
                                     newsList[index].subtitle.toString(),
-                                    maxLines: 4,
+                                    maxLines: 2,
                                     color: AppColor.black,
-                                    fontSize: SizeUtils.fSize_14(),
-                                    letterSpacing: 1,
+                                    fontSize: SizeUtils.fSize_13(),
                                   ),
                                 ],
                               ),

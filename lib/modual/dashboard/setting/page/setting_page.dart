@@ -1,3 +1,5 @@
+import 'package:fantasyarenas/modual/Ads_helper/ad_constant.dart';
+import 'package:fantasyarenas/modual/Ads_helper/ads/native_ads.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
@@ -26,19 +28,24 @@ class SettingPage extends StatelessWidget {
           letterSpacing: 1,
         ),
       ),
-      body: Column(
-        children: [
-          secondItem(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            secondItem(),
+            NativeAds(),
+          ],
+        ),
       ),
     );
   }
 
   secondItem() {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: SizeUtils.horizontalBlockSize * 3,
-        vertical: SizeUtils.horizontalBlockSize * 3.5,
+      padding: EdgeInsets.only(
+        left: SizeUtils.horizontalBlockSize * 3,
+        right: SizeUtils.horizontalBlockSize * 3,
+        top: SizeUtils.horizontalBlockSize * 3.5,
+        bottom: SizeUtils.horizontalBlockSize * 4,
       ),
       child: Container(
         width: double.infinity,
@@ -64,8 +71,7 @@ class SettingPage extends StatelessWidget {
                 text: "Rate us",
                 onTap: () async {
                   if (!await launchUrl(
-                    Uri.parse(
-                        "https://apps.apple.com/us/app/my-qr-code-reader-generator/id6449487974"),
+                    Uri.parse(AdConstants.appLink),
                     mode: LaunchMode.externalApplication,
                   )) {
                     throw Exception("Error");
@@ -78,8 +84,7 @@ class SettingPage extends StatelessWidget {
               _item(
                 text: "Share app",
                 onTap: () {
-                  Share.share(
-                      "https://apps.apple.com/us/app/my-qr-code-reader-generator/id6449487974");
+                  Share.share(AdConstants.appLink);
                 },
               ),
               Divider(
@@ -89,7 +94,7 @@ class SettingPage extends StatelessWidget {
                 text: "Terms & Condition",
                 onTap: () async {
                   if (!await launchUrl(
-                    Uri.parse("https://atharvtechs.com/terms-condition/"),
+                    Uri.parse(AdConstants.termsConditions),
                     mode: LaunchMode.externalApplication,
                   )) {
                     throw Exception("Error");
@@ -103,7 +108,7 @@ class SettingPage extends StatelessWidget {
                 text: "Privacy Policy",
                 onTap: () async {
                   if (!await launchUrl(
-                    Uri.parse("https://atharvtechs.com/privacy-policy/"),
+                    Uri.parse(AdConstants.privacyPolicy),
                     mode: LaunchMode.externalApplication,
                   )) {
                     throw Exception("Error");
@@ -117,8 +122,7 @@ class SettingPage extends StatelessWidget {
                 text: "Check Version",
                 onTap: () async {
                   if (!await launchUrl(
-                    Uri.parse(
-                        "https://apps.apple.com/us/app/my-qr-code-reader-generator/id6449487974"),
+                    Uri.parse(AdConstants.appLink),
                     mode: LaunchMode.externalApplication,
                   )) {
                     throw Exception("Error");
@@ -133,7 +137,7 @@ class SettingPage extends StatelessWidget {
   }
 
   _item({String? text, GestureTapCallback? onTap}) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
       child: Row(
         children: [

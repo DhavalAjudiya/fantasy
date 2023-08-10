@@ -1,6 +1,8 @@
+import 'package:fantasyarenas/modual/Ads_helper/ads/banner_ads_widget.dart';
 import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/res/assets_path.dart';
+import 'package:fantasyarenas/utils/analytics.dart';
 import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
 import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
@@ -16,6 +18,8 @@ class MatchInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalyticsUtils.sendCurrentScreen(FirebaseAnalyticsUtils.com);
+
     return Scaffold(
       backgroundColor: AppColor.backGroundLightColor,
       appBar: AppBar(
@@ -127,7 +131,7 @@ class MatchInfoPage extends StatelessWidget {
                   color: const Color(0xffFFF1DC),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: manOfTheMatch(),
+                child: (homeController.manofn?.value.isEmpty ?? false)?  const SizedBox():manOfTheMatch(),
               ),
             ),
             Padding(
@@ -141,7 +145,7 @@ class MatchInfoPage extends StatelessWidget {
                   color: const Color(0xffFFF1DC),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: playerState(),
+                child: (homeController.topplayer?.isEmpty ?? false) ? const SizedBox() : playerState(),
               ),
             ),
             Padding(
@@ -155,12 +159,31 @@ class MatchInfoPage extends StatelessWidget {
                   color: const Color(0xffFFF1DC),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: fantsyPoint(),
+                child: (homeController.fantasypoint?.isEmpty ?? false)
+                    ? Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: const Color(0xffFFF1DC),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Padding(
+                          padding:  EdgeInsets.symmetric(vertical:  SizeUtils.horizontalBlockSize*3,),
+                          child: AppText(
+                            "Fantasy Point Will Be Available Soon!",
+                            color: Colors.grey,
+                            fontSize: SizeUtils.fSize_16(),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
+                    : fantsyPoint(),
               ),
             ),
+            SizedBox(height: SizeUtils.horizontalBlockSize * 5),
           ],
         ),
       ),
+      bottomNavigationBar: BannerAds(),
     );
   }
 
@@ -218,27 +241,7 @@ class MatchInfoPage extends StatelessWidget {
                     fontSize: SizeUtils.fSize_12(),
                     fontWeight: FontWeight.w700,
                   ),
-/*                  AppText(
-                    "Run",
-                    color: AppColor.white,
-                    fontSize: SizeUtils.fSize_13(),
-                    fontWeight: FontWeight.w700,
-                  ),
-                  SizedBox(width: SizeUtils.horizontalBlockSize * 2.5),
-                  AppText(
-                    "WI",
-                    color: AppColor.white,
-                    fontSize: SizeUtils.fSize_12(),
-                    fontWeight: FontWeight.w700,
-                  ),
-                  SizedBox(width: SizeUtils.horizontalBlockSize * 2.5),
-                  AppText(
-                    "Catch",
-                    color: AppColor.white,
-                    fontSize: SizeUtils.fSize_12(),
-                    fontWeight: FontWeight.w700,
-                  ),
-                  SizedBox(width: SizeUtils.horizontalBlockSize * 2.5),*/
+
                 ],
               ),
             ),
@@ -246,6 +249,7 @@ class MatchInfoPage extends StatelessWidget {
         ),
         ListView.builder(
           shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: homeController.topplayer?.length ?? 0,
           itemBuilder: (context, index) {
             var data = homeController.topplayer?[index];
@@ -270,7 +274,7 @@ class MatchInfoPage extends StatelessWidget {
                     ),
                   ),
                   AppText(
-                    "100",
+                    data?.playerr ?? "",
                     color: AppColor.appBarColor,
                     fontSize: SizeUtils.fSize_13(),
                     fontWeight: FontWeight.w600,
@@ -316,7 +320,7 @@ class MatchInfoPage extends StatelessWidget {
           child: Row(
             children: [
               AppText(
-                "Man of then Match",
+                "Man of the Match",
                 color: AppColor.appBarColor,
                 fontWeight: FontWeight.bold,
                 fontSize: SizeUtils.fSize_16(),
@@ -441,20 +445,21 @@ class MatchInfoPage extends StatelessWidget {
         ),
         ListView.builder(
           shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: homeController.fantasypoint?.length ?? 0,
           itemBuilder: (context, index) {
             var data = homeController.fantasypoint?[index];
-            return GestureDetector(
-              onTap: () {
-                homeController.fani?.value = data?.fantasyimage ?? "";
-                homeController.team?.value = data?.teamtype ?? "";
-                homeController.eName?.value = data?.expertname ?? "";
-                Navigation.pushNamed(Routes.fantasyPointPage);
-              },
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: SizeUtils.horizontalBlockSize * 6,
-                    vertical: SizeUtils.horizontalBlockSize * 1),
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: SizeUtils.horizontalBlockSize * 6,
+                  vertical: SizeUtils.horizontalBlockSize * 1),
+              child: GestureDetector(
+                onTap: () {
+                  homeController.fani?.value = data?.fantasyimage ?? "";
+                  homeController.team?.value = data?.teamtype ?? "";
+                  homeController.eName?.value = data?.expertname ?? "";
+                  Navigation.pushNamed(Routes.fantasyPointPage);
+                },
                 child: Row(children: [
                   imageLoader(
                     h: SizeUtils.horizontalBlockSize * 11,
