@@ -11,14 +11,16 @@ import 'package:image_fade/image_fade.dart';
 
 class FantasyPointPage extends StatelessWidget {
   FantasyPointPage({super.key});
+
   HomeController homeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.backGroundLightColor,
+      backgroundColor: AppColor.backGroundColor,
       appBar: AppBar(
-        backgroundColor: AppColor.appBarColor,
+        elevation: 0,
+        backgroundColor: AppColor.backGroundColor,
         automaticallyImplyLeading: false,
         centerTitle: true,
         leading: GestureDetector(
@@ -35,15 +37,15 @@ class FantasyPointPage extends StatelessWidget {
           children: [
             AppText(
               "${homeController.eName?.value}",
-              color: AppColor.textColor,
-              fontWeight: FontWeight.bold,
+              color: AppColor.white,
+              fontWeight: FontWeight.w600,
               fontSize: SizeUtils.fSize_17(),
             ),
             AppText(
               homeController.team?.value == "small" ? "Small Team" : "Head to Head Team",
-              color: AppColor.textColor.withOpacity(0.5),
-              fontWeight: FontWeight.bold,
-              fontSize: SizeUtils.fSize_14(),
+              color: AppColor.white.withOpacity(0.5),
+              fontWeight: FontWeight.w400,
+              fontSize: SizeUtils.fSize_12(),
             ),
           ],
         ),
@@ -74,8 +76,7 @@ class FantasyPointPage extends StatelessWidget {
                                 fit: BoxFit.cover,
                               )),
                               child: Padding(
-                                padding:
-                                    EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 15),
+                                padding: EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 15),
                                 child: AppText(
                                   "Sorry😔 No Team available here",
                                   fontSize: SizeUtils.fSize_18(),
@@ -99,8 +100,8 @@ class FantasyPointPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          loadingBuilder: (context, progress, chunkEvent) => Center(
-                              child: Center(child: CircularProgressIndicator(value: progress))),
+                          loadingBuilder: (context, progress, chunkEvent) =>
+                              Center(child: Center(child: CircularProgressIndicator(value: progress))),
                           errorBuilder: (context, error) => Container(
                             color: const Color(0xFF6F6D6A),
                             alignment: Alignment.center,
@@ -113,7 +114,7 @@ class FantasyPointPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar:  BannerAds(),
+      bottomNavigationBar: BannerAds(),
     );
   }
 }

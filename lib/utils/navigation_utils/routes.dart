@@ -1,9 +1,9 @@
 import 'package:fantasyarenas/modual/dashboard/bottom_bar/bottom_page.dart';
-import 'package:fantasyarenas/modual/dashboard/cricket_tabs/completedMatch_page.dart';
 import 'package:fantasyarenas/modual/dashboard/cricket_tabs/tab/fantasypoint_page.dart';
 import 'package:fantasyarenas/modual/dashboard/cricket_tabs/tab/matchinfo_page.dart';
 import 'package:fantasyarenas/modual/dashboard/cricket_tabs/tab/temaImage_page.dart';
 import 'package:fantasyarenas/modual/dashboard/home/page/home_page.dart';
+import 'package:fantasyarenas/modual/dashboard/home/widget/completed_match_details.dart';
 import 'package:fantasyarenas/modual/dashboard/home/widget/upcoming_details_page.dart';
 import 'package:fantasyarenas/modual/dashboard/news/widget/onenews_page.dart';
 import 'package:fantasyarenas/modual/dashboard/splash.dart';
@@ -21,6 +21,7 @@ mixin Routes {
   static String teamImagePage = "/teamImagePage";
   static String completedMatchPage = "/completedMatchPage";
   static String fantasyPointPage = "/fantasyPointPage";
+  static String completedMatchDetailsPage = "/completedMatchDetailsPage";
 
   static List<GetPage<dynamic>> routes = [
     GetPage<dynamic>(
@@ -52,6 +53,13 @@ mixin Routes {
     GetPage<dynamic>(
       name: upComingDetailsPage,
       page: () => const UpComingDetailsPage(),
+      transition: defaultTransition,
+      curve: Curves.fastLinearToSlowEaseIn,
+      transitionDuration: const Duration(milliseconds: 700),
+    ),
+    GetPage<dynamic>(
+      name: completedMatchDetailsPage,
+      page: () => const CompletedMatchDetailsPage(),
       transition: defaultTransition,
       curve: Curves.fastLinearToSlowEaseIn,
       transitionDuration: const Duration(milliseconds: 700),

@@ -9,6 +9,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'helper/shared_preference.dart';
 
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FirebaseAnalyticsUtils.init();
@@ -16,6 +17,6 @@ Future<void> main() async {
   await AppPreference.initMySharedPreferences();
   await FirebaseMessaging.instance.subscribeToTopic("fantasyarena");
   await NotificationService.initialize();
-
   runApp(const FantsyApp());
+
 }

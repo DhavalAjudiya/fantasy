@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
@@ -25,14 +23,15 @@ cricketCard({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: SizeUtils.screenWidth * 0.7,
+          // width: SizeUtils.screenWidth * 0.7,
           height: SizeUtils.horizontalBlockSize * 6,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: headerColor!,
-              begin: FractionalOffset.centerLeft,
-              end: FractionalOffset.centerRight,
-            ),
+          decoration: const BoxDecoration(
+            color: AppColor.smsBtn,
+            // gradient: LinearGradient(
+            //   colors: headerColor!,
+            //   // begin: FractionalOffset.centerLeft,
+            //   // end: FractionalOffset.centerRight,
+            // ),
           ),
           child: Align(
             alignment: Alignment.centerLeft,
@@ -87,7 +86,7 @@ cricketCard({
             Padding(
               padding: EdgeInsets.symmetric(
                   vertical: SizeUtils.horizontalBlockSize * 3.5,
-                  horizontal: SizeUtils.horizontalBlockSize * 3),
+                  horizontal: SizeUtils.horizontalBlockSize * 2),
               child: Row(
                 children: [
                   imageLoader(
@@ -101,25 +100,15 @@ cricketCard({
                     children: [
                       AppText(
                         t1 ?? "",
+                        color: AppColor.white,
                         fontWeight: FontWeight.w600,
                         fontSize: SizeUtils.fSize_18(),
                       ),
-                      Row(
-                        children: [
-                          AppText(
-                            nr1?.split("|").first ?? "",
-                            fontWeight: FontWeight.w500,
-                            color: AppColor.black.withOpacity(0.5),
-                            fontSize: SizeUtils.fSize_13(),
-                          ),
-                          AppText(
-                            "(${nr1?.split("|").last ?? ""})",
-                            fontWeight: FontWeight.w400,
-                            fontSize: SizeUtils.fSize_10(),
-                            color: AppColor.black.withOpacity(0.5),
-
-                          ),
-                        ],
+                      AppText(
+                        nr1 ?? "",
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.white.withOpacity(0.6),
+                        fontSize: SizeUtils.fSize_12(),
                       ),
                     ],
                   ),
@@ -129,8 +118,8 @@ cricketCard({
                       AppText(
                         status ?? "",
                         fontWeight: FontWeight.bold,
-                        color: Colors.black.withOpacity(0.7),
-                        fontSize:  SizeUtils.fSize_14(),
+                        color: Colors.white.withOpacity(0.7),
+                        fontSize: SizeUtils.fSize_14(),
                       ),
                     ],
                   ),
@@ -140,28 +129,15 @@ cricketCard({
                     children: [
                       AppText(
                         t2 ?? "",
+                        color: AppColor.white,
                         fontWeight: FontWeight.w600,
                         fontSize: SizeUtils.fSize_18(),
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          AppText(
-                            nr2?.split("|").first ?? "",
-                            fontWeight: FontWeight.w500,
-                            fontSize: SizeUtils.fSize_13(),
-                            color: AppColor.black.withOpacity(0.5),
-
-                          ),
-                          AppText(
-                            "(${nr2?.split("|").last ?? ""})",
-                            fontWeight: FontWeight.w400,
-                            fontSize: SizeUtils.fSize_10(),
-                            color: AppColor.black.withOpacity(0.5),
-
-                          ),
-
-                        ],
+                      AppText(
+                        nr2 ?? "",
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.white.withOpacity(0.5),
+                        fontSize: SizeUtils.fSize_12(),
                       ),
                     ],
                   ),
@@ -174,32 +150,31 @@ cricketCard({
                 ],
               ),
             ),
-
           ],
         ),
-
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5),
           child: Divider(
-            color: AppColor.appBarColor.withOpacity(0.7),
+            color: Colors.grey,
           ),
         ),
-          Padding(
-            padding: EdgeInsets.only(
-              bottom: SizeUtils.horizontalBlockSize * 1,
-              left: SizeUtils.horizontalBlockSize * 3.5,
-            ),
-            child: AppText(
-              subHeader?.toUpperCase() ?? "",
-              fontWeight: FontWeight.bold,
-              fontSize: SizeUtils.fSize_11(),
-              color: AppColor.smsBtn,
-            ),
+        Padding(
+          padding: EdgeInsets.only(
+            bottom: SizeUtils.horizontalBlockSize * 1,
+            left: SizeUtils.horizontalBlockSize * 3.5,
           ),
+          child: AppText(
+            subHeader?.toUpperCase() ?? "",
+            fontWeight: FontWeight.bold,
+            fontSize: SizeUtils.fSize_11(),
+            color: AppColor.smsBtn,
+          ),
+        ),
       ],
     ),
   );
 }
+
 upComingCricketCard({
   String? header,
   String? subHeader,
@@ -215,16 +190,19 @@ upComingCricketCard({
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Container(
-        width: SizeUtils.screenWidth * 0.7,
         height: SizeUtils.horizontalBlockSize * 6,
         alignment: Alignment.centerLeft,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(topLeft: Radius.circular(12)),
-          gradient: LinearGradient(
-            colors: headerColor!,
-            begin: FractionalOffset.centerLeft,
-            end: FractionalOffset.centerRight,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12),
+            topRight: Radius.circular(12),
           ),
+          color: AppColor.boarderColor,
+          // gradient: LinearGradient(
+          //   colors: headerColor!,
+          //   begin: FractionalOffset.centerLeft,
+          //   end: FractionalOffset.centerRight,
+          // ),
         ),
         child: Padding(
           padding: EdgeInsets.only(left: SizeUtils.screenWidth * 0.02),
@@ -298,6 +276,7 @@ upComingCricketCard({
                 const SizedBox(width: 5),
                 AppText(
                   t1 ?? "",
+                  color: AppColor.white,
                   fontWeight: FontWeight.w600,
                   fontSize: SizeUtils.fSize_17(),
                 ),
@@ -306,15 +285,14 @@ upComingCricketCard({
                   children: [
                     AppText(
                       status ?? "",
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black.withOpacity(0.5),
-                      fontSize:  SizeUtils.fSize_12(),
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white.withOpacity(0.6),
+                      fontSize: SizeUtils.fSize_12(),
                     ),
-
                     AppText(
                       time ?? "",
                       fontSize: SizeUtils.fSize_11(),
-                      color: Colors.black.withOpacity(0.5),
+                      color: Colors.white.withOpacity(0.6),
                     ),
                   ],
                 ),
@@ -322,6 +300,7 @@ upComingCricketCard({
                 AppText(
                   t2 ?? "",
                   fontWeight: FontWeight.w600,
+                  color: AppColor.white,
                   fontSize: SizeUtils.fSize_17(),
                 ),
                 const SizedBox(width: 5),
@@ -346,24 +325,22 @@ upComingCricketCard({
           ),
         ],
       ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5),
+      const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 5),
         child: Divider(
-          color: AppColor.appBarColor.withOpacity(0.7),
+          color: Colors.grey,
         ),
       ),
-
-        Padding(
-          padding: EdgeInsets.only(
-            bottom: SizeUtils.horizontalBlockSize * 1,
-            left: SizeUtils.horizontalBlockSize * 3.5,
-          ),
-          child: AppText(
-            subHeader?.toUpperCase() ?? "",
+      Padding(
+        padding: EdgeInsets.only(
+          bottom: SizeUtils.horizontalBlockSize * 1,
+          left: SizeUtils.horizontalBlockSize * 3.5,
+        ),
+        child: AppText(subHeader?.toUpperCase() ?? "",
             fontWeight: FontWeight.bold,
             fontSize: SizeUtils.fSize_11(),
-              color: AppColor.appBarColor.withOpacity(0.5)            ),
-        ),
+            color: AppColor.white.withOpacity(0.5)),
+      ),
     ],
   );
 }

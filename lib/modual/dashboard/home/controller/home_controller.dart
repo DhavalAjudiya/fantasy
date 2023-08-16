@@ -1,4 +1,3 @@
-import 'package:fantasyarenas/modual/dashboard/cricket_tabs/modal/fantasy_modal.dart';
 import 'package:fantasyarenas/modual/dashboard/cricket_tabs/modal/upcomingMatch.dart';
 import 'package:fantasyarenas/modual/dashboard/home/modal/completedMatch.dart' as com;
 import 'package:get/get.dart';
@@ -8,13 +7,16 @@ class HomeController extends GetxController {
   RxBool showSecondSquad = false.obs;
   RxBool expansionTileShow = false.obs;
   RxBool isFantasy = false.obs;
+  RxBool changeSquad = false.obs;
+  RxBool showTeam1ScoreBoard = true.obs;
+  RxBool showTeam2ScoreBoard = false.obs;
+  RxInt changeWinTeamColor = 0.obs;
 
-  RxList<TeamFirst> fistTeamList = <TeamFirst>[].obs;
-  RxList<TeamSecond> secondTeamList = <TeamSecond>[].obs;
   RxList<Info> infoList = <Info>[].obs;
   RxList<Fantasy> headTeamList = <Fantasy>[].obs;
   RxList<Fantasy> smallTeamList = <Fantasy>[].obs;
-  RxList<PlayerState> playerState = <PlayerState>[].obs;
+
+  // RxList<PlayerState> playerState = <PlayerState>[].obs;
   RxList<com.TopPlayer>? topplayer = <com.TopPlayer>[].obs;
   RxList<com.Fantasy>? fantasypoint = <com.Fantasy>[].obs;
   RxString team1Name = "".obs;
@@ -23,12 +25,25 @@ class HomeController extends GetxController {
   RxInt smallTeam = 0.obs;
   RxInt headTeam = 0.obs;
   RxString team2Name = "".obs;
+  RxString smallHeader = "".obs;
   RxString team1image = "".obs;
+  RxString playerImage = "".obs;
+  RxString playerName = "".obs;
+  RxString nr1 = "".obs;
+  RxString nr2 = "".obs;
+  RxString squad1image = "".obs;
+  RxString squad2image = "".obs;
   RxString team2image = "".obs;
   RxString matchHeader = "".obs;
   RxString upComingMatchDocId = "".obs;
   RxString? tourimage = "".obs;
+  RxString? sb1 = "".obs;
+  RxString? sb2 = "".obs;
+  RxString? match = "".obs;
+  RxString? matchTime = "".obs;
+  RxString? matchSummary = "".obs;
   RxString? tourname = "".obs;
+  RxString? subHeader = "".obs;
   RxString? toss = "".obs;
   RxString? manOfi = "".obs;
   RxString? manofn = "".obs;

@@ -1,13 +1,10 @@
-import 'dart:developer';
-
-import 'package:dotted_border/dotted_border.dart';
 import 'package:fantasyarenas/modual/Ads_helper/ads/banner_ads_widget.dart';
 import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
+import 'package:fantasyarenas/res/assets_path.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
 import 'package:fantasyarenas/widget/image_lodar.dart';
-import 'package:fdottedline_nullsafety/fdottedline__nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_fade/image_fade.dart';
@@ -25,13 +22,12 @@ class _SquadPageState extends State<SquadPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.backGroundLightColor,
+      backgroundColor: AppColor.backGroundColor,
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: SizeUtils.horizontalBlockSize * 3,
           vertical: SizeUtils.horizontalBlockSize * 3,
         ),
-        child: homeController.fistTeamList.isEmpty && homeController.secondTeamList.isEmpty
+        child: homeController.squad1image.isEmpty && homeController.squad2image.isEmpty
             ? Center(
                 child: AppText(
                   "Both Squad Are Coming Soon",
@@ -40,146 +36,173 @@ class _SquadPageState extends State<SquadPage> {
                   fontSize: SizeUtils.fSize_20(),
                 ),
               )
-            : Column(
-                children: [
-                  Obx(
-                    () => Expanded(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            flex: 4,
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    imageLoader(
-                                      h: SizeUtils.horizontalBlockSize * 11,
-                                      w: SizeUtils.horizontalBlockSize * 11,
-                                      url: homeController.team1image.toString(),
-                                    ),
-                                    /* CircleAvatar(
-                                      backgroundImage: NetworkImage(
-                                        homeController.team1image.toString(),
-                                      ),
-                                      maxRadius: SizeUtils.screenWidth * 0.055,
-                                    ),*/
-                                    SizedBox(
-                                      width: SizeUtils.horizontalBlockSize * 3,
-                                    ),
-                                    AppText(
-                                      homeController.team1Name.toString(),
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: SizeUtils.fSize_18(),
-                                    ),
-                                  ],
-                                ),
-                                Expanded(
-                                  child: SingleChildScrollView(
-                                    physics: const BouncingScrollPhysics(),
-                                    child: ListView.builder(
-                                      padding: EdgeInsets.only(
-                                        bottom: SizeUtils.horizontalBlockSize * 1,
-                                      ),
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: homeController.fistTeamList.length,
-                                      itemBuilder: (context, index) {
-                                        var data = homeController.fistTeamList[index];
-                                        return teamSquad(
-                                          name: data.name,
-                                          type: data.type,
-                                          image: data.image,
-                                          played: data.play,
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: SizeUtils.horizontalBlockSize * 1,
+                        right: SizeUtils.horizontalBlockSize * 4,
+                        left: SizeUtils.horizontalBlockSize * 4,
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColor.itemColor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: SizeUtils.horizontalBlockSize * 4,
+                            horizontal: SizeUtils.horizontalBlockSize * 4,
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: Center(
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  top: SizeUtils.horizontalBlockSize * 2,
-                                ),
-                                child: FDottedLine(
-                                  color: AppColor.appBarColor.withOpacity(0.2),
-                                  height: SizeUtils.screenHeight,
-                                  strokeWidth: 2.0,
-                                  dottedLength: 12.0,
-                                  space: 4.0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Color(0xff171b24),
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: SizeUtils.horizontalBlockSize * 1,
+                                horizontal: SizeUtils.horizontalBlockSize * 1,
+                              ),
+                              child: Obx(
+                                () => Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        homeController.changeSquad.value = false;
+                                      },
+                                      child: Container(
+                                        width: SizeUtils.horizontalBlockSize * 40,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: homeController.changeSquad.value
+                                              ? const Color(0xff171b24)
+                                              : AppColor.backGroundColor,
+                                          border: Border.all(
+                                              color: homeController.changeSquad.value
+                                                  ? const Color(0xff171b24)
+                                                  : Colors.green),
+                                          borderRadius: BorderRadius.circular(20),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: SizeUtils.horizontalBlockSize * 2,
+                                          ),
+                                          child: AppText(homeController.team1Name.toString(),
+                                              color: Colors.white, fontSize: SizeUtils.fSize_17()),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        homeController.changeSquad.value = true;
+                                      },
+                                      child: Container(
+                                        width: SizeUtils.horizontalBlockSize * 40,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: !homeController.changeSquad.value
+                                              ? const Color(0xff171b24)
+                                              : AppColor.backGroundColor,
+                                          border: Border.all(
+                                              color: !homeController.changeSquad.value
+                                                  ? const Color(0xff171b24)
+                                                  : Colors.green),
+                                          borderRadius: BorderRadius.circular(20),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: SizeUtils.horizontalBlockSize * 2,
+                                          ),
+                                          child: AppText(homeController.team2Name.toString(),
+                                              color: Colors.white, fontSize: SizeUtils.fSize_17()),
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                          Expanded(
-                            flex: 4,
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    AppText(
-                                      homeController.team2Name.toString(),
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: SizeUtils.fSize_18(),
-                                    ),
-                                    SizedBox(
-                                      width: SizeUtils.horizontalBlockSize * 3,
-                                    ),
-                                    imageLoader(
-                                      h: SizeUtils.horizontalBlockSize * 11,
-                                      w: SizeUtils.horizontalBlockSize * 11,
-                                      url: homeController.team2image.toString(),
-                                    ),
-                                    /* CircleAvatar(
-                                      backgroundImage: NetworkImage(
-                                        homeController.team2image.toString(),
-                                      ),
-                                      maxRadius: SizeUtils.screenWidth * 0.055,
-                                    ),*/
-                                  ],
-                                ),
-                                Expanded(
-                                  child: SingleChildScrollView(
-                                    physics: const BouncingScrollPhysics(),
-                                    child: ListView.builder(
-                                      padding: EdgeInsets.only(
-                                        bottom: SizeUtils.horizontalBlockSize * 1,
-                                      ),
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: homeController.secondTeamList.length,
-                                      itemBuilder: (context, index) {
-                                        var data = homeController.secondTeamList[index];
-                                        return teamSquad2(
-                                          name: data.name,
-                                          type: data.type,
-                                          image: data.image,
-                                          played: data.play,
-                                        );
-                                      },
+                        ),
+                      ),
+                    ),
+                    Obx(
+                      () => !homeController.changeSquad.value
+                          ? ImageFade(
+                              image: NetworkImage(homeController.squad1image.value),
+                              duration: const Duration(milliseconds: 500),
+                              syncDuration: const Duration(milliseconds: 150),
+                              // alignment: Alignment.center,
+                              fit: BoxFit.cover,
+
+                              placeholder: Center(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: AssetImage(AssetsPath.loaderImage),
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
-                              ],
+                              ),
+
+                              loadingBuilder: (context, progress, chunkEvent) => Center(
+                                  child: Padding(
+                                padding: EdgeInsets.only(top: SizeUtils.horizontalBlockSize * 50),
+                                child: CircularProgressIndicator(value: progress, color: AppColor.white),
+                              )),
+
+                              // displayed when an error occurs:
+                              errorBuilder: (context, error) => Container(
+                                color: const Color(0xFF6F6D6A),
+                                alignment: Alignment.center,
+                                child: const Icon(Icons.warning, color: Colors.black26, size: 128.0),
+                              ),
+                            )
+                          : ImageFade(
+                              image: NetworkImage(homeController.squad2image.value),
+                              duration: const Duration(milliseconds: 500),
+
+                              syncDuration: const Duration(milliseconds: 150),
+
+                              // alignment: Alignment.center,
+                              fit: BoxFit.fitWidth,
+
+                              placeholder: Center(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: AssetImage(AssetsPath.loaderImage),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              loadingBuilder: (context, progress, chunkEvent) => Center(
+                                  child: Padding(
+                                padding: EdgeInsets.only(top: SizeUtils.horizontalBlockSize * 50),
+                                child: CircularProgressIndicator(value: progress, color: AppColor.white),
+                              )),
+
+                              // displayed when an error occurs:
+                              errorBuilder: (context, error) => Container(
+                                color: const Color(0xFF6F6D6A),
+                                alignment: Alignment.center,
+                                child: const Icon(Icons.warning, color: Colors.black26, size: 128.0),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
                     ),
-                  ),
-                  SizedBox(height: SizeUtils.horizontalBlockSize * 1),
-                ],
+                  ],
+                ),
               ),
       ),
-      bottomNavigationBar:  BannerAds(),
+      bottomNavigationBar: BannerAds(),
     );
   }
 

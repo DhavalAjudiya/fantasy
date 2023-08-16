@@ -8,12 +8,18 @@ class CompletedMatchModal {
   String? subheader;
   String? nr1;
   String? nr2;
+  String? sb1;
+  String? sb2;
+  String? msummary;
   String? tourimage;
   String? tourname;
   String? toss;
   String? manOfi;
   String? manofn;
   String? manofp;
+  String? smallHeader;
+  String? match;
+  String? matchtime;
   List<TopPlayer>? topplayer;
   List<Fantasy>? fantasypoint;
 
@@ -27,14 +33,20 @@ class CompletedMatchModal {
     this.subheader,
     this.nr1,
     this.nr2,
+    this.sb1,
+    this.sb2,
+    this.msummary,
+    this.matchtime,
     this.tourimage,
     this.tourname,
     this.toss,
     this.manOfi,
     this.manofn,
     this.manofp,
+    this.match,
     this.topplayer,
     this.fantasypoint,
+    this.smallHeader,
   });
 
   CompletedMatchModal.fromMap(Map<String, dynamic> map) {
@@ -44,9 +56,15 @@ class CompletedMatchModal {
     i1 = map["i1"];
     i2 = map["i2"];
     header = map["header"];
+    smallHeader = map["smallHeader"];
     subheader = map["subheader"];
     nr1 = map["nr1"];
     nr2 = map["nr2"];
+    sb1 = map["sb1"];
+    sb2 = map["sb2"];
+    msummary = map["msummary"];
+    match = map["match"];
+    matchtime = map["matchtime"];
     tourimage = map["tourimage"];
     tourname = map["tourname"];
     toss = map["toss"];
@@ -69,9 +87,15 @@ class CompletedMatchModal {
       "i1": i1,
       "i2": i2,
       "header": header,
+      "match": match,
+      "matchtime": matchtime,
+      "smallHeader": smallHeader,
       "subheader": subheader,
       "nr1": nr1,
       "nr2": nr2,
+      "sb1": sb1,
+      "sb2": sb2,
+      "msummary": msummary,
       "tourimage": tourimage,
       "tourname": tourname,
       "toss": toss,

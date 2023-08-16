@@ -1,7 +1,6 @@
 import 'package:fantasyarenas/modual/Ads_helper/ads/banner_ads_widget.dart';
 import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
-import 'package:fantasyarenas/res/assets_path.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
 import 'package:fantasyarenas/widget/image_lodar.dart';
@@ -15,10 +14,11 @@ class InfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.backGroundLightColor,
+      backgroundColor: AppColor.backGroundColor,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: SizeUtils.screenHeight * 0.01,
@@ -33,11 +33,13 @@ class InfoPage extends StatelessWidget {
                 children: [
                   AppText(
                     'Tournament',
-                    color: AppColor.appBarColor,
-                    fontWeight: FontWeight.w700,
+                    color: AppColor.white,
+                    fontWeight: FontWeight.w600,
                     fontSize: SizeUtils.fSize_17(),
                     letterSpacing: 1,
                   ),
+                  SizedBox(height: SizeUtils.horizontalBlockSize * 2),
+                  line(),
                   SizedBox(
                     height: SizeUtils.screenHeight * 0.01,
                   ),
@@ -47,19 +49,13 @@ class InfoPage extends StatelessWidget {
                           h: SizeUtils.horizontalBlockSize * 12,
                           w: SizeUtils.horizontalBlockSize * 12,
                           url: homeController.infoList.first.tournamentI.toString()),
-                      /*  CircleAvatar(
-                        backgroundColor: AppColor.appBarColor,
-                        minRadius: SizeUtils.horizontalBlockSize * 5,
-                        backgroundImage:
-                            NetworkImage(homeController.infoList.first.tournamentI.toString()),
-                      ),*/
                       const SizedBox(
                         width: 10,
                       ),
                       AppText(
                         homeController.infoList.first.tournamentN.toString(),
-                        color: Colors.grey.withOpacity(0.7),
-                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
                         fontSize: SizeUtils.fSize_16(),
                         letterSpacing: 1,
                       ),
@@ -68,16 +64,7 @@ class InfoPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              height: SizeUtils.screenHeight * 0.02,
-            ),
-            Divider(
-              thickness: 24,
-              color: AppColor.appBarColor.withOpacity(0.1),
-            ),
-            SizedBox(
-              height: SizeUtils.screenHeight * 0.01,
-            ),
+            const Divider(color: Colors.grey),
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: SizeUtils.horizontalBlockSize * 3,
@@ -88,45 +75,31 @@ class InfoPage extends StatelessWidget {
                 children: [
                   AppText(
                     'Teams',
-                    color: AppColor.appBarColor,
-                    fontWeight: FontWeight.w700,
+                    color: AppColor.white,
+                    fontWeight: FontWeight.w600,
                     fontSize: SizeUtils.fSize_17(),
                     letterSpacing: 1,
                   ),
+                  SizedBox(height: SizeUtils.horizontalBlockSize * 2),
+                  line(),
                   SizedBox(
                     height: SizeUtils.screenHeight * 0.015,
                   ),
                   teams(
-                    teamLogo: homeController.infoList.first.team1I.toString(),
-                    teamName: homeController.infoList.first.team1N.toString(),
+                    teamLogo: homeController.team1image.value.toString(),
+                    teamName: homeController.team1Name.value.toString(),
                   ),
                   SizedBox(
-                    height: SizeUtils.screenHeight * 0.01,
-                  ),
-                  Divider(
-                    color: AppColor.appBarColor.withOpacity(0.1),
-                    thickness: 2,
-                  ),
-                  SizedBox(
-                    height: SizeUtils.screenHeight * 0.01,
+                    height: SizeUtils.horizontalBlockSize * 2,
                   ),
                   teams(
-                    teamLogo: homeController.infoList.first.team2I.toString(),
-                    teamName: homeController.infoList.first.team2N.toString(),
+                    teamLogo: homeController.team2image.value.toString(),
+                    teamName: homeController.team2Name.value.toString(),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              height: SizeUtils.screenHeight * 0.015,
-            ),
-            Divider(
-              thickness: 20,
-              color: AppColor.appBarColor.withOpacity(0.1),
-            ),
-            SizedBox(
-              height: SizeUtils.screenHeight * 0.015,
-            ),
+            const Divider(color: Colors.grey),
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: SizeUtils.horizontalBlockSize * 3,
@@ -141,7 +114,7 @@ class InfoPage extends StatelessWidget {
                           left: SizeUtils.horizontalBlockSize * 2,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0xffFFF1DC),
+                          color: AppColor.itemColor,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Padding(
@@ -154,7 +127,7 @@ class InfoPage extends StatelessWidget {
                           child: AppText(
                             textAlign: TextAlign.center,
                             'Match Info Overview Will Be Available Soon!',
-                            color: Colors.grey,
+                            color: Colors.white,
                             fontSize: SizeUtils.fSize_15(),
                             fontWeight: FontWeight.w700,
                           ),
@@ -166,31 +139,49 @@ class InfoPage extends StatelessWidget {
                       children: [
                         AppText(
                           'Match Details',
-                          color: AppColor.appBarColor,
-                          fontWeight: FontWeight.w700,
+                          color: AppColor.white,
+                          fontWeight: FontWeight.w600,
                           fontSize: SizeUtils.fSize_17(),
                           letterSpacing: 1,
                         ),
-                        SizedBox(
-                          height: SizeUtils.screenHeight * 0.020,
-                        ),
-                        matchDetails(
-                          title: 'Match',
-                          subtitle: homeController.infoList.first.match.toString(),
-                        ),
-                        SizedBox(
-                          height: SizeUtils.screenHeight * 0.01,
-                        ),
-                        matchDetails(
-                          title: 'Match Start Time',
-                          subtitle: homeController.infoList.first.matchtime.toString(),
-                        ),
-                        SizedBox(
-                          height: SizeUtils.screenHeight * 0.01,
-                        ),
-                        matchDetails(
-                          title: 'Stadium/Venue',
-                          subtitle: homeController.infoList.first.matchvenue.toString(),
+                        SizedBox(height: SizeUtils.horizontalBlockSize * 2),
+                        line(),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: SizeUtils.horizontalBlockSize * 4),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                color: AppColor.itemColor, borderRadius: BorderRadius.circular(8)),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: SizeUtils.horizontalBlockSize * 4,
+                                horizontal: SizeUtils.horizontalBlockSize * 4,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  matchDetails(
+                                    title: 'Match :',
+                                    subtitle: homeController.infoList.first.match.toString(),
+                                  ),
+                                  SizedBox(
+                                    height: SizeUtils.screenHeight * 0.01,
+                                  ),
+                                  matchDetails(
+                                    title: 'Match Start Time :',
+                                    subtitle: homeController.infoList.first.matchtime.toString(),
+                                  ),
+                                  SizedBox(
+                                    height: SizeUtils.screenHeight * 0.01,
+                                  ),
+                                  matchDetails(
+                                    title: 'Stadium/Venue :',
+                                    subtitle: homeController.infoList.first.matchvenue.toString(),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -211,30 +202,23 @@ class InfoPage extends StatelessWidget {
       children: [
         AppText(
           title,
-          color: Colors.grey,
-          fontWeight: FontWeight.w700,
-          fontSize: SizeUtils.fSize_13(),
+          color: const Color(0xff717686),
+          fontWeight: FontWeight.w400,
+          fontSize: SizeUtils.fSize_15(),
           letterSpacing: 1,
         ),
         SizedBox(
-          height: SizeUtils.screenHeight * 0.01,
+          height: SizeUtils.horizontalBlockSize * 0.5,
         ),
         AppText(
           subtitle,
-          color: AppColor.appBarColor.withOpacity(0.5),
+          color: AppColor.white,
           fontWeight: FontWeight.w500,
-          fontSize: SizeUtils.fSize_13(),
+          fontSize: SizeUtils.fSize_15(),
           letterSpacing: 1,
         ),
         SizedBox(
-          height: SizeUtils.screenHeight * 0.01,
-        ),
-        Divider(
-          color: Colors.grey.withOpacity(0.1),
-          thickness: 2,
-        ),
-        SizedBox(
-          height: SizeUtils.screenHeight * 0.01,
+          height: SizeUtils.horizontalBlockSize * 2,
         ),
       ],
     );
@@ -261,12 +245,20 @@ class InfoPage extends StatelessWidget {
         ),
         AppText(
           teamName,
-          color: Colors.grey.withOpacity(0.7),
-          fontWeight: FontWeight.w700,
+          color: Colors.white,
+          fontWeight: FontWeight.w500,
           fontSize: SizeUtils.fSize_16(),
           letterSpacing: 1,
         ),
       ],
+    );
+  }
+
+  line() {
+    return Container(
+      width: SizeUtils.horizontalBlockSize * 10,
+      height: SizeUtils.horizontalBlockSize * 1.2,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: const Color(0xff7892aa)),
     );
   }
 }

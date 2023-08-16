@@ -27,9 +27,9 @@ class _OneNewsPageState extends State<OneNewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.backGroundLightColor,
+      backgroundColor: AppColor.backGroundColor,
       body: ColorfulSafeArea(
-        color: AppColor.appBarColor,
+        color: AppColor.backGroundColor,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -44,14 +44,6 @@ class _OneNewsPageState extends State<OneNewsPage> {
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              offset: const Offset(-3, 3),
-                              blurRadius: 8,
-                              spreadRadius: 5,
-                            )
-                          ],
                         ),
                         child: Image.network(
                           argument["image"].toString(),
@@ -89,8 +81,8 @@ class _OneNewsPageState extends State<OneNewsPage> {
                     ),
                     AppText(
                       argument["title"].toString(),
-                      color: AppColor.appBarColor,
-                      fontWeight: FontWeight.bold,
+                      color: AppColor.white,
+                      fontWeight: FontWeight.w600,
                       fontSize: SizeUtils.fSize_17(),
                       textAlign: TextAlign.justify,
                     ),
@@ -99,7 +91,7 @@ class _OneNewsPageState extends State<OneNewsPage> {
                     ),
                     AppText(
                       argument["subtitle"].toString(),
-                      color: AppColor.appBarColor.withOpacity(0.7),
+                      color: AppColor.white.withOpacity(0.7),
                       fontSize: SizeUtils.fSize_13(),
                       letterSpacing: 1,
                       textAlign: TextAlign.left,
@@ -109,7 +101,7 @@ class _OneNewsPageState extends State<OneNewsPage> {
                     ),
                     AppText(
                       TimeManager.setNewsUpdateTime(argument["time"]),
-                      color: Colors.grey.withOpacity(0.7),
+                      color: Colors.white.withOpacity(0.5),
                       fontSize: SizeUtils.fSize_12(),
                     ),
                     SizedBox(
@@ -121,7 +113,7 @@ class _OneNewsPageState extends State<OneNewsPage> {
                     ),
                     AppText(
                       argument["description"].toString(),
-                      color: Colors.grey,
+                      color: Colors.white.withOpacity(0.5),
                       fontWeight: FontWeight.w400,
                       wordSpacing: 1,
                       fontSize: SizeUtils.fSize_15(),
@@ -136,13 +128,13 @@ class _OneNewsPageState extends State<OneNewsPage> {
           ),
         ),
       ),
-      bottomNavigationBar:  BannerAds(),
+      bottomNavigationBar: BannerAds(),
     );
   }
 
   Divider buildDivider() {
     return Divider(
-      color: AppColor.appBarColor.withOpacity(0.5),
+      color: Colors.grey,
     );
   }
 }
