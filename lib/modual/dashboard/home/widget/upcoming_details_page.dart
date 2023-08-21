@@ -3,7 +3,6 @@ import 'package:fantasyarenas/modual/dashboard/cricket_tabs/tab/info_page.dart';
 import 'package:fantasyarenas/modual/dashboard/cricket_tabs/tab/squad_page.dart';
 import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
-import 'package:fantasyarenas/res/assets_path.dart';
 import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
@@ -30,71 +29,45 @@ class _UpComingDetailsPageState extends State<UpComingDetailsPage> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        backgroundColor: AppColor.backgroundColor,
+        backgroundColor: AppColor.backGroundColor,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(SizeUtils.horizontalBlockSize * 18),
           child: AppBar(
-            bottomOpacity: 0.7,
-            backgroundColor: AppColor.appBarColor,
+            // bottomOpacity: 0.7,
+            elevation: 0,
+            backgroundColor: AppColor.backGroundColor,
             automaticallyImplyLeading: false,
             centerTitle: true,
-            leading: Padding(
-              padding: EdgeInsets.only(top: SizeUtils.horizontalBlockSize * 5),
-              child: GestureDetector(
-                onTap: () {
-                  Navigation.pop();
-                },
-                child: Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                  size: SizeUtils.fSize_21(),
-                ),
+            leading: GestureDetector(
+              onTap: () {
+                Navigation.pop();
+              },
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+                size: SizeUtils.fSize_21(),
               ),
             ),
-            title: Column(
-              children: [
-                SizedBox(
-                  height: SizeUtils.horizontalBlockSize * 4,
-                ),
-                AppText(
-                  "${homeController.team1Name} vs ${homeController.team2Name}",
-                  color: AppColor.textColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: SizeUtils.fSize_15(),
-                ),
-                AppText(
-                  "${homeController.matchHeader}",
-                  color: AppColor.textColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: SizeUtils.fSize_15(),
-                ),
-              ],
+            title: AppText(
+              "${homeController.team1Name} vs ${homeController.team2Name}",
+              color: AppColor.white,
+              fontWeight: FontWeight.w600,
+              fontSize: SizeUtils.fSize_17(),
             ),
           ),
         ),
         body: Column(
           children: [
             Container(
-              height: SizeUtils.screenHeight * 0.07,
               decoration: const BoxDecoration(
-                color: Color(0xffFFF1DC),
+                color: AppColor.backGroundColor,
               ),
               child: TabBar(
-                padding: EdgeInsets.zero,
+                indicatorPadding: EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 3),
                 indicatorSize: TabBarIndicatorSize.label,
-                indicatorWeight: 3,
-                indicatorColor: AppColor.appBarColor,
-                unselectedLabelColor: AppColor.appBarColor.withOpacity(0.7),
-                labelColor: AppColor.appBarColor,
-                labelStyle: TextStyle(
-                  fontSize: SizeUtils.fSize_18(),
-                  fontWeight: FontWeight.bold,
-                ),
-                unselectedLabelStyle: TextStyle(
-                  fontSize: SizeUtils.fSize_17(),
-                  fontWeight: FontWeight.bold,
-                ),
-                automaticIndicatorColorAdjustment: true,
+                indicatorColor: AppColor.white,
+                unselectedLabelColor: AppColor.white.withOpacity(0.5),
+                labelColor: AppColor.white,
                 tabs: const [
                   Tab(
                     text: "Fantasy",
@@ -103,7 +76,7 @@ class _UpComingDetailsPageState extends State<UpComingDetailsPage> {
                     text: "Squad",
                   ),
                   Tab(
-                    text: "Info",
+                    text: "Match Info",
                   )
                 ],
               ),

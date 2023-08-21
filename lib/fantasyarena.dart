@@ -1,6 +1,4 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:colorful_safe_area/colorful_safe_area.dart';
-import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/utils/app_binding.dart';
 import 'package:fantasyarenas/utils/my_behavior.dart';
 import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
@@ -15,16 +13,15 @@ class FantsyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialBinding: AppBinding(),
       initialRoute: Routes.splashPage,
       getPages: Routes.routes,
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-      ),
-      themeMode: ThemeMode.dark,
+      // darkTheme: ThemeData(
+      //   brightness: Brightness.dark,
+      // ),
+      // themeMode: ThemeMode.dark,
       builder: (context, child) {
         SizeUtils().init(context);
         return Scaffold(

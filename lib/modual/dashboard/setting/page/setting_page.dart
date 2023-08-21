@@ -13,17 +13,17 @@ class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.backGroundLightColor,
+      backgroundColor: AppColor.backGroundColor,
       appBar: AppBar(
-        elevation: 5,
-        backgroundColor: AppColor.appBarColor,
+        elevation: 0,
+        backgroundColor: AppColor.backGroundColor,
         leading: const SizedBox(),
         centerTitle: true,
         toolbarHeight: SizeUtils.screenHeight * 0.09,
         title: AppText(
           'Setting',
           textAlign: TextAlign.center,
-          color: Colors.white.withOpacity(0.8),
+          color: Colors.white,
           fontSize: SizeUtils.fSize_21(),
           letterSpacing: 1,
         ),
@@ -50,14 +50,7 @@ class SettingPage extends StatelessWidget {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: AppColor.appBarColor,
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.white,
-              blurRadius: 5,
-              spreadRadius: 8,
-            ),
-          ],
+          color: AppColor.itemColor,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Padding(
@@ -144,13 +137,13 @@ class SettingPage extends StatelessWidget {
           AppText(
             text ?? "",
             fontSize: SizeUtils.fSize_18(),
-            color: AppColor.textColor,
+            color: AppColor.white,
             fontWeight: FontWeight.w400,
           ),
           const Spacer(),
           Icon(
             Icons.arrow_forward_ios,
-            color: AppColor.textColor,
+            color: AppColor.white,
             size: SizeUtils.horizontalBlockSize * 6,
           )
         ],

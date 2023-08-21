@@ -22,9 +22,7 @@ Widget imageLoader({
             height: h,
             width: w,
             duration: const Duration(milliseconds: 500),
-
             syncDuration: const Duration(milliseconds: 150),
-
             alignment: Alignment.center,
             fit: BoxFit.cover,
 
@@ -41,8 +39,8 @@ Widget imageLoader({
             ),
 
             // shows progress while loading an image:
-            loadingBuilder: (context, progress, chunkEvent) => Center(
-                child: CircularProgressIndicator(value: progress, color: AppColor.appBarColor)),
+            loadingBuilder: (context, progress, chunkEvent) =>
+                Center(child: CircularProgressIndicator(value: progress, color: AppColor.appBarColor)),
 
             // displayed when an error occurs:
             errorBuilder: (context, error) => Container(

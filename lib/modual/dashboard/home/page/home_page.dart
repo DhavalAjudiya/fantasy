@@ -1,9 +1,6 @@
 import 'package:fantasyarenas/modual/dashboard/cricket_tabs/cricket.dart';
-import 'package:fantasyarenas/modual/dashboard/cricket_tabs/football_page.dart';
 import 'package:fantasyarenas/modual/dashboard/home/controller/home_controller.dart';
-import 'package:fantasyarenas/modual/dashboard/kabaddi/page/kabaddi_home_page.dart';
 import 'package:fantasyarenas/res/app_colors.dart';
-import 'package:fantasyarenas/res/assets_path.dart';
 import 'package:fantasyarenas/utils/analytics.dart';
 import 'package:fantasyarenas/utils/size_utils.dart';
 import 'package:fantasyarenas/widget/app_text.dart';
@@ -19,16 +16,20 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     FirebaseAnalyticsUtils.sendCurrentScreen(FirebaseAnalyticsUtils.home);
     return Scaffold(
+      backgroundColor: AppColor.backGroundColor,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(SizeUtils.horizontalBlockSize * 26),
         child: AppBar(
-          bottomOpacity: 0.7,
-          backgroundColor: AppColor.appBarColor,
+          elevation: 0,
+          backgroundColor: AppColor.backGroundColor,
           automaticallyImplyLeading: false,
           centerTitle: true,
-          leading: const Padding(
-              padding: EdgeInsets.all(5.0),
-              child: CircleAvatar(backgroundImage: AssetImage("assets/image/Arenas.png"))),
+          leading: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Image.asset(
+                "assets/image/Arenas.png",
+                scale: 5,
+              )),
           title: const AppText(
             "Fantasy Arena",
             color: AppColor.white,
@@ -43,7 +44,7 @@ class HomePage extends StatelessWidget {
               child: AppText(
                 textAlign: TextAlign.center,
                 "Teams and Prediction For Fantasy Sports on Dream11 App and other multiple Platform",
-                color: AppColor.textColor,
+                color: AppColor.white.withOpacity(0.7),
                 fontSize: SizeUtils.fSize_12(),
                 fontWeight: FontWeight.w500,
               ),
@@ -53,7 +54,7 @@ class HomePage extends StatelessWidget {
           /*     title: Row(
             children: [
               const CircleAvatar(
-                backgroundImage: AssetImage("assets/image/Arenas.png"),
+                backgroundImage: AssetImage("assets/image/Arenas.png.png"),
               ),
               SizedBox(width: SizeUtils.horizontalBlockSize * 5),
 

@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:fantasyarenas/modual/dashboard/cricket_tabs/tab/fantsy_page.dart';
-import 'package:fantasyarenas/modual/dashboard/event/page/event_page.dart';
 import 'package:fantasyarenas/modual/dashboard/home/page/home_page.dart';
 import 'package:fantasyarenas/modual/dashboard/news/page/news_page.dart';
 import 'package:fantasyarenas/modual/dashboard/setting/page/setting_page.dart';
@@ -64,9 +62,9 @@ class _BottomPageState extends State<BottomPage> {
           builder: (BuildContext context, int bValue, _) {
             return BottomNavigationBar(
               elevation: 0,
-              backgroundColor: AppColor.appBarColor,
+              backgroundColor: const Color(0xff060a13),
               type: BottomNavigationBarType.fixed,
-              selectedItemColor: AppColor.white,
+              selectedItemColor: AppColor.itemColor,
               unselectedItemColor: AppColor.white.withOpacity(0.4),
               selectedLabelStyle: TextStyle(
                 fontSize: SizeUtils.fSize_14(),

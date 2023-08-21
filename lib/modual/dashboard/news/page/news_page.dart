@@ -22,17 +22,16 @@ class NewsPage extends StatelessWidget {
     FirebaseAnalyticsUtils.sendCurrentScreen(FirebaseAnalyticsUtils.news);
 
     return Scaffold(
-        backgroundColor: AppColor.backGroundLightColor,
+        backgroundColor: AppColor.backGroundColor,
         appBar: AppBar(
-          elevation: 5,
-          backgroundColor: AppColor.appBarColor,
-          leading: const SizedBox(),
+          elevation: 0,
+          backgroundColor: AppColor.backGroundColor,
+          automaticallyImplyLeading: false,
           centerTitle: true,
-          toolbarHeight: SizeUtils.screenHeight * 0.09,
           title: AppText(
             'News',
             textAlign: TextAlign.center,
-            color: Colors.white.withOpacity(0.8),
+            color: Colors.white,
             fontSize: SizeUtils.fSize_21(),
             letterSpacing: 1,
           ),
@@ -127,7 +126,7 @@ class NewsPage extends StatelessWidget {
                     ],
                   )
                 : Expanded(
-                    child: ListView.builder(
+                    child: ListView.separated(
                       shrinkWrap: true,
                       physics: const BouncingScrollPhysics(),
                       itemCount: newsList.length,
@@ -135,19 +134,11 @@ class NewsPage extends StatelessWidget {
                         return Padding(
                           padding: EdgeInsets.only(
                               left: SizeUtils.horizontalBlockSize * 2,
-                              right: SizeUtils.horizontalBlockSize * 2,
-                              top: SizeUtils.horizontalBlockSize * 4),
+                              right: SizeUtils.horizontalBlockSize * 2),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: AppColor.itemColor,
                               borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.grey.withOpacity(0.7),
-                                    offset: const Offset(-3, 3),
-                                    blurRadius: 10,
-                                    spreadRadius: 5)
-                              ],
                             ),
                             child: Padding(
                               padding: EdgeInsets.symmetric(
@@ -176,7 +167,6 @@ class NewsPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(8),
                                       child: Hero(
                                         tag: "news$index",
-                                        transitionOnUserGestures: true,
                                         child: Row(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
@@ -236,7 +226,7 @@ class NewsPage extends StatelessWidget {
                                                     physics: const BouncingScrollPhysics(),
                                                     child: AppText(
                                                       newsList[index].title.toString(),
-                                                      color: AppColor.black.withOpacity(0.7),
+                                                      color: AppColor.white,
                                                       maxLines: 4,
                                                       fontSize: SizeUtils.fSize_16(),
                                                     ),
@@ -250,7 +240,7 @@ class NewsPage extends StatelessWidget {
                                                     newsList[index].time,
                                                   ),
                                                   maxLines: 1,
-                                                  color: Colors.grey.withOpacity(0.6),
+                                                  color: AppColor.white.withOpacity(0.5),
                                                   fontSize: SizeUtils.fSize_14(),
                                                 ),
                                               ],
@@ -275,7 +265,7 @@ class NewsPage extends StatelessWidget {
                                   AppText(
                                     newsList[index].subtitle.toString(),
                                     maxLines: 2,
-                                    color: AppColor.black,
+                                    color: AppColor.white,
                                     fontSize: SizeUtils.fSize_13(),
                                   ),
                                 ],
@@ -283,6 +273,9 @@ class NewsPage extends StatelessWidget {
                             ),
                           ),
                         );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(height: SizeUtils.horizontalBlockSize * 3);
                       },
                     ),
                   );
@@ -312,9 +305,9 @@ class NewsPage extends StatelessWidget {
 
   Widget divider1() {
     return Container(
-      height: SizeUtils.screenHeight * 0.002,
+      height: SizeUtils.screenHeight * 0.001,
       width: SizeUtils.screenWidth,
-      color: AppColor.appBarColor.withOpacity(0.3),
+      color: Colors.grey,
     );
   }
 }
