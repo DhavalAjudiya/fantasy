@@ -62,9 +62,9 @@ class _BottomPageState extends State<BottomPage> {
           builder: (BuildContext context, int bValue, _) {
             return BottomNavigationBar(
               elevation: 0,
-              backgroundColor: Color(0xff060a13),
+              backgroundColor: const Color(0xff060a13),
               type: BottomNavigationBarType.fixed,
-              selectedItemColor: AppColor.white,
+              selectedItemColor: AppColor.itemColor,
               unselectedItemColor: AppColor.white.withOpacity(0.4),
               selectedLabelStyle: TextStyle(
                 fontSize: SizeUtils.fSize_14(),

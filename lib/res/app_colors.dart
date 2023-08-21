@@ -10,7 +10,8 @@ class AppColor {
   /// prashant color
   static const appBarColor = Color(0xff053F5E);
   static const backGroundLightColor = Color(0xffF6F5F5);
-  static const backGroundColor = Color(0xff1c2331);
+
+  static const backGroundColor = Color(0xff141c2c);
   static const itemColor = Color(0xff2a323f);
 
   static const textColor = Color(0xFFf6f7eb);

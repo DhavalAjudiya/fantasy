@@ -210,8 +210,8 @@ class CricketPage extends StatelessWidget {
     return StreamBuilder(
       stream: AppConfig.databaseReference
           .collection(AppConfig.upcomingMatch)
-          // .where("time", isGreaterThanOrEqualTo: DateTime.now().millisecondsSinceEpoch.toString())
-          // .orderBy("time", descending: false)
+          .where("time", isGreaterThanOrEqualTo: DateTime.now().millisecondsSinceEpoch.toString())
+          .orderBy("time", descending: false)
           .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         upcomingMatchList.clear();
@@ -310,8 +310,8 @@ class CricketPage extends StatelessWidget {
                                       }
                                     });
                                     homeController.expertName.value = 0;
-                                    for (var data in homeController.smallTeamList) {
-                                      for (var data2 in homeController.headTeamList) {
+                                    for (var data in homeController.headTeamList) {
+                                      for (var data2 in homeController.smallTeamList) {
                                         if (data2.name == data.name) {
                                         } else {
                                           homeController.expertName.value++;

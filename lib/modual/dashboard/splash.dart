@@ -1,4 +1,6 @@
 import 'dart:async';
+
+import 'package:fantasyarenas/res/app_colors.dart';
 import 'package:fantasyarenas/utils/navigation_utils/navigation.dart';
 import 'package:fantasyarenas/utils/navigation_utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColor.backGroundColor,
       body: Center(
         child: Container(
           margin: const EdgeInsets.symmetric(

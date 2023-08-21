@@ -28,13 +28,16 @@ class _SquadPageState extends State<SquadPage> {
           vertical: SizeUtils.horizontalBlockSize * 3,
         ),
         child: homeController.squad1image.isEmpty && homeController.squad2image.isEmpty
-            ? Center(
-                child: AppText(
-                  "Both Squad Are Coming Soon",
-                  fontWeight: FontWeight.bold,
-                  color: AppColor.white,
-                  fontSize: SizeUtils.fSize_20(),
-                ),
+            ? Column(
+                children: [
+                  Center(child: Image.asset(AssetsPath.squad, scale: 2)),
+                  AppText(
+                    "Squad will be available later...",
+                    fontWeight: FontWeight.w500,
+                    color: AppColor.white,
+                    fontSize: SizeUtils.fSize_17(),
+                  ),
+                ],
               )
             : SingleChildScrollView(
                 child: Column(

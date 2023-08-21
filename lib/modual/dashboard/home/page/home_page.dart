@@ -24,9 +24,12 @@ class HomePage extends StatelessWidget {
           backgroundColor: AppColor.backGroundColor,
           automaticallyImplyLeading: false,
           centerTitle: true,
-          leading: const Padding(
-              padding: EdgeInsets.all(5.0),
-              child: CircleAvatar(backgroundImage: AssetImage("assets/image/Arenas.png"))),
+          leading: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Image.asset(
+                "assets/image/Arenas.png",
+                scale: 5,
+              )),
           title: const AppText(
             "Fantasy Arena",
             color: AppColor.white,
@@ -51,7 +54,7 @@ class HomePage extends StatelessWidget {
           /*     title: Row(
             children: [
               const CircleAvatar(
-                backgroundImage: AssetImage("assets/image/Arenas.png"),
+                backgroundImage: AssetImage("assets/image/Arenas.png.png"),
               ),
               SizedBox(width: SizeUtils.horizontalBlockSize * 5),
 

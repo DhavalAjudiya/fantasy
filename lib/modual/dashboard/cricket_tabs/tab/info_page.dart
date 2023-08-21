@@ -52,12 +52,15 @@ class InfoPage extends StatelessWidget {
                       const SizedBox(
                         width: 10,
                       ),
-                      AppText(
-                        homeController.infoList.first.tournamentN.toString(),
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: SizeUtils.fSize_16(),
-                        letterSpacing: 1,
+                      SizedBox(
+                        width: SizeUtils.horizontalBlockSize * 75,
+                        child: AppText(
+                          homeController.infoList.first.tournamentN.toString(),
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: SizeUtils.fSize_15(),
+                          letterSpacing: 1,
+                        ),
                       ),
                     ],
                   )
@@ -107,84 +110,84 @@ class InfoPage extends StatelessWidget {
               ),
               child: (homeController.infoList.first.match?.isEmpty ?? false)
                   ? Padding(
-                      padding: EdgeInsets.only(top: SizeUtils.horizontalBlockSize * 5),
-                      child: Container(
-                        margin: EdgeInsets.only(
-                          right: SizeUtils.horizontalBlockSize * 2,
-                          left: SizeUtils.horizontalBlockSize * 2,
+                padding: EdgeInsets.only(top: SizeUtils.horizontalBlockSize * 5),
+                child: Container(
+                  margin: EdgeInsets.only(
+                    right: SizeUtils.horizontalBlockSize * 2,
+                    left: SizeUtils.horizontalBlockSize * 2,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColor.itemColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: SizeUtils.horizontalBlockSize * 3,
+                      bottom: SizeUtils.horizontalBlockSize * 3,
+                      left: SizeUtils.horizontalBlockSize * 3,
+                      right: SizeUtils.horizontalBlockSize * 3,
+                    ),
+                    child: AppText(
+                      textAlign: TextAlign.center,
+                      'Match Info Overview Will Be Available Soon!',
+                      color: Colors.white,
+                      fontSize: SizeUtils.fSize_15(),
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              )
+                  : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText(
+                    'Match Details',
+                    color: AppColor.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: SizeUtils.fSize_17(),
+                    letterSpacing: 1,
+                  ),
+                  SizedBox(height: SizeUtils.horizontalBlockSize * 2),
+                  line(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: SizeUtils.horizontalBlockSize * 4),
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: AppColor.itemColor, borderRadius: BorderRadius.circular(8)),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: SizeUtils.horizontalBlockSize * 4,
+                          horizontal: SizeUtils.horizontalBlockSize * 4,
                         ),
-                        decoration: BoxDecoration(
-                          color: AppColor.itemColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            top: SizeUtils.horizontalBlockSize * 3,
-                            bottom: SizeUtils.horizontalBlockSize * 3,
-                            left: SizeUtils.horizontalBlockSize * 3,
-                            right: SizeUtils.horizontalBlockSize * 3,
-                          ),
-                          child: AppText(
-                            textAlign: TextAlign.center,
-                            'Match Info Overview Will Be Available Soon!',
-                            color: Colors.white,
-                            fontSize: SizeUtils.fSize_15(),
-                            fontWeight: FontWeight.w700,
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            matchDetails(
+                              title: 'Match :',
+                              subtitle: homeController.infoList.first.match.toString(),
+                            ),
+                            SizedBox(
+                              height: SizeUtils.screenHeight * 0.01,
+                            ),
+                            matchDetails(
+                              title: 'Match Start Time :',
+                              subtitle: homeController.infoList.first.matchtime.toString(),
+                            ),
+                            SizedBox(
+                              height: SizeUtils.screenHeight * 0.01,
+                            ),
+                            matchDetails(
+                              title: 'Stadium/Venue :',
+                              subtitle: homeController.infoList.first.matchvenue.toString(),
+                            ),
+                          ],
                         ),
                       ),
-                    )
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AppText(
-                          'Match Details',
-                          color: AppColor.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: SizeUtils.fSize_17(),
-                          letterSpacing: 1,
-                        ),
-                        SizedBox(height: SizeUtils.horizontalBlockSize * 2),
-                        line(),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: SizeUtils.horizontalBlockSize * 4),
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: AppColor.itemColor, borderRadius: BorderRadius.circular(8)),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: SizeUtils.horizontalBlockSize * 4,
-                                horizontal: SizeUtils.horizontalBlockSize * 4,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  matchDetails(
-                                    title: 'Match :',
-                                    subtitle: homeController.infoList.first.match.toString(),
-                                  ),
-                                  SizedBox(
-                                    height: SizeUtils.screenHeight * 0.01,
-                                  ),
-                                  matchDetails(
-                                    title: 'Match Start Time :',
-                                    subtitle: homeController.infoList.first.matchtime.toString(),
-                                  ),
-                                  SizedBox(
-                                    height: SizeUtils.screenHeight * 0.01,
-                                  ),
-                                  matchDetails(
-                                    title: 'Stadium/Venue :',
-                                    subtitle: homeController.infoList.first.matchvenue.toString(),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
